@@ -1,0 +1,38 @@
+/* Reset básico para evitar márgenes y rellenos por defecto y asegurar altura completa */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+/* Contenedor principal: flexbox para dividir pantalla, con ancho máximo y centrado */
+.container {
+  display: flex;
+  max-width: 900px;
+  margin: 3rem auto 0.5rem; /* margen arriba y abajo */
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  background: #216b81;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 480px; /* altura mínima para que no quede muy pequeño */
+}
+
+/* Contenedor para la imagen lateral con fondo personalizado y flex para centrar contenido */
+.imageContainer {
+  flex: 1; /* ocupa la mitad del contenedor principal */
+  background-image: url('/images-form/background.png'); /* imagen de fondo */
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 2rem 1.5rem;
+  box-sizing: border-box; /* para que padding no afecte al tamaño total */
+  gap: 1rem; /* espacio entre elementos dentro */
+  border-right: 1px solid #ddd;
+}

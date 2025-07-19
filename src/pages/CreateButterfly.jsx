@@ -13,7 +13,7 @@ const progressImages = [
 ];
 
 const migratoryImage = "/images-form/migratoria.png";
-const savedImage = "/images-form/guardada1.png";
+const savedImage = "/images-form/guardada.png";
 
 // Componente principal para crear una mariposa
 const CreateButterfly = () => {
