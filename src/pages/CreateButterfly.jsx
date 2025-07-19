@@ -47,7 +47,7 @@ const CreateButterfly = () => {
     // Si hay cambios, indicamos que aún no se ha guardado
     setIsSaved(false);
   };
-  
+
   // Función que valida los campos obligatorios y devuelve errores
   const validate = () => {
     const newErrors = {};
@@ -60,4 +60,48 @@ const CreateButterfly = () => {
     if (!formData.image.trim()) newErrors.image = "Campo obligatorio";
 
     return newErrors;
+  };
+
+  // Función que se ejecuta al enviar el formulario
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Validamos y guardamos errores si los hay
+    const validationErrors = validate();
+    if (Object.keys(validationErrors).length) {
+      setErrors(validationErrors);
+      return;
+    }
+
+    try {
+      // Enviamos los datos al backend con fetch (POST JSON)
+      const res = await fetch("http://localhost:3001/butterfly", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      // Si la respuesta no es ok, lanzamos error
+      if (!res.ok) throw new Error("Error al enviar datos");
+
+      // Mostramos mensaje de éxito
+      alert("🦋 ¡Mariposa creada con éxito!");
+      setIsSaved(true);
+
+      // Limpiamos formulario y errores
+      setFormData({
+        commonName: "",
+        scientificName: "",
+        location: "",
+        description: "",
+        habitat: "",
+        image: "",
+        isMigratory: false,
+      });
+      setErrors({});
+    } catch (error) {
+      // En caso de error, mostramos alerta y lo logueamos en consola
+      alert("⚠️ Error al guardar la mariposa");
+      console.error(error);
+    }
   };
