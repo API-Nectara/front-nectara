@@ -1,164 +1,224 @@
 {
-  "butterfly": [
+  "butterflies": [
     {
-      "id": 1,
+      "id": "1",
       "common_name": "Mariposa Reina Africana",
       "scientific_name": "Danaus chrysippus",
       "location": "África subsahariana",
       "description": "Color naranja intenso con alas negras y puntos blancos. Muy común en todo el continente.",
-      "image": "https://upload.wikimedia.org/wikipedia/commons/6/6e/Danaus_chrysippus_-_African_Queen.jpg"
+      "habitat": "Sabana y zonas abiertas",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/6/6e/Danaus_chrysippus_-_African_Queen.jpg",
+      "migratory": true
     },
     {
-      "id": 2,
+      "id": "2",
       "common_name": "Mariposa Zuleika",
       "scientific_name": "Amauris zuleika",
       "location": "África oriental",
       "description": "Imita a la Reina Africana como estrategia de defensa. Vuela lentamente cerca de arbustos.",
-      "image": "https://upload.wikimedia.org/wikipedia/commons/8/8e/Amauris_zuleika.jpg"
+      "habitat": "Bosques húmedos y claros",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/8/8e/Amauris_zuleika.jpg",
+      "migratory": false
     },
     {
-      "id": 3,
+      "id": "3",
       "common_name": "Mariposa Cola de Golondrina Verde",
       "scientific_name": "Papilio nireus",
       "location": "África occidental",
       "description": "Color negro con franjas verdes. Tiene colas similares a las de una golondrina.",
-      "image": "https://upload.wikimedia.org/wikipedia/commons/9/9c/Papilio_nireus.jpg"
+      "habitat": "Bosques y jardines",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/9/9c/Papilio_nireus.jpg",
+      "migratory": false
     },
     {
-      "id": 4,
+      "id": "4",
       "common_name": "Mariposa Mocker",
       "scientific_name": "Hypolimnas misippus",
       "location": "África, Asia y Australia",
       "description": "Imita a mariposas tóxicas como defensa. Hembras presentan gran variación de colores.",
-      "image": "https://upload.wikimedia.org/wikipedia/commons/6/6d/Hypolimnas_misippus_female_ventral.jpg"
+      "habitat": "Áreas abiertas y rurales",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/6/6d/Hypolimnas_misippus_female_ventral.jpg",
+      "migratory": true
     },
     {
-      "id": 5,
+      "id": "5",
       "common_name": "Mariposa Diadema",
       "scientific_name": "Hypolimnas salmacis",
       "location": "África tropical",
       "description": "Machos azul metálico con alas negras. Muy territorial.",
-      "image": "https://upload.wikimedia.org/wikipedia/commons/f/f5/Hypolimnas_salmacis.jpg"
+      "habitat": "Bosques y márgenes",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/f/f5/Hypolimnas_salmacis.jpg",
+      "migratory": false
     },
     {
-      "id": 6,
+      "id": "6",
       "common_name": "Mariposa Falcón Africana",
       "scientific_name": "Euphaedra phaethusa",
       "location": "África occidental y central",
       "description": "Alas de color verde brillante con manchas negras. Habita en selvas húmedas.",
-      "image": "https://upload.wikimedia.org/wikipedia/commons/7/75/Euphaedra_ph.jpg"
+      "habitat": "Selvas tropicales",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/7/75/Euphaedra_ph.jpg",
+      "migratory": false
     },
     {
-      "id": 7,
+      "id": "7",
       "common_name": "Mariposa Espejo Africana",
       "scientific_name": "Acraea encedon",
       "location": "África tropical",
       "description": "Colores anaranjados con negro, imita a especies tóxicas para evitar depredadores.",
-      "image": "https://upload.wikimedia.org/wikipedia/commons/b/bf/Acraea_encedon.jpg"
+      "habitat": "Zonas abiertas y cálidas",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/b/bf/Acraea_encedon.jpg",
+      "migratory": false
     },
     {
-      "id": 8,
+      "id": "8",
       "common_name": "Mariposa Pantera",
       "scientific_name": "Junonia terea",
       "location": "África subsahariana",
       "description": "Tiene manchas oculares llamativas en sus alas para ahuyentar depredadores.",
-      "image": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Junonia_terea.jpg"
+      "habitat": "Sabanas y praderas",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Junonia_terea.jpg",
+      "migratory": true
     },
     {
-      "id": 9,
+      "id": "9",
       "common_name": "Mariposa Pavo Real Africana",
       "scientific_name": "Precis octavia",
       "location": "África oriental y meridional",
       "description": "Muestra variaciones de color según la estación. Azul metálico en verano.",
-      "image": "https://upload.wikimedia.org/wikipedia/commons/f/f4/Precis_octavia.jpg"
+      "habitat": "Campos y zonas rocosas",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/f/f4/Precis_octavia.jpg",
+      "migratory": true
     },
     {
-      "id": 10,
+      "id": "10",
       "common_name": "Mariposa Charaxes Jasius Africana",
       "scientific_name": "Charaxes jasius",
       "location": "África norte y mediterránea",
       "description": "Una de las mariposas más grandes de África. Alas anaranjadas con bordes negros.",
-      "image": "https://upload.wikimedia.org/wikipedia/commons/d/da/Charaxes_jasius.jpg"
+      "habitat": "Bosques mediterráneos",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/d/da/Charaxes_jasius.jpg",
+      "migratory": false
     },
     {
-      "id": 11,
+      "id": "11",
       "common_name": "Mariposa de Cristal Africana",
       "scientific_name": "Cymothoe sangaris",
       "location": "Congo, Gabón, Camerún",
       "description": "Roja intensa y translúcida. Habita selvas densas del África central.",
-      "image": "https://upload.wikimedia.org/wikipedia/commons/b/b3/Cymothoe_sangaris.jpg"
+      "habitat": "Selvas húmedas y profundas",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/b/b3/Cymothoe_sangaris.jpg",
+      "migratory": false
     },
     {
-      "id": 12,
+      "id": "12",
       "common_name": "Mariposa Tigre Africana",
       "scientific_name": "Danaus petilia",
       "location": "África sur y oriental",
       "description": "Muy parecida a la Reina Africana, pero con alas más pálidas. Polinizadora de diversas plantas.",
-      "image": "https://upload.wikimedia.org/wikipedia/commons/7/72/Danaus_petilia.jpg"
+      "habitat": "Praderas floridas",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/7/72/Danaus_petilia.jpg",
+      "migratory": true
     },
     {
-      "id": 13,
+      "id": "13",
       "common_name": "Mariposa Azul del Cabo",
       "scientific_name": "Lepidochrysops bacchus",
       "location": "Sudáfrica",
       "description": "Pequeña mariposa azul con patrones oscuros. Endémica de áreas montañosas.",
-      "image": "https://upload.wikimedia.org/wikipedia/commons/2/29/Lepidochrysops_bacchus.jpg"
+      "habitat": "Zonas montañosas",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/2/29/Lepidochrysops_bacchus.jpg",
+      "migratory": false
     },
     {
-      "id": 14,
+      "id": "14",
       "common_name": "Mariposa Monarca Africana",
       "scientific_name": "Danaus dorippus",
       "location": "África oriental",
       "description": "Subespecie africana de la Monarca. Carece de venas negras gruesas en las alas.",
-      "image": "https://upload.wikimedia.org/wikipedia/commons/f/f2/Danaus_dorippus.jpg"
+      "habitat": "Praderas y campos abiertos",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/f/f2/Danaus_dorippus.jpg",
+      "migratory": true
     },
     {
-      "id": 15,
+      "id": "15",
       "common_name": "Mariposa Árabe Africana",
       "scientific_name": "Colotis evagore",
       "location": "Norte de África y península arábiga",
       "description": "Pequeña mariposa blanca con toques rosados. Habita zonas áridas.",
-      "image": "https://upload.wikimedia.org/wikipedia/commons/e/ea/Colotis_evagore.jpg"
+      "habitat": "Zonas desérticas",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/e/ea/Colotis_evagore.jpg",
+      "migratory": false
     },
     {
-      "id": 16,
+      "id": "16",
       "common_name": "Mariposa Aceitera Africana",
       "scientific_name": "Bicyclus anynana",
       "location": "África central y sur",
       "description": "Con manchas oculares marrón claro. Se adapta a diferentes estaciones.",
-      "image": "https://upload.wikimedia.org/wikipedia/commons/f/f7/Bicyclus_anynana.jpg"
+      "habitat": "Áreas húmedas con hierba alta",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/f/f7/Bicyclus_anynana.jpg",
+      "migratory": false
     },
     {
-      "id": 17,
+      "id": "17",
       "common_name": "Mariposa Rayada del Bosque",
       "scientific_name": "Bebearia tentyris",
       "location": "Bosques tropicales del oeste africano",
       "description": "Marrón con rayas negras y bordes naranjas. Vuela bajo en áreas húmedas.",
-      "image": "https://upload.wikimedia.org/wikipedia/commons/a/a8/Bebearia_tentyris.jpg"
+      "habitat": "Bosques lluviosos",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/a/a8/Bebearia_tentyris.jpg",
+      "migratory": false
     },
     {
-      "id": 18,
+      "id": "18",
       "common_name": "Mariposa Naranja del Desierto",
       "scientific_name": "Colotis amata",
       "location": "África del Norte y zonas semiáridas",
       "description": "Color naranja intenso. Se alimenta de flores resistentes a la sequía.",
-      "image": "https://upload.wikimedia.org/wikipedia/commons/1/1f/Colotis_amata.jpg"
+      "habitat": "Zonas semiáridas",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/1/1f/Colotis_amata.jpg",
+      "migratory": true
     },
     {
-      "id": 19,
+      "id": "19",
       "common_name": "Mariposa Bosque de Marfil",
       "scientific_name": "Euphaedra medon",
       "location": "Costa de Marfil, Ghana",
       "description": "Colores brillantes, muy activa durante el día en bosques lluviosos.",
-      "image": "https://upload.wikimedia.org/wikipedia/commons/c/ca/Euphaedra_medon.jpg"
+      "habitat": "Bosques frondosos",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/c/ca/Euphaedra_medon.jpg",
+      "migratory": false
     },
     {
-      "id": 20,
+      "id": "9f24",
       "common_name": "Mariposa Ala de Fuego Africana",
       "scientific_name": "Acraea egina",
       "location": "África central y occidental",
       "description": "Alas rojas o anaranjadas con manchas negras. Activa en el día.",
-      "image": "https://upload.wikimedia.org/wikipedia/commons/f/ff/Acraea_egina.jpg"
+      "habitat": "Áreas soleadas",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/f/ff/Acraea_egina.jpg",
+      "is_migratory": false
+    },
+    {
+      "id": "8a0b",
+      "common_name": "Mariposa Sol de Medianoche",
+      "scientific_name": "Heliophorus nocturnus",
+      "location": "África central",
+      "description": "Mariposa de tonos azul oscuro con destellos plateados. Activa durante el crepúsculo.",
+      "habitat": "Bosques húmedos y claros en zonas montañosas",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/Heliophorus_nocturnus.jpg",
+      "is_migratory": false
+    },
+    {
+      "id": "c008",
+      "common_name": "Mariposa Espejismo",
+      "scientific_name": "Mirajus africana",
+      "location": "Sabana del África oriental",
+      "description": "Alas translúcidas con reflejos dorados que cambian según la luz. Se camufla perfectamente entre las hojas secas.",
+      "habitat": "Praderas abiertas y bordes de bosque",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/d/d0/Mirajus_africana.jpg",
+      "is_migratory": true
     }
   ]
 }
