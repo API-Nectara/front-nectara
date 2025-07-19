@@ -44,7 +44,7 @@ html, body {
   font-family: 'Georgia', serif;  
   font-weight: 700;
   font-size: 3.3rem;              
-  color: #12475a;                 
+  color: #c61e0f ;                 
   margin: 0 0 1rem 0;
   text-align: center;
   line-height: 1.1;
@@ -86,7 +86,7 @@ html, body {
 .form input[type="text"],
 .form input[type="url"],
 .form textarea {
-  background-color:  #82939d;       /* Color clarito para inputs */
+  background-color:  #f8fafb;       /* Color clarito para inputs */
   padding: 10px 14px;
   margin-top: 6px;
   border-radius: 8px;
@@ -102,7 +102,7 @@ html, body {
 .form input[type="text"]::placeholder,
 .form input[type="url"]::placeholder,
 .form textarea::placeholder {
-  color: #1b4857;      /* Marrón clarito */
+  color: #dbb147;      /* Marrón clarito */
   font-style: italic;  /* Para que se note que es placeholder */
 }
 
