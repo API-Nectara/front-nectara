@@ -105,3 +105,29 @@ const CreateButterfly = () => {
       console.error(error);
     }
   };
+
+   // Variable para controlar qué imagen mostrar según el estado del formulario
+  let currentImage = null;
+
+  if (isSaved) {
+    // Si ya se guardó, mostramos imagen de éxito
+    currentImage = savedImage;
+  } else if (formData.isMigratory) {
+    // Si es migratoria, mostramos la imagen migratoria
+    currentImage = migratoryImage;
+  } else {
+    // Contamos cuántos campos tiene rellenos para mostrar progreso
+    const filledFieldsCount = [
+      formData.commonName,
+      formData.scientificName,
+      formData.location,
+      formData.description,
+      formData.habitat,
+      formData.image,
+    ].filter(Boolean).length;
+
+    // Mostramos la imagen de progreso correspondiente (máximo la última)
+    currentImage = progressImages[
+      Math.min(filledFieldsCount, progressImages.length - 1)
+    ];
+  }
