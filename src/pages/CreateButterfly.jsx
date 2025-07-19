@@ -131,3 +131,113 @@ const CreateButterfly = () => {
       Math.min(filledFieldsCount, progressImages.length - 1)
     ];
   }
+
+  return (
+    <div className="container">
+      <div className="imageContainer">
+        {/* Título dividido en 3 líneas */}
+        <h2 className="title">
+          <span>Crear</span>
+          <span>Nueva</span>
+          <span>Mariposa</span>
+        </h2>
+
+        {/* Imagen que muestra el estado según el formulario */}
+        <img src={currentImage} alt="Estado mariposa" className="progressImage" />
+      </div>
+
+      {/* Formulario */}
+      <form onSubmit={handleSubmit} className="form">
+        <label>
+          Nombre común:
+          <input
+            type="text"
+            name="commonName"
+            value={formData.commonName}
+            onChange={handleChange}
+            placeholder="Ej: Mariposa Reina Africana"
+          />
+          {errors.commonName && <p className="error">{errors.commonName}</p>}
+        </label>
+
+        <label>
+          Nombre científico:
+          <input
+            type="text"
+            name="scientificName"
+            value={formData.scientificName}
+            onChange={handleChange}
+            placeholder="Ej: Danaus chrysippus"
+          />
+          {errors.scientificName && <p className="error">{errors.scientificName}</p>}
+        </label>
+
+        <label>
+          Ubicación:
+          <input
+            type="text"
+            name="location"
+            value={formData.location}
+            onChange={handleChange}
+            placeholder="Ej: África Oriental"
+          />
+          {errors.location && <p className="error">{errors.location}</p>}
+        </label>
+
+        <label>
+          Descripción:
+          <textarea
+            name="description"
+            value={formData.description}
+            onChange={handleChange}
+            placeholder="Colores y características"
+            rows={3}
+          />
+          {errors.description && <p className="error">{errors.description}</p>}
+        </label>
+
+        <label>
+          Hábitat:
+          <input
+            type="text"
+            name="habitat"
+            value={formData.habitat}
+            onChange={handleChange}
+            placeholder="Dónde la encontramos"
+          />
+        </label>
+
+        <label>
+          Imagen (URL):
+          <input
+            type="url"
+            name="image"
+            value={formData.image}
+            onChange={handleChange}
+            placeholder="https://..."
+          />
+          {errors.image && <p className="error">{errors.image}</p>}
+        </label>
+
+        <div className="checkboxCentered">
+          <label htmlFor="isMigratory">
+            ¿Es migratoria?
+          </label>
+          <input
+            type="checkbox"
+            id="isMigratory"
+            name="isMigratory"
+            checked={formData.isMigratory}
+            onChange={handleChange}
+          />
+        </div>
+
+        <button type="submit" className="saveButton">
+          Guardar mariposa
+        </button>
+      </form>
+    </div>
+  );
+};
+
+export default CreateButterfly;
