@@ -33,3 +33,17 @@ const CreateButterfly = () => {
 
   // Estado para indicar si la mariposa ya se ha guardado correctamente
   const [isSaved, setIsSaved] = useState(false);
+
+  // Función que actualiza el estado cuando cambia cualquier input o checkbox
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      // Si es checkbox, usamos checked, si no, el value del input
+      [name]: type === "checkbox" ? checked : value,
+    }));
+
+    // Si cambias algo, indicamos que aún no se ha guardado
+    setIsSaved(false);
+  };
