@@ -44,6 +44,20 @@ const CreateButterfly = () => {
       [name]: type === "checkbox" ? checked : value,
     }));
 
-    // Si cambias algo, indicamos que aún no se ha guardado
+    // Si hay cambios, indicamos que aún no se ha guardado
     setIsSaved(false);
+  };
+  
+  // Función que valida los campos obligatorios y devuelve errores
+  const validate = () => {
+    const newErrors = {};
+
+    // Si algún campo obligatorio está vacío, añadimos mensaje de error
+    if (!formData.commonName.trim()) newErrors.commonName = "Campo obligatorio";
+    if (!formData.scientificName.trim()) newErrors.scientificName = "Campo obligatorio";
+    if (!formData.location.trim()) newErrors.location = "Campo obligatorio";
+    if (!formData.description.trim()) newErrors.description = "Campo obligatorio";
+    if (!formData.image.trim()) newErrors.image = "Campo obligatorio";
+
+    return newErrors;
   };
