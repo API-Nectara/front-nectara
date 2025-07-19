@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
    server: {
     proxy: {
-      '/butterflies': 'http://localhost:3000'
+      '/butterflies': 'http://localhost:3000/'
     }
   }
 })
