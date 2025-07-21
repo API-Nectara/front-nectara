@@ -12,7 +12,6 @@ const styles = {
     color: '#fff',   //Color de texto en blanco
     textAlign: 'center', //Texto centrado 
     padding: '16px', //Espacio interno 
-    marginTop: '32px', //Margen superior
     borderTop: '3px solid #ffdd57' //linea decorativa arriba del footer
   },
   logo: {
