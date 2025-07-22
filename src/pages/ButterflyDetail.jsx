@@ -8,11 +8,14 @@ const ButterflyDetail = () => {
   const [butterfly, setButterfly] = useState(null);
   const [loading, setLoading] = useState(true);
 
+console.log(id)
   useEffect(() => {
     console.log("ID recibido:", id); // Esto debe mostrar solo el id
     const fetchButterfly = async () => {
       try {
+        console.log(id)
         const data = await getOneButterfly(id);
+        console.log(data)
         setButterfly(data);
       } catch (error) {
         console.error("Error al obtener los detalles de la mariposa:", error);
@@ -24,8 +27,13 @@ const ButterflyDetail = () => {
     fetchButterfly();
   }, [id]);
 
-  if (loading) return <p>Cargando...</p>;
-  if (!butterfly) return <p>No se encontró la mariposa.</p>;
+  if (loading) {
+  return <p>Cargando...</p>;
+}
+
+if (!butterfly) {
+  return <p>No se encontraron datos de la mariposa.</p>;
+}
 
   return (
     <div style={{ maxWidth: "600px", margin: "auto" }}>
