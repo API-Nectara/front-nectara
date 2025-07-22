@@ -30,7 +30,11 @@ const routerButterfly = createBrowserRouter([{
         {
             path: "/contact",
             element: <Contact/>
-        }
+        },
+                {
+            path: "/About",
+            element: <AboutUs/>
+        },
 
 ]
 }])
