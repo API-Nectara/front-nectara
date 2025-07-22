@@ -32,17 +32,14 @@ const routerButterfly = createBrowserRouter([{
             path: "/contact",
             element: <Contact/>
         },
-<<<<<<< HEAD
                 {
             path: "/About",
             element: <AboutUs/>
         },
-=======
         {
             path: "/galery",
             element: <ButterflyGalery/>
         }
->>>>>>> b6ba56680b51344866a5ffaf120ea2260078347c
 
 ]
 }])
