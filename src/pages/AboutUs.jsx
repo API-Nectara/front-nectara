@@ -4,7 +4,7 @@ const AboutUs = () => {
   const team = [
     {
       name: "Sofía Mbaye",
-      image: "/images/sofia.jpg",
+      image: "",
       bio: "Desarrolladora front-end apasionada por la conservación y la tecnología en África.",
       linkedin: "https://www.linkedin.com/in/sofia",
       github: "https://github.com/sofiambaye"
