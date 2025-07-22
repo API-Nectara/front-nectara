@@ -14,6 +14,7 @@ const Navbar = () => {
         <div className="space-x-6 hidden md:flex">
           <Link to="/" className="hover:text-[#e66035] transition">Inicio</Link>
           <Link to="/newbutterfly" className="hover:text-[#e66035] transition">Agregar</Link>
+          <Link to="/galery" className="hover:text-[#e66035] transition">Ver Galería</Link>
           <Link to="/contact" className="hover:text-[#e66035] transition">Contacto</Link>
         </div>
       </div>
