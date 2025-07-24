@@ -3,14 +3,28 @@ import TeamCard from "../components/TeamCard";
 const AboutUs = () => {
   const team = [
     {
-      name: "Sofía Mbaye",
-      image: "",
+      name: "Angie Pereira",
+      image: "marjori.jpeg",
       bio: "Desarrolladora front-end apasionada por la conservación y la tecnología en África.",
-      linkedin: "https://www.linkedin.com/in/sofia",
-      github: "https://github.com/sofiambaye"
+      linkedin: "https://www.linkedin.com/in/anngy-pereira-094aa026a/",
+      github: "https://github.com/angiepereir"
     },
     {
-      name: "Amina B.",
+      name: "Ana Murzaban",
+      image: "/images/amina.jpg",
+      bio: "Diseñadora UI/UX enfocada en biodiversidad y experiencias educativas.",
+      linkedin: "https://www.linkedin.com/in/ana-muruzabal-1ab453209/",
+      github: "https://github.com/aminab"
+    },
+    {
+      name: "Sofía Reyes",
+      image: "marjori.jpeg",
+      bio: "Desarrolladora front-end apasionada por la conservación y la tecnología en África.",
+      linkedin: "https://www.linkedin.com/in/sofiareyes12/",
+      github: "https://github.com/Sofiareyes12"
+    },
+    {
+      name: "Aday la mas guapa.",
       image: "/images/amina.jpg",
       bio: "Diseñadora UI/UX enfocada en biodiversidad y experiencias educativas.",
       linkedin: "https://www.linkedin.com/in/aminab",
