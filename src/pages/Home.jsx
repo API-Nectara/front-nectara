@@ -7,8 +7,10 @@ import {
   Sparkles,
   Cloud
 } from '@react-three/drei';
-import Model from "../canvas/Model"; // Tu mariposa original
-import Rose from "../canvas/Rose"; // Tu flor original
+import Model from "../canvas/Model";
+import Rose from "../canvas/Rose";
+import Hero from "../components/Hero";
+import Intro from "../components/Intro";
 
 // Componente para partículas flotantes - responsive
 const FloatingParticles = () => {
@@ -62,12 +64,9 @@ const FloatingParticles = () => {
   );
 };
 
-// Componente para el suelo del jardín
 const Garden = () => {
   return (
     <group>
-      
-      {/* Círculo interior más oscuro */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -1.95, 0]}>
         <circleGeometry args={[6, 32]} />
         <meshStandardMaterial
@@ -112,11 +111,17 @@ const Home = () => {
           margin: 0,
           lineHeight: 1.1
         }}>
-          Nectara
-        </h1>
-        
-      </div>
+            Nectara
+          </h1>
+        </div>
 
+
+
+      {/* 👇 Secciones nuevas debajo del Canvas */}
+      <div style={{ paddingTop: "100%" }}>
+        <Hero />
+        <Intro />
+      </div>
       {/* Escena 3D */}
       <Canvas
         style={{ 

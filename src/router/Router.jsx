@@ -6,6 +6,8 @@ import Layout from "../layout/Layout";
 import Home from "../pages/Home";
 import Contact from "../pages/Contact";
 import ButterflyGalery from "../pages/ButterflyGalery"
+import AboutUs from "../pages/AboutUs";
+
 
 const routerButterfly = createBrowserRouter([{
     path: "/",
@@ -31,6 +33,10 @@ const routerButterfly = createBrowserRouter([{
         {
             path: "/contact",
             element: <Contact/>
+        },
+                {
+            path: "/about",
+            element: <AboutUs/>
         },
         {
             path: "/galery",

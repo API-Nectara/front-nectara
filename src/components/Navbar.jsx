@@ -27,6 +27,7 @@ const Navbar = () => {
             <Link to="/newbutterfly" className="hover:text-[#e66035] transition">Agregar</Link>
             <Link to="/galery" className="hover:text-[#e66035] transition">Ver Galería</Link>
             <Link to="/contact" className="hover:text-[#e66035] transition">Contacto</Link>
+            <Link to="/about" className="hover:text-[#e66035] transition"> Creadoras </Link>
           </div>
         </div>
 
@@ -37,6 +38,7 @@ const Navbar = () => {
             <Link to="/newbutterfly" className="hover:text-[#e66035] transition" onClick={() => setMenuOpen(false)}>Agregar</Link>
             <Link to="/galery" className="hover:text-[#e66035] transition" onClick={() => setMenuOpen(false)}>Ver Galería</Link>
             <Link to="/contact" className="hover:text-[#e66035] transition" onClick={() => setMenuOpen(false)}>Contacto</Link>
+            <Link to="/about" className="hover:text-[#e66035] transition"> Creadoras </Link>
           </div>
         )}
       </nav>
