@@ -153,24 +153,22 @@ html, body {
 
 /* Botón de guardar */
 .saveButton {
-  margin-top: 1rem;
-  padding: 14px 0;
   background-color: #e66035;
   color: white;
+  padding: 12px 28px;
+  font-weight: bold;
   border: none;
-  border-radius: 10px;
-  font-weight: 700;
-  font-size: 1.3rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  box-shadow: 0 6px 12px rgba(235, 57, 29, 0.3);
-  width: 100%;
-  box-sizing: border-box;
+  border-radius: 35px 12px 35px 12px;
+  box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease-in-out;
+  font-family: 'Courier Prime', monospace;
 }
 
 .saveButton:hover {
-  background-color: #c61e0f;
+  background-color: #e7420c;
+  transform: scale(1.05) rotate(-0.5deg);
 }
+
 
 /* Escalado en pantallas grandes */
 @media (min-width: 1024px) {
