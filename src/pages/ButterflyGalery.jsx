@@ -139,7 +139,7 @@ return (
                     {/* Link */}
                     <Link
                   to={`/butterflydetail/${butterfly.id}`}
-                  className="inline-block bg-[#e66035] hover:bg-[#cf3b17] text-white px-4 py-2 rounded-md text-sm font-semibold transition"
+                  className="butterfly-button"
                 >
                   Ver Detalle
                 </Link>
