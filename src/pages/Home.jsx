@@ -10,19 +10,20 @@ import {
 import Model from "../canvas/Model"; // Tu mariposa original
 import Rose from "../canvas/Rose"; // Tu flor original
 
-// Componente para partículas flotantes
+// Componente para partículas flotantes - responsive
 const FloatingParticles = () => {
   const meshRef = useRef();
-  const particleCount = 80;
+  const particleCount = window.innerWidth < 768 ? 40 : 80;
   
   const particles = useMemo(() => {
     const temp = [];
+    const scaleArea = window.innerWidth < 768 ? 25 : 40;
     for (let i = 0; i < particleCount; i++) {
       temp.push({
         position: [
-          (Math.random() - 0.5) * 40,
+          (Math.random() - 0.5) * scaleArea,
           Math.random() * 15,
-          (Math.random() - 0.5) * 40,
+          (Math.random() - 0.5) * scaleArea,
         ],
         speed: 0.01 + Math.random() * 0.02,
       });
@@ -82,29 +83,34 @@ const Garden = () => {
 const Home = () => {
   return (
     <div style={{
-      width: "100vw",
-      height: "100vh",
-      background: "linear-gradient(to bottom, #87CEEB 0%, #98FB98 50%, #90EE90 100%)",
+      width: "100%",
+      minHeight: "100vh",
+      background: "linear-gradient(to bottom, #1b4857 0%, #216b81 50%, #82939d 100%)",
       position: "relative",
-      overflow: "hidden",
     }}>
       {/* Título flotante */}
       <div style={{
         position: "absolute",
-        top: "10%",
+        top: "8%",
         left: "50%",
         transform: "translateX(-50%)",
         zIndex: 10,
         textAlign: "center",
+        pointerEvents: "none",
+        padding: "0 20px"
       }}>
         <h1 style={{
-          color: "white",
-          fontSize: "4.5rem",
+          background: "linear-gradient(45deg, #c61e0f, #eb391d, #e66035)",
+          WebkitBackgroundClip: "text",
+          WebkitTextFillColor: "transparent",
+          backgroundClip: "text",
+          fontSize: "clamp(2.5rem, 8vw, 4.5rem)",
           fontWeight: "bold",
           textShadow: "3px 3px 25px rgba(0,0,0,0.6)",
           fontFamily: "serif",
           letterSpacing: "0.15em",
           margin: 0,
+          lineHeight: 1.1
         }}>
           Nectara
         </h1>
@@ -118,9 +124,14 @@ const Home = () => {
           top: 0, 
           left: 0, 
           width: "100%", 
-          height: "100%" 
+          height: "100vh",
+          pointerEvents: "none",
+          zIndex: 1
         }}
-        camera={{ position: [0, 6, 15], fov: 55 }}
+        camera={{ 
+          position: [0, 6, 15], 
+          fov: window.innerWidth < 768 ? 70 : 55 
+        }}
       >
         {/* Iluminación mejorada */}
         <ambientLight intensity={0.7} />
@@ -136,11 +147,11 @@ const Home = () => {
         {/* Entorno */}
         <Environment preset="sunset" />
         
-        {/* Nubes decorativas */}
+        {/* Nubes decorativas - responsive */}
         <Cloud
           opacity={0.25}
           speed={0.15}
-          width={12}
+          width={window.innerWidth < 768 ? 8 : 12}
           depth={2}
           segments={25}
           position={[-15, 10, -15]}
@@ -148,7 +159,7 @@ const Home = () => {
         <Cloud
           opacity={0.2}
           speed={0.1}
-          width={10}
+          width={window.innerWidth < 768 ? 6 : 10}
           depth={1.5}
           segments={20}
           position={[18, 8, -8]}
@@ -156,7 +167,7 @@ const Home = () => {
         <Cloud
           opacity={0.15}
           speed={0.08}
-          width={8}
+          width={window.innerWidth < 768 ? 4 : 8}
           depth={1}
           segments={15}
           position={[5, 12, -20]}
@@ -165,23 +176,29 @@ const Home = () => {
         {/* Jardín */}
         <Garden />
         
-        {/*  flor - más grande y centrada */}
+        {/*  flor - más grande y centrada - responsive */}
         <Float speed={0.8} rotationIntensity={0.1} floatIntensity={0.2}>
-          <Rose scale={3} position={[0, -2.5, 0]} />
+          <Rose 
+            scale={window.innerWidth < 768 ? 2 : 3} 
+            position={[0, -2.5, 0]} 
+          />
         </Float>
         
-        {/* mariposa - volando alrededor */}
-        <Model scale={1} position={[0, 0.5, 0]} />
+        {/* mariposa - volando alrededor - responsive */}
+        <Model 
+          scale={window.innerWidth < 768 ? 0.7 : 1} 
+          position={[0, 0.5, 0]} 
+        />
 
         
         {/* Partículas flotantes */}
         <FloatingParticles />
         
-        {/* Sparkles mágicos */}
+        {/* Sparkles mágicos - responsive */}
         <Sparkles
-          count={60}
-          scale={[25, 12, 25]}
-          size={4}
+          count={window.innerWidth < 768 ? 30 : 60}
+          scale={window.innerWidth < 768 ? [15, 8, 15] : [25, 12, 25]}
+          size={window.innerWidth < 768 ? 3 : 4}
           speed={0.4}
           color="#ffffff"
         />
@@ -195,6 +212,7 @@ const Home = () => {
           maxDistance={25}
           autoRotate={true}
           autoRotateSpeed={0.3}
+          domElement={undefined}
         />
       </Canvas>
     </div>
