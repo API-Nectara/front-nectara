@@ -25,5 +25,14 @@ export const getOneButterfly = async (id) => {
 };
 
 // Metodo post para el create
+export const CreateNewButterfly = async (newButterfly) =>{
+    try {
+    const response = await axios.post(`${URL_API}`,newButterfly);
+    return response;
+  } catch (error) {
+    console.error(`Error al crear mariposa:`, error.message);
+    throw error;
+  }
+}
 // Metodo put para actualizar
 // Metodo delete para eliminar

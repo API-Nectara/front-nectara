@@ -1,5 +1,8 @@
 import { useState } from "react";
 import "./CreateButterfly.css";
+import {CreateNewButterfly} from "../services/ButterflyServices";
+import { useNavigate } from "react-router-dom";
+
 
 const progressImages = [
   "/images-form/oruga1.png",
@@ -15,6 +18,8 @@ const migratoryImage = "/images-form/migratoria.png";
 const savedImage = "/images-form/guardada1.png";
 
 const CreateButterfly = () => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     commonName: "",
     scientificName: "",
@@ -54,19 +59,13 @@ const CreateButterfly = () => {
       setErrors(validationErrors);
       return;
     }
-    try {
-      const res = await fetch('/butterflies', {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+    const response = await CreateNewButterfly(formData)
+     if (response.status === 201) {
+  alert("🦋 ¡Mariposa creada con éxito!");
+  navigate("/galery"); // Asegúrate que esta ruta coincida con tu router
+}
 
-      if (!res.ok) throw new Error("Error al enviar datos");
-
-      alert("🦋 ¡Mariposa creada con éxito!");
-      setIsSaved(true);
-
-      setFormData({
+     /* setFormData({
         commonName: "",
         scientificName: "",
         location: "",
@@ -75,12 +74,10 @@ const CreateButterfly = () => {
         image: "",
         isMigratory: false,
       });
-      setErrors({});
-    } catch (error) {
-      alert("⚠️ Error al guardar la mariposa");
-      console.error(error);
+      setErrors({});*/
     }
-  };
+      
+
 
   let currentImage = null;
 
