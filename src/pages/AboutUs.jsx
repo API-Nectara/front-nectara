@@ -4,7 +4,7 @@ const AboutUs = () => {
   const team = [
     {
       name: "Angie Pereira",
-      image: "marjori.jpeg",
+      image: "maryori.jpeg",
       bio: "Desarrolladora front-end apasionada por la conservación y la tecnología en África.",
       linkedin: "https://www.linkedin.com/in/anngy-pereira-094aa026a/",
       github: "https://github.com/angiepereir"
@@ -18,14 +18,14 @@ const AboutUs = () => {
     },
     {
       name: "Sofía Reyes",
-      image: "marjori.jpeg",
+      image: "public/sofia.jpg",
       bio: "Desarrolladora front-end apasionada por la conservación y la tecnología en África.",
       linkedin: "https://www.linkedin.com/in/sofiareyes12/",
       github: "https://github.com/Sofiareyes12"
     },
     {
       name: "Aday la mas guapa.",
-      image: "/images/amina.jpg",
+      image: "/public/aday.jpg.webp",
       bio: "Diseñadora UI/UX enfocada en biodiversidad y experiencias educativas.",
       linkedin: "https://www.linkedin.com/in/adayasc/",
       github: "https://github.com/Aday25"
