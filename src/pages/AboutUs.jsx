@@ -27,8 +27,8 @@ const AboutUs = () => {
       name: "Aday la mas guapa.",
       image: "/images/amina.jpg",
       bio: "Diseñadora UI/UX enfocada en biodiversidad y experiencias educativas.",
-      linkedin: "https://www.linkedin.com/in/aminab",
-      github: "https://github.com/aminab"
+      linkedin: "https://www.linkedin.com/in/adayasc/",
+      github: "https://github.com/Aday25"
     }
   ];
 
