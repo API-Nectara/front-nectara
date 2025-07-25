@@ -9,18 +9,28 @@ const TeamCard = ({ name, image, bio, linkedin, github }) => {
     <>
       <motion.div
         whileHover={{ scale: 1.05 }}
-        className="bg-white shadow-lg rounded-xl p-6 text-center flex flex-col items-center"
+        className="bg-white shadow-lg border border-orange-200 rounded-xl p-6 text-center flex flex-col items-center transition duration-300"
       >
-        <img src={image} alt={name} className="w-32 h-32 rounded-full mb-4 object-cover" />
-        <h3 className="text-lg font-semibold text-green-800">{name}</h3>
+        {/* Imagen del perfil */}
+        <img
+          src={image}
+          alt={name}
+          className="w-32 h-32 rounded-full mb-4 object-cover border-4 border-[#e66035]"
+        />
+
+        {/* Nombre */}
+        <h3 className="text-lg font-semibold text-[#e66035] mb-3">{name}</h3>
+
+        {/* Botón Ver más */}
         <button
           onClick={() => setOpen(true)}
-          className="mt-4 bg-green-600 text-white px-4 py-2 rounded-full hover:bg-green-700 transition"
+          className="butterfly-button"
         >
           Ver más
         </button>
       </motion.div>
 
+      {/* Modal */}
       {open && (
         <TeamModal
           name={name}
@@ -35,3 +45,4 @@ const TeamCard = ({ name, image, bio, linkedin, github }) => {
 };
 
 export default TeamCard;
+
