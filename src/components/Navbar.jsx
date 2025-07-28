@@ -1,16 +1,26 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Menu, X } from "lucide-react"; // Si no usas esto, puedes usar íconos simples
+import { Menu, X } from "lucide-react";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <>
-      <nav className="bg-[#1b4857] text-[#cdbfbc] shadow-md">
+      <nav
+        className="bg-[#1b4857] text-[#cdbfbc] shadow-md"
+        style={{ fontFamily: "Georgia, serif", fontWeight: "normal" }}
+      >
         <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="text-2xl font-bold tracking-wide hover:text-[#eb391d] transition">
+          <Link
+            to="/"
+            className="text-2xl tracking-wide hover:text-[#eb391d] transition"
+            style={{
+              fontFamily: "Georgia, serif",
+              fontWeight: "bold", 
+            }}
+          >
             NECTARA
           </Link>
 
@@ -21,24 +31,41 @@ const Navbar = () => {
             </button>
           </div>
 
-          {/* Enlaces (modo desktop) */}
+          {/* Enlaces (desktop) */}
           <div className="space-x-6 hidden md:flex">
-            <Link to="/" className="hover:text-[#e66035] transition">Inicio</Link>
-            <Link to="/newbutterfly" className="hover:text-[#e66035] transition">Agregar</Link>
-            <Link to="/galery" className="hover:text-[#e66035] transition">Ver Galería</Link>
-            <Link to="/contact" className="hover:text-[#e66035] transition">Contacto</Link>
-            <Link to="/about" className="hover:text-[#e66035] transition"> Creadoras </Link>
+            {["Inicio", "Agregar", "Ver Galería", "Contacto", "Creadoras"].map((label, index) => {
+              const paths = ["/", "/newbutterfly", "/galery", "/contact", "/about"];
+              return (
+                <Link
+                  key={label}
+                  to={paths[index]}
+                  className="hover:text-[#e66035] transition"
+                  style={{ fontFamily: "Georgia, serif", fontWeight: "normal" }}
+                >
+                  {label}
+                </Link>
+              );
+            })}
           </div>
         </div>
 
-        {/* Enlaces (modo móvil) */}
+        {/* Enlaces (mobile) */}
         {menuOpen && (
           <div className="md:hidden px-4 pb-4 space-y-2 flex flex-col bg-[#1b4857]">
-            <Link to="/" className="hover:text-[#e66035] transition" onClick={() => setMenuOpen(false)}>Inicio</Link>
-            <Link to="/newbutterfly" className="hover:text-[#e66035] transition" onClick={() => setMenuOpen(false)}>Agregar</Link>
-            <Link to="/galery" className="hover:text-[#e66035] transition" onClick={() => setMenuOpen(false)}>Ver Galería</Link>
-            <Link to="/contact" className="hover:text-[#e66035] transition" onClick={() => setMenuOpen(false)}>Contacto</Link>
-            <Link to="/about" className="hover:text-[#e66035] transition"> Creadoras </Link>
+            {["Inicio", "Agregar", "Ver Galería", "Contacto", "Creadoras"].map((label, index) => {
+              const paths = ["/", "/newbutterfly", "/galery", "/contact", "/about"];
+              return (
+                <Link
+                  key={label}
+                  to={paths[index]}
+                  onClick={() => setMenuOpen(false)}
+                  className="hover:text-[#e66035] transition"
+                  style={{ fontFamily: "Georgia, serif", fontWeight: "normal" }}
+                >
+                  {label}
+                </Link>
+              );
+            })}
           </div>
         )}
       </nav>
