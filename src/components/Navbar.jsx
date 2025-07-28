@@ -4,6 +4,7 @@ import { Menu, X } from "lucide-react";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const base = "/init";
 
   return (
     <>
@@ -34,7 +35,7 @@ const Navbar = () => {
           {/* Enlaces (desktop) */}
           <div className="space-x-6 hidden md:flex">
             {["Inicio", "Agregar", "Ver Galería", "Contacto", "Creadoras"].map((label, index) => {
-              const paths = ["/", "/newbutterfly", "/galery", "/contact", "/about"];
+              const paths = [`${base}`, `${base}/newbutterfly`, `${base}/galery`, `${base}/contact`, `${base}/about`];
               return (
                 <Link
                   key={label}
@@ -53,7 +54,7 @@ const Navbar = () => {
         {menuOpen && (
           <div className="md:hidden px-4 pb-4 space-y-2 flex flex-col bg-[#1b4857]">
             {["Inicio", "Agregar", "Ver Galería", "Contacto", "Creadoras"].map((label, index) => {
-              const paths = ["/", "/newbutterfly", "/galery", "/contact", "/about"];
+              const paths = [`${base}`, `${base}/newbutterfly`, `${base}/galery`, `${base}/contact`, `${base}/about`];
               return (
                 <Link
                   key={label}

@@ -159,7 +159,7 @@ const ButterflyGalery = () => {
                     {/* Link */}
 
                     <Link
-                      to={`/butterflydetail/${butterfly.id}`}
+                      to={`/init/butterflydetail/${butterfly.id}`}
                         className="butterfly-button"
 
                       style={{

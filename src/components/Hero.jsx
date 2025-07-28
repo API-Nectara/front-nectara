@@ -16,7 +16,7 @@ export default function Hero() {
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link to="/galery" className="butterfly-button">
+          <Link to="/init/galery" className="butterfly-button">
             Ver Galería de Mariposas
           </Link>
 

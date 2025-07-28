@@ -229,6 +229,36 @@
       "habitat": "Bosques lluviosos con claros soleados",
       "image": "https://upload.wikimedia.org/wikipedia/commons/d/d7/Aurelia_fumosa.jpg",
       "isMigratory": false
+    },
+    {
+      "id": "272f",
+      "commonName": "dffff",
+      "scientificName": "fff",
+      "location": "fff",
+      "description": "ffff",
+      "habitat": "ffff",
+      "image": "https://res.cloudinary.com/dauzwfc8z/image/upload/v1753708420/mariposas-africa/k3uzq8sh17seuhwukg9j.png",
+      "isMigratory": false
+    },
+    {
+      "id": "d7dd",
+      "commonName": "ggg",
+      "scientificName": "fgb",
+      "location": "fgb",
+      "description": "ggg",
+      "habitat": "grfrt",
+      "image": "https://res.cloudinary.com/dauzwfc8z/image/upload/v1753708599/mariposas-africa/cywfocmxl9v30mw1kyad.jpg",
+      "isMigratory": false
+    },
+    {
+      "id": "a038",
+      "commonName": "hhh",
+      "scientificName": "hhhh",
+      "location": "hhhhhh",
+      "description": "hhhhhhh",
+      "habitat": "hhhhhh",
+      "image": "https://res.cloudinary.com/dauzwfc8z/image/upload/v1753708716/mariposas-africa/y5a3tikrrhd4opygx5b4.jpg",
+      "isMigratory": false
     }
   ]
 }
