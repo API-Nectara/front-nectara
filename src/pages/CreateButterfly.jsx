@@ -1,5 +1,7 @@
 import { useState } from "react";
 import "./CreateButterfly.css";
+import { CreateNewButterfly } from "../services/ButterflyServices";
+import { useNavigate } from "react-router-dom";
 
 const progressImages = [
   "/images-form/oruga1.png",
@@ -11,10 +13,17 @@ const progressImages = [
   "/images-form/mariposa3.png",
 ];
 
+// Configuración de Cloudinary
+const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/dauzwfc8z/image/upload";
+const CLOUDINARY_PRESET = "mariposas-africa";
+
 const migratoryImage = "/images-form/migratoria.png";
 const savedImage = "/images-form/guardada1.png";
 
 const CreateButterfly = () => {
+  const navigate = useNavigate();
+  const [isUploading, setIsUploading] = useState(false);
+
   const [formData, setFormData] = useState({
     commonName: "",
     scientificName: "",
@@ -37,12 +46,41 @@ const CreateButterfly = () => {
     setIsSaved(false);
   };
 
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    setIsUploading(true);
+
+    const uploadData = new FormData();
+    uploadData.append("file", file);
+    uploadData.append("upload_preset", CLOUDINARY_PRESET);
+
+    try {
+      const res = await fetch(CLOUDINARY_URL, {
+        method: "POST",
+        body: uploadData,
+      });
+      const data = await res.json();
+      setFormData((prev) => ({ ...prev, image: data.secure_url }));
+      setErrors((prev) => ({ ...prev, image: null }));
+      alert("✅ Imagen subida con éxito");
+    } catch (err) {
+      alert("❌ Error al subir imagen");
+      console.error(err);
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
   const validate = () => {
     const newErrors = {};
     if (!formData.commonName.trim()) newErrors.commonName = "Campo obligatorio";
-    if (!formData.scientificName.trim()) newErrors.scientificName = "Campo obligatorio";
+    if (!formData.scientificName.trim())
+      newErrors.scientificName = "Campo obligatorio";
     if (!formData.location.trim()) newErrors.location = "Campo obligatorio";
-    if (!formData.description.trim()) newErrors.description = "Campo obligatorio";
+    if (!formData.description.trim())
+      newErrors.description = "Campo obligatorio";
     if (!formData.image.trim()) newErrors.image = "Campo obligatorio";
     return newErrors;
   };
@@ -54,19 +92,13 @@ const CreateButterfly = () => {
       setErrors(validationErrors);
       return;
     }
-    try {
-      const res = await fetch('/butterflies', {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-
-      if (!res.ok) throw new Error("Error al enviar datos");
-
+    const response = await CreateNewButterfly(formData);
+    if (response.status === 201) {
       alert("🦋 ¡Mariposa creada con éxito!");
-      setIsSaved(true);
+      navigate("/galery");
+    }
 
-      setFormData({
+    /* setFormData({
         commonName: "",
         scientificName: "",
         location: "",
@@ -75,11 +107,7 @@ const CreateButterfly = () => {
         image: "",
         isMigratory: false,
       });
-      setErrors({});
-    } catch (error) {
-      alert("⚠️ Error al guardar la mariposa");
-      console.error(error);
-    }
+      setErrors({});*/
   };
 
   let currentImage = null;
@@ -98,24 +126,27 @@ const CreateButterfly = () => {
       formData.image,
     ].filter(Boolean).length;
 
-    currentImage = progressImages[
-      Math.min(filledFieldsCount, progressImages.length - 1)
-    ];
+    currentImage =
+      progressImages[Math.min(filledFieldsCount, progressImages.length - 1)];
   }
 
   return (
-    <div className="cb-container">
-      <div className="cb-imageContainer">
-        <h2 className="cb-title">
+    <div className="container">
+      <div className="imageContainer">
+        <h2 className="title">
           <span>Crear</span>
           <span>Nueva</span>
           <span>Mariposa</span>
         </h2>
 
-        <img src={currentImage} alt="Estado mariposa" className="cb-progressImage" />
+        <img
+          src={currentImage}
+          alt="Estado mariposa"
+          className="progressImage"
+        />
       </div>
 
-      <form onSubmit={handleSubmit} className="cb-form">
+      <form onSubmit={handleSubmit} className="form">
         <label>
           Nombre común:
           <input
@@ -125,7 +156,7 @@ const CreateButterfly = () => {
             onChange={handleChange}
             placeholder="Ej: Mariposa Reina Africana"
           />
-          {errors.commonName && <p className="cb-error">{errors.commonName}</p>}
+          {errors.commonName && <p className="error">{errors.commonName}</p>}
         </label>
 
         <label>
@@ -137,7 +168,9 @@ const CreateButterfly = () => {
             onChange={handleChange}
             placeholder="Ej: Danaus chrysippus"
           />
-          {errors.scientificName && <p className="cb-error">{errors.scientificName}</p>}
+          {errors.scientificName && (
+            <p className="error">{errors.scientificName}</p>
+          )}
         </label>
 
         <label>
@@ -175,22 +208,58 @@ const CreateButterfly = () => {
           />
         </label>
 
-        <label>
-          Imagen (URL):
+        <label style={{ fontWeight: 600, color: "#fefdfd" }}>
+          Imagen:
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "1rem",
+              marginTop: "0.5rem",
+            }}
+          >
+            <button
+              type="button"
+              onClick={() =>
+                document.getElementById("imageUploadInput").click()
+              }
+              className="saveButton"
+              style={{
+                width: "auto",
+                padding: "0.6rem 1.2rem",
+                fontSize: "1rem",
+              }}
+              disabled={isUploading}
+            >
+              {isUploading ? "Subiendo..." : "📁 Seleccionar imagen"}
+            </button>
+
+            {formData.image && (
+              <span style={{ color: "#cdbfbc", fontSize: "0.9rem" }}>
+                ✅ Imagen cargada
+              </span>
+            )}
+          </div>
           <input
-            type="url"
-            name="image"
-            value={formData.image}
-            onChange={handleChange}
-            placeholder="https://..."
+            type="file"
+            id="imageUploadInput"
+            accept="image/*"
+            onChange={handleImageUpload}
+            style={{ display: "none" }}
           />
-          {errors.image && <p className="cb-error">{errors.image}</p>}
+          {errors.image && <p className="error">{errors.image}</p>}
         </label>
 
-        <div className="cb-checkboxCentered">
-          <label htmlFor="isMigratory">
-            ¿Es migratoria?
-          </label>
+        {formData.image && (
+          <img
+            src={formData.image}
+            alt="Preview"
+            style={{ maxWidth: "100%", marginTop: "1rem", borderRadius: "8px" }}
+          />
+        )}
+
+        <div className="checkboxCentered">
+          <label htmlFor="isMigratory">¿Es migratoria?</label>
           <input
             type="checkbox"
             id="isMigratory"
@@ -200,7 +269,7 @@ const CreateButterfly = () => {
           />
         </div>
 
-        <button type="submit" className="cb-saveButton">
+        <button type="submit" className="saveButton">
           Guardar mariposa
         </button>
       </form>

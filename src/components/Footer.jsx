@@ -12,7 +12,6 @@ const styles = {
     color: '#fff',   //Color de texto en blanco
     textAlign: 'center', //Texto centrado 
     padding: '16px', //Espacio interno 
-    marginTop: '32px', //Margen superior
     borderTop: '3px solid #ffdd57' //linea decorativa arriba del footer
   },
   logo: {
@@ -31,31 +30,29 @@ const styles = {
 };
 //Devolvemos el JSX del componente
 return (
-      <footer style={styles.footer}> {/*Contenedor principal del footer */}
-      <>
-      {/*Logo de factoria*/}
+  <footer style={styles.footer}>
+    <div className="w-full max-w-screen-md mx-auto flex flex-col items-center px-4 text-sm">
       <img 
-    src={logoFactoria} 
-    alt="Logo Factoria F5"
-    style={styles.logo}
-  />
-    {/*Texto del proyecto*/}
-     <p style={styles.text}>
-          Proyecto creado por grupo P4 Femcoders Factoria F5
-        </p>
-    {/*Segunda linea de texto con enlace de ejemplo */}
-     <p style={styles.text}>
-          © 2025 Nectara |{" "}
-          <span 
-            style={styles.link} 
-            onClick={() => alert("Aquí iría el enlace a LinkedIn o info del grupo")}
-          >
-            + info
-          </span>
-        </p>
-      </>
+        src={logoFactoria} 
+        alt="Logo Factoria F5"
+        style={styles.logo}
+      />
+      <p style={styles.text} className="mt-2 text-center">
+        Proyecto creado por grupo P4 Femcoders Factoria F5
+      </p>
+      <p style={styles.text} className="text-center">
+        © 2025 Nectara |{" "}
+        <span 
+          style={styles.link} 
+          onClick={() => alert("Aquí iría el enlace a LinkedIn o info del grupo")}
+        >
+          + info
+        </span>
+      </p>
+    </div>
   </footer>
-  );
+);
+
 };
        
 //Exportamos el componente para poder usarlo en otros archivos
