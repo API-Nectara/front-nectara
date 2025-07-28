@@ -1,16 +1,6 @@
 {
   "butterflies": [
     {
-      "id": "1",
-      "common_name": "Mariposa Reina Africana",
-      "scientific_name": "Danaus chrysippus",
-      "location": "África subsahariana",
-      "description": "Color naranja intenso con alas negras y puntos blancos. Muy común en todo el continente.",
-      "habitat": "Sabana y zonas abiertas",
-      "image": "https://upload.wikimedia.org/wikipedia/commons/6/6e/Danaus_chrysippus_-_African_Queen.jpg",
-      "migratory": true
-    },
-    {
       "id": "2",
       "common_name": "Mariposa Zuleika",
       "scientific_name": "Amauris zuleika",
@@ -228,6 +218,16 @@
       "description": "Alas doradas con bordes ahumados. Se mueve entre claros de bosque como un destello.",
       "habitat": "Bosques lluviosos con claros soleados",
       "image": "https://upload.wikimedia.org/wikipedia/commons/d/d7/Aurelia_fumosa.jpg",
+      "isMigratory": false
+    },
+    {
+      "id": "aa79",
+      "commonName": "gfgjhghghfgdfg",
+      "scientificName": "dfghgfh",
+      "location": "fhfhfdg",
+      "description": "fgdfgfg",
+      "habitat": "dghdfghdfg",
+      "image": "https://commons.wikimedia.org/wiki/File:Junonia_lemonias_WSF_upper_by_Kadavoor.JPG",
       "isMigratory": false
     }
   ]

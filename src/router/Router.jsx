@@ -6,37 +6,42 @@ import Layout from "../layout/Layout";
 import Home from "../pages/Home";
 import Contact from "../pages/Contact";
 import ButterflyGalery from "../pages/ButterflyGalery"
+import CollageLanding from "../pages/CollageLanding"; // asegúrate de importar
 
-const routerButterfly = createBrowserRouter([{
-    path: "/",
-    element: <Layout/>,
-    children: [ 
-        {
-            index: true,
-            element: <Home/>,
-        },
-        {
-            path: "/newbutterfly",
-            element: <CreateButterfly/>
-
-        },
-        {
-            path: "/editbutterfly/:id",
-            element: <EditButterfly/>
-        },
-        {
-            path: "/butterflydetail/:id",
-            element: <ButterflyDetail/>
-        },
-        {
-            path: "/contact",
-            element: <Contact/>
-        },
-        {
-            path: "/galery",
-            element: <ButterflyGalery/>
-        }
-
-]
-}])
+const routerButterfly = createBrowserRouter([
+    {
+        path: "/",
+        element: <Layout />,
+        children: [
+            {
+                index: true,
+                element: <Home />,
+            },
+            {
+                path: "/newbutterfly",
+                element: <CreateButterfly />,
+            },
+            {
+                path: "/editbutterfly/:id",
+                element: <EditButterfly />,
+            },
+            {
+                path: "/butterflydetail/:id",
+                element: <ButterflyDetail />,
+            },
+            {
+                path: "/contact",
+                element: <Contact />,
+            },
+            {
+                path: "/galery",
+                element: <ButterflyGalery />,
+            },
+            {
+                path: "/collage-test", // ✅ ruta temporal de test
+                element: <CollageLanding />,
+            },
+        ],
+    },
+]);
 export default routerButterfly;
