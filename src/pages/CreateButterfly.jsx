@@ -104,18 +104,18 @@ const CreateButterfly = () => {
   }
 
   return (
-    <div className="container">
-      <div className="imageContainer">
-        <h2 className="title">
+    <div className="cb-container">
+      <div className="cb-imageContainer">
+        <h2 className="cb-title">
           <span>Crear</span>
           <span>Nueva</span>
           <span>Mariposa</span>
         </h2>
 
-        <img src={currentImage} alt="Estado mariposa" className="progressImage" />
+        <img src={currentImage} alt="Estado mariposa" className="cb-progressImage" />
       </div>
 
-      <form onSubmit={handleSubmit} className="form">
+      <form onSubmit={handleSubmit} className="cb-form">
         <label>
           Nombre común:
           <input
@@ -125,7 +125,7 @@ const CreateButterfly = () => {
             onChange={handleChange}
             placeholder="Ej: Mariposa Reina Africana"
           />
-          {errors.commonName && <p className="error">{errors.commonName}</p>}
+          {errors.commonName && <p className="cb-error">{errors.commonName}</p>}
         </label>
 
         <label>
@@ -137,7 +137,7 @@ const CreateButterfly = () => {
             onChange={handleChange}
             placeholder="Ej: Danaus chrysippus"
           />
-          {errors.scientificName && <p className="error">{errors.scientificName}</p>}
+          {errors.scientificName && <p className="cb-error">{errors.scientificName}</p>}
         </label>
 
         <label>
@@ -171,7 +171,7 @@ const CreateButterfly = () => {
             name="habitat"
             value={formData.habitat}
             onChange={handleChange}
-            placeholder="Dónde la encontramos"
+            placeholder="¿Dónde la encontramos?"
           />
         </label>
 
@@ -184,10 +184,10 @@ const CreateButterfly = () => {
             onChange={handleChange}
             placeholder="https://..."
           />
-          {errors.image && <p className="error">{errors.image}</p>}
+          {errors.image && <p className="cb-error">{errors.image}</p>}
         </label>
 
-        <div className="checkboxCentered">
+        <div className="cb-checkboxCentered">
           <label htmlFor="isMigratory">
             ¿Es migratoria?
           </label>
@@ -200,7 +200,7 @@ const CreateButterfly = () => {
           />
         </div>
 
-        <button type="submit" className="saveButton">
+        <button type="submit" className="cb-saveButton">
           Guardar mariposa
         </button>
       </form>
