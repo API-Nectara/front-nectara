@@ -6,42 +6,43 @@ import Layout from "../layout/Layout";
 import Home from "../pages/Home";
 import Contact from "../pages/Contact";
 import ButterflyGalery from "../pages/ButterflyGalery"
-import CollageLanding from "../pages/CollageLanding"; // asegúrate de importar
+import AboutUs from "../pages/AboutUs";
 
-const routerButterfly = createBrowserRouter([
-    {
-        path: "/",
-        element: <Layout />,
-        children: [
-            {
-                index: true,
-                element: <Home />,
-            },
-            {
-                path: "/newbutterfly",
-                element: <CreateButterfly />,
-            },
-            {
-                path: "/editbutterfly/:id",
-                element: <EditButterfly />,
-            },
-            {
-                path: "/butterflydetail/:id",
-                element: <ButterflyDetail />,
-            },
-            {
-                path: "/contact",
-                element: <Contact />,
-            },
-            {
-                path: "/galery",
-                element: <ButterflyGalery />,
-            },
-            {
-                path: "/collage-test", // ✅ ruta temporal de test
-                element: <CollageLanding />,
-            },
-        ],
-    },
-]);
+
+const routerButterfly = createBrowserRouter([{
+    path: "/",
+    element: <Layout/>,
+    children: [ 
+        {
+            index: true,
+            element: <Home/>,
+        },
+        {
+            path: "/newbutterfly",
+            element: <CreateButterfly/>
+
+        },
+        {
+            path: "/editbutterfly/:id",
+            element: <EditButterfly/>
+        },
+        {
+            path: "/butterflydetail/:id",
+            element: <ButterflyDetail/>
+        },
+        {
+            path: "/contact",
+            element: <Contact/>
+        },
+                {
+            path: "/about",
+            element: <AboutUs/>
+        },
+        {
+            path: "/galery",
+            element: <ButterflyGalery/>
+        }
+
+]
+}])
 export default routerButterfly;

@@ -1,13 +1,23 @@
 {
   "butterflies": [
     {
+      "id": "1",
+      "common_name": "Mariposa Reina Africana",
+      "scientific_name": "Danaus chrysippus",
+      "location": "África subsahariana",
+      "description": "Color naranja intenso con alas negras y puntos blancos. Muy común en todo el continente.",
+      "habitat": "Sabana y zonas abiertas",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Danaus_chrysippus_Female_by_kadavoor.jpg/1280px-Danaus_chrysippus_Female_by_kadavoor.jpg",
+      "migratory": true
+    },
+    {
       "id": "2",
       "common_name": "Mariposa Zuleika",
       "scientific_name": "Amauris zuleika",
       "location": "África oriental",
       "description": "Imita a la Reina Africana como estrategia de defensa. Vuela lentamente cerca de arbustos.",
       "habitat": "Bosques húmedos y claros",
-      "image": "https://upload.wikimedia.org/wikipedia/commons/8/8e/Amauris_zuleika.jpg",
+      "image": "https://static.inaturalist.org/photos/32533266/large.jpeg",
       "migratory": false
     },
     {
@@ -17,7 +27,7 @@
       "location": "África occidental",
       "description": "Color negro con franjas verdes. Tiene colas similares a las de una golondrina.",
       "habitat": "Bosques y jardines",
-      "image": "https://upload.wikimedia.org/wikipedia/commons/9/9c/Papilio_nireus.jpg",
+      "image": "https://img.freepik.com/fotos-premium/deslumbrante-mariposa-cola-golondrina-esmeralda-descansa-alas-abiertas-hojas-hierba_501731-9148.jpg",
       "migratory": false
     },
     {
@@ -27,7 +37,7 @@
       "location": "África, Asia y Australia",
       "description": "Imita a mariposas tóxicas como defensa. Hembras presentan gran variación de colores.",
       "habitat": "Áreas abiertas y rurales",
-      "image": "https://upload.wikimedia.org/wikipedia/commons/6/6d/Hypolimnas_misippus_female_ventral.jpg",
+      "image": "https://i.pinimg.com/736x/96/ee/ed/96eeed3c4a50580810e8258e04228143.jpg",
       "migratory": true
     },
     {
@@ -37,7 +47,7 @@
       "location": "África tropical",
       "description": "Machos azul metálico con alas negras. Muy territorial.",
       "habitat": "Bosques y márgenes",
-      "image": "https://upload.wikimedia.org/wikipedia/commons/f/f5/Hypolimnas_salmacis.jpg",
+      "image": "https://i.pinimg.com/originals/3b/0c/de/3b0cde616b2bb8b819f846af0ae85d87.jpg",
       "migratory": false
     },
     {
@@ -47,7 +57,7 @@
       "location": "África occidental y central",
       "description": "Alas de color verde brillante con manchas negras. Habita en selvas húmedas.",
       "habitat": "Selvas tropicales",
-      "image": "https://upload.wikimedia.org/wikipedia/commons/7/75/Euphaedra_ph.jpg",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Malachite_%28Siproeta_stelenes%29_dorsal_%281%29.jpg/500px-Malachite_%28Siproeta_stelenes%29_dorsal_%281%29.jpg",
       "migratory": false
     },
     {
@@ -57,7 +67,7 @@
       "location": "África tropical",
       "description": "Colores anaranjados con negro, imita a especies tóxicas para evitar depredadores.",
       "habitat": "Zonas abiertas y cálidas",
-      "image": "https://upload.wikimedia.org/wikipedia/commons/b/bf/Acraea_encedon.jpg",
+      "image": "https://media.istockphoto.com/id/116566192/es/foto/mariposa-monarca-danaus-plexippus.jpg?s=170667a&w=0&k=20&c=Yz1hKIK93dWAOGqeWtyKvvi-ZGXGpWQUFwROxtFLH14=",
       "migratory": false
     },
     {
@@ -67,7 +77,7 @@
       "location": "África subsahariana",
       "description": "Tiene manchas oculares llamativas en sus alas para ahuyentar depredadores.",
       "habitat": "Sabanas y praderas",
-      "image": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Junonia_terea.jpg",
+      "image": "https://w0.peakpx.com/wallpaper/222/717/HD-wallpaper-mariposa-ojos-en-las-alas-exelente-foto-delicada-exelente-foto-mariposa-delicada-ojos-en-las-alas.jpg",
       "migratory": true
     },
     {

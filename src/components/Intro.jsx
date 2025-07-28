@@ -2,7 +2,7 @@ const Intro = () => {
   return (
     <section className="w-full px-6 md:px-16 py-12 bg-white text-gray-800">
       <div className="max-w-4xl mx-auto text-center">
-        <h2 className="text-3xl md:text-4xl font-bold text-green-700 mb-6">
+        <h2 className="butterfly-heading mb-6">
           Las Mariposas Africanas y su Rol Vital
         </h2>
         <p className="text-lg md:text-xl leading-relaxed">
@@ -16,3 +16,4 @@ const Intro = () => {
 };
 
 export default Intro;
+

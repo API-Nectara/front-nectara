@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // URL base de tu json-server
-const API_URL = 'http://localhost:3001/butterflies';
+const API_URL = 'http://localhost:3000/butterflies';
 
 // GET - Obtener todas las mariposas
 export const getAllButterflies = async () => {
@@ -126,3 +126,15 @@ export const validateButterflyData = (data) => {
     errors
   };
 };
+// Metodo post para el create
+export const CreateNewButterfly = async (newButterfly) =>{
+    try {
+    const response = await axios.post(`${URL_API}`,newButterfly);
+    return response;
+  } catch (error) {
+    console.error(`Error al crear mariposa:`, error.message);
+    throw error;
+  }
+}
+// Metodo put para actualizar
+// Metodo delete para eliminar
