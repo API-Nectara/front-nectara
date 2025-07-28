@@ -8,7 +8,6 @@ import Contact from "../pages/Contact";
 import ButterflyGalery from "../pages/ButterflyGalery"
 import AboutUs from "../pages/AboutUs";
 
-
 const routerButterfly = createBrowserRouter([{
     path: "/",
     element: <Layout/>,
