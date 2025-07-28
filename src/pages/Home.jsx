@@ -130,7 +130,7 @@ const Home = () => {
             fontSize: "clamp(4rem, 8vw, 6rem)",
             fontWeight: "bold",
             textShadow: "3px 3px 25px rgba(0,0,0,0.6)",
-            fontFamily: "serif",
+            fontFamily: `"Georgia", serif`,
             letterSpacing: "0.15em",
             margin: 0,
             lineHeight: 1.1,
