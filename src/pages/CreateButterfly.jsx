@@ -118,6 +118,9 @@ const CreateButterfly = () => {
     if (response.status === 201) {
       setShowPopup(true);
       setIsSaved(true);
+      alert("🦋 ¡Mariposa creada con éxito!");
+      navigate("/init/galery");
+    }
 
       setTimeout(() => {
         setShowPopup(false);

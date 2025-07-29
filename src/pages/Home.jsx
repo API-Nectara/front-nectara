@@ -9,9 +9,8 @@ import {
 } from "@react-three/drei";
 import Model from "../canvas/Model";
 import Rose from "../canvas/Rose";
-import Hero from "../components/Hero";
-import Intro from "../components/Intro";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 // Componente para partículas flotantes - responsive
 const FloatingParticles = () => {
@@ -97,6 +96,7 @@ const useIsMobile = () => {
 
 const Home = () => {
   const isMobile = useIsMobile();
+  const navigate = useNavigate();
   return (
     <div
       style={{
@@ -105,7 +105,7 @@ const Home = () => {
         background:
           "linear-gradient(to bottom, #1b4857 0%, #216b81 50%, #82939d 100%)",
         position: "relative",
-        overflow: "hidden", // Evita scroll horizontal
+        overflow: "hidden",
       }}
     >
       {/* Título flotante */}
@@ -130,7 +130,7 @@ const Home = () => {
             fontSize: "clamp(4rem, 8vw, 6rem)",
             fontWeight: "bold",
             textShadow: "3px 3px 25px rgba(0,0,0,0.6)",
-            fontFamily: "serif",
+            fontFamily: `"Georgia", serif`,
             letterSpacing: "0.15em",
             margin: 0,
             lineHeight: 1.1,
@@ -140,18 +140,6 @@ const Home = () => {
         </h1>
       </div>
 
-      {/* Secciones nuevas debajo del Canvas */}
-      <div
-        style={{
-          minHeight: "200vh",
-          paddingTop: "100vh",
-          position: "relative",
-          zIndex: 2,
-        }}
-      >
-        <Hero />
-        <Intro />
-      </div>
 
       {/* Escena 3D */}
       <Canvas
@@ -249,7 +237,40 @@ const Home = () => {
           domElement={undefined}
         />
       </Canvas>
+      <div
+  style={{
+    position: "absolute",
+    bottom: "5%",
+    left: "50%",
+    transform: "translateX(-50%)",
+    zIndex: 10,
+    pointerEvents: "auto",
+  }}
+>
+  <button
+    onClick={() => navigate("/init")}
+    className="butterfly-button"
+    style={{
+      fontFamily: "Georgia, serif",
+      fontWeight: "normal",
+      fontSize: "1rem",
+      color: "#ffffff",
+      backgroundColor: "#e66035",
+      padding: "0.7rem 1.8rem",
+      border: "none",
+      cursor: "pointer",
+      boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)",
+      transition: "background-color 0.3s ease",
+    }}
+    onMouseEnter={(e) => (e.target.style.backgroundColor = "#c61e0f")}
+    onMouseLeave={(e) => (e.target.style.backgroundColor = "#e66035")}
+  >
+    Entrar
+  </button>
+</div>
+
     </div>
+    
   );
 };
 
