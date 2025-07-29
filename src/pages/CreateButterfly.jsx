@@ -166,8 +166,8 @@ const CreateButterfly = () => {
         {/* Primera columna */}
         <div className="imageContainer">
           <h2 className="title">
-            <span>Crear</span>
-            <span>Nueva</span>
+            <span>Crear </span>
+            <span>Nueva </span>
             <span>Mariposa</span>
           </h2>
           <img src={currentImage} alt="Estado mariposa" className="progressImage" />
@@ -326,10 +326,11 @@ const CreateButterfly = () => {
               style={{ width: "100%", padding: "0.5rem", marginBottom: "1rem" }}
             />
             <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <button onClick={handleSetImageUrl} className="saveButton">
+              <button onClick={handleSetImageUrl} className="popupButton saveButton">
                 Añadir
               </button>
-              <button onClick={handleCloseImagePopup} className="cancelButton">
+
+              <button onClick={handleCloseImagePopup} className="popupButton cancelButton">
                 Cancelar
               </button>
             </div>
