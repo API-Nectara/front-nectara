@@ -15,9 +15,11 @@ const progressImages = [
 
 const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/dauzwfc8z/image/upload";
 const CLOUDINARY_PRESET = "mariposas-africa";
+const POPUP_DURATION = 10000; // 10 segundos
 
 const migratoryImage = "/images-form/migratoria.png";
 const savedImage = "/images-form/guardada1.png";
+
 
 const CreateButterfly = () => {
   const navigate = useNavigate();
@@ -116,6 +118,11 @@ const CreateButterfly = () => {
     if (response.status === 201) {
       setShowPopup(true);
       setIsSaved(true);
+
+      setTimeout(() => {
+        setShowPopup(false);
+        navigate("/galery");
+      }, POPUP_DURATION);
     }
   };
 
@@ -154,180 +161,182 @@ const CreateButterfly = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="container">
-      {/* Primera columna */}
-      <div className="imageContainer">
-        <h2 className="title">
-          <span>Crear</span>
-          <span>Nueva</span>
-          <span>Mariposa</span>
-        </h2>
-        <img src={currentImage} alt="Estado mariposa" className="progressImage" />
-      </div>
-
-      {/* Segunda columna: inputs y textarea */}
-      <div className="formFields">
-        <label>
-          Nombre común:
-          <input
-            type="text"
-            name="commonName"
-            value={formData.commonName}
-            onChange={handleChange}
-            placeholder="Ej: Mariposa Reina Africana"
-          />
-          {errors.commonName && <p className="error">{errors.commonName}</p>}
-        </label>
-
-        <label>
-          Nombre científico:
-          <input
-            type="text"
-            name="scientificName"
-            value={formData.scientificName}
-            onChange={handleChange}
-            placeholder="Ej: Danaus chrysippus"
-          />
-          {errors.scientificName && <p className="error">{errors.scientificName}</p>}
-        </label>
-
-        <label>
-          Ubicación:
-          <input
-            type="text"
-            name="location"
-            value={formData.location}
-            onChange={handleChange}
-            placeholder="Ej: África Oriental"
-          />
-          {errors.location && <p className="error">{errors.location}</p>}
-        </label>
-
-        <label>
-          Descripción:
-          <textarea
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-            placeholder="Colores y características"
-            rows={3}
-          />
-          {errors.description && <p className="error">{errors.description}</p>}
-        </label>
-
-        <label>
-          Hábitat:
-          <input
-            type="text"
-            name="habitat"
-            value={formData.habitat}
-            onChange={handleChange}
-            placeholder="¿Dónde la encontramos?"
-          />
-        </label>
-      </div>
-
-      {/* Tercera columna: imagen, checkbox, botón */}
-      <div className="formOptions">
-        <label style={{ fontWeight: 600, color: "#fefdfd" }}>
-          Imagen:
-          <div className="imageButtons">
-            <button
-              type="button"
-              onClick={() => document.getElementById("imageUploadInput").click()}
-              className="saveButton"
-              disabled={isUploading}
-            >
-              {isUploading ? "Subiendo..." : "📁 Seleccionar imagen"}
-            </button>
-
-            <button type="button" onClick={handleOpenImagePopup} className="saveButton">
-              🌐 Añadir imagen por URL
-            </button>
-          </div>
-
-          <input
-            type="file"
-            id="imageUploadInput"
-            accept="image/*"
-            onChange={handleImageUpload}
-            style={{ display: "none" }}
-          />
-          {errors.image && <p className="error">{errors.image}</p>}
-
-          {formData.image && (
-            <div style={{ marginTop: "1rem" }}>
-              <img
-                src={formData.image}
-                alt="Preview"
-                style={{ width: "100%", borderRadius: "8px", objectFit: "cover" }}
-              />
-              <p style={{ color: "#cdbfbc", fontSize: "0.9rem", marginTop: "0.5rem" }}>
-                ✅ Imagen cargada
-              </p>
-            </div>
-          )}
-        </label>
-
-        <div className="checkboxCentered" style={{ marginTop: "1.5rem", color: "#fefdfd" }}>
-          <label htmlFor="isMigratory" style={{ fontWeight: 600 }}>
-            ¿Es migratoria?
-          </label>
-          <input
-            type="checkbox"
-            id="isMigratory"
-            name="isMigratory"
-            checked={formData.isMigratory}
-            onChange={handleChange}
-          />
+    <>
+      <form onSubmit={handleSubmit} className="container">
+        {/* Primera columna */}
+        <div className="imageContainer">
+          <h2 className="title">
+            <span>Crear</span>
+            <span>Nueva</span>
+            <span>Mariposa</span>
+          </h2>
+          <img src={currentImage} alt="Estado mariposa" className="progressImage" />
         </div>
 
-        <button type="submit" className="saveButton" style={{ marginTop: "2rem" }}>
-          Guardar mariposa
-        </button>
-      </div>
+        {/* Segunda columna: inputs y textarea */}
+        <div className="formFields">
+          <label>
+            Nombre común:
+            <input
+              type="text"
+              name="commonName"
+              value={formData.commonName}
+              onChange={handleChange}
+              placeholder="Ej: Mariposa Reina Africana"
+            />
+            {errors.commonName && <p className="error">{errors.commonName}</p>}
+          </label>
 
-      {/* Popups */}
+          <label>
+            Nombre científico:
+            <input
+              type="text"
+              name="scientificName"
+              value={formData.scientificName}
+              onChange={handleChange}
+              placeholder="Ej: Danaus chrysippus"
+            />
+            {errors.scientificName && <p className="error">{errors.scientificName}</p>}
+          </label>
+
+          <label>
+            Ubicación:
+            <input
+              type="text"
+              name="location"
+              value={formData.location}
+              onChange={handleChange}
+              placeholder="Ej: África Oriental"
+            />
+            {errors.location && <p className="error">{errors.location}</p>}
+          </label>
+
+          <label>
+            Descripción:
+            <textarea
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+              placeholder="Colores y características"
+              rows={3}
+            />
+            {errors.description && <p className="error">{errors.description}</p>}
+          </label>
+
+          <label>
+            Hábitat:
+            <input
+              type="text"
+              name="habitat"
+              value={formData.habitat}
+              onChange={handleChange}
+              placeholder="¿Dónde la encontramos?"
+            />
+          </label>
+        </div>
+
+        {/* Tercera columna: imagen, checkbox, botón */}
+        <div className="formOptions">
+          <label style={{ fontWeight: 600, color: "#fefdfd" }}>
+            Imagen:
+            <div className="imageButtons">
+              <button
+                type="button"
+                onClick={() => document.getElementById("imageUploadInput").click()}
+                className="saveButton"
+                disabled={isUploading}
+              >
+                {isUploading ? "Subiendo..." : "📁 Seleccionar imagen"}
+              </button>
+
+              <button type="button" onClick={handleOpenImagePopup} className="saveButton">
+                🌐 Añadir imagen por URL
+              </button>
+            </div>
+
+            <input
+              type="file"
+              id="imageUploadInput"
+              accept="image/*"
+              onChange={handleImageUpload}
+              style={{ display: "none" }}
+            />
+            {errors.image && <p className="error">{errors.image}</p>}
+
+            {formData.image && (
+              <div style={{ marginTop: "1rem" }}>
+                <img
+                  src={formData.image}
+                  alt="Preview"
+                  style={{ width: "100%", borderRadius: "8px", objectFit: "cover" }}
+                />
+                <p style={{ color: "#cdbfbc", fontSize: "0.9rem", marginTop: "0.5rem" }}>
+                  ✅ Imagen cargada
+                </p>
+              </div>
+            )}
+          </label>
+
+          <div className="checkboxCentered" style={{ marginTop: "1.5rem", color: "#fefdfd" }}>
+            <label htmlFor="isMigratory" style={{ fontWeight: 600 }}>
+              ¿Es migratoria?
+            </label>
+            <input
+              type="checkbox"
+              id="isMigratory"
+              name="isMigratory"
+              checked={formData.isMigratory}
+              onChange={handleChange}
+            />
+          </div>
+
+          <button type="submit" className="saveButton" style={{ marginTop: "2rem" }}>
+            Guardar mariposa
+          </button>
+        </div>
+      </form>
+
+      {/* Popup confirmación */}
       {showPopup && (
         <div className="popupOverlay">
           <div className="popupContent">
             <h3>🦋 ¡Mariposa creada con éxito!</h3>
-            <button onClick={closePopup} className="saveButton">
+            <img
+              src={savedImage}
+              alt="Mariposa guardada"
+              style={{ width: "100%", borderRadius: "10px", margin: "1rem 0", boxShadow: "0 4px 12px rgba(0, 0, 0, 0.3)" }}
+            />
+            <button onClick={closePopup} className="closeButton">
               Cerrar
             </button>
           </div>
         </div>
       )}
 
+      {/* Popup para añadir URL imagen */}
       {showImagePopup && (
         <div className="popupOverlay">
-          <div className="popupContent" style={{ maxWidth: "480px" }}>
-            <h3>Añadir imagen por URL</h3>
+          <div className="popupContent">
+            <h3>Añade la URL de la imagen</h3>
             <input
               type="text"
               value={imageUrlInput}
               onChange={handleImageUrlChange}
-              placeholder="https://..."
-              style={{ width: "100%", padding: "0.5rem", fontSize: "1rem" }}
+              placeholder="https://ejemplo.com/imagen.jpg"
+              style={{ width: "100%", padding: "0.5rem", marginBottom: "1rem" }}
             />
-            <div
-              style={{ marginTop: "1rem", display: "flex", justifyContent: "space-between" }}
-            >
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
               <button onClick={handleSetImageUrl} className="saveButton">
-                Añadir imagen
+                Añadir
               </button>
-              <button
-                onClick={handleCloseImagePopup}
-                className="saveButton"
-                style={{ backgroundColor: "#a14f4f" }}
-              >
+              <button onClick={handleCloseImagePopup} className="cancelButton">
                 Cancelar
               </button>
             </div>
           </div>
         </div>
       )}
-    </form>
+    </>
   );
 };
 

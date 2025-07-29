@@ -219,16 +219,6 @@
       "habitat": "Praderas abiertas y bordes de bosque",
       "image": "https://upload.wikimedia.org/wikipedia/commons/d/d0/Mirajus_africana.jpg",
       "is_migratory": true
-    },
-    {
-      "id": "da48",
-      "commonName": "Mariposa Bruma Dorada",
-      "scientificName": "Aurelia fumosa",
-      "location": "Camerún y Guinea Ecuatorial",
-      "description": "Alas doradas con bordes ahumados. Se mueve entre claros de bosque como un destello.",
-      "habitat": "Bosques lluviosos con claros soleados",
-      "image": "https://upload.wikimedia.org/wikipedia/commons/d/d7/Aurelia_fumosa.jpg",
-      "isMigratory": false
     }
   ]
 }

@@ -90,7 +90,7 @@
   max-width: 280px;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 0.7rem; /* Reducido para ajustar espacios */
   background-color: #134660;
   padding: 2rem;
   border-radius: 12px;
@@ -108,15 +108,16 @@
 .imageButtons {
   display: flex;
   flex-direction: column;
-  gap: 0.7rem;
+  gap: 0.3rem; /* Más compacto */
   margin-top: 0.3rem;
 }
 
 .imageButtons button {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0; /* Quitamos margen para evitar espacio extra */
 }
 
-.saveButton {
+/* Botones dentro de la columna derecha */
+.formOptions .saveButton {
   background-color: #6fdc9d;
   color: #0c1d26;
   padding: 0.8rem 1.5rem;
@@ -127,28 +128,31 @@
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(111, 220, 157, 0.7);
   transition: background-color 0.3s ease;
-  width: 100%;
+  width: 100%; /* Ocupa todo el ancho del contenedor */
   text-align: center;
+  margin-top: 0.7rem; /* Espacio arriba */
 }
 
-.saveButton:disabled {
+.formOptions .saveButton:disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }
 
-.saveButton:hover:not(:disabled) {
+.formOptions .saveButton:hover:not(:disabled) {
   background-color: #55bb7c;
 }
 
+/* Checkbox centrado */
 .checkboxCentered {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   font-weight: 600;
-  margin-top: 0.5rem;
+  margin-top: 0.7rem; /* Ajustado para separar justo lo necesario */
   color: #fefdfd;
 }
 
+/* Imagen en opciones */
 .formOptions img {
   border-radius: 8px;
   margin-top: 1rem;
@@ -181,6 +185,63 @@
   max-width: 400px;
 }
 
+/* Botones dentro del popup alineados */
+.popupContent .buttonGroup {
+  display: flex;
+  justify-content: space-between;
+  gap: 4%;
+  margin-top: 1rem;
+}
+
+/* Botón añadir imagen en popup */
+.popupContent button.saveButton {
+  background-color: #6fdc9d;
+  color: #0c1d26;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(111, 220, 157, 0.7);
+  transition: background-color 0.3s ease;
+  width: 48%; /* Para estar lado a lado */
+  text-align: center;
+  display: inline-block;
+  margin: 0;
+}
+
+.popupContent button.saveButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.popupContent button.saveButton:hover:not(:disabled) {
+  background-color: #55bb7c;
+}
+
+/* Botón cancelar en popup */
+.popupContent button.cancelButton {
+  background-color: #ff5555;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem; /* Igual que saveButton para uniformidad */
+  border-radius: 10px;   /* Igual que saveButton */
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  margin: 0;
+  box-shadow: 0 3px 8px rgba(255, 85, 85, 0.7);
+  transition: background-color 0.3s ease;
+  width: 48%;
+  text-align: center;
+  display: inline-block;
+}
+
+.popupContent button.cancelButton:hover {
+  background-color: #cc4444;
+}
+
 /* Responsive */
 @media (max-width: 900px) {
   .container {
@@ -196,5 +257,17 @@
 
   .formOptions {
     padding: 1rem;
+  }
+
+  /* Popup buttons stacked en móvil */
+  .popupContent .buttonGroup {
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+
+  .popupContent button.saveButton,
+  .popupContent button.cancelButton {
+    width: 100%;
+    display: block;
   }
 }
