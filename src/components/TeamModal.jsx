@@ -15,7 +15,7 @@ const TeamModal = ({ name, bio, linkedin, github, onClose }) => {
           &times;
         </button>
 
-        <h2 className="text-2xl font-bold text-green-800 mb-2">{name}</h2>
+        <h2 className="text-2xl font-bold text-[#e66035] mb-2">{name}</h2>
         <p className="text-gray-700 mb-4">{bio}</p>
         <div className="flex justify-center gap-4">
           <a href={linkedin} target="_blank" rel="noopener noreferrer" className="butterfly-button">
