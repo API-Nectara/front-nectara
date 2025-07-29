@@ -19,12 +19,11 @@
   background-color: #e66035;
   color: white;
   padding: 12px 28px;
-  font-weight: bold;
   border: none;
   border-radius: 35px 12px 35px 12px;
   box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease-in-out;
-  font-family: 'Courier Prime', monospace;
+  font-family: Georgia, serif;
 }
 
 .butterfly-button:hover {
@@ -38,10 +37,9 @@
   color: #eb391d;
   border: 2px solid #e66035;
   padding: 12px 28px;
-  font-weight: bold;
   border-radius: 12px 35px 12px 35px;
   transition: all 0.3s ease-in-out;
-  font-family: 'Courier Prime', monospace;
+  font-family: Georgia, serif;
 }
 
 .butterfly-button-outline:hover {
@@ -52,7 +50,6 @@
 
 .butterfly-heading {
   font-family: Georgia, serif;
-  font-weight: bold;
   font-size: 4rem;
   background-image:
     radial-gradient(#000 2px, transparent 3px),
