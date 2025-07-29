@@ -126,7 +126,6 @@ const CreateButterfly = () => {
         setShowPopup(false);
         navigate("/galery");
       }, POPUP_DURATION);
-    }
   };
 
   const closePopup = () => {
