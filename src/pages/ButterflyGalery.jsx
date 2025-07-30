@@ -39,7 +39,7 @@ const ButterflyGalery = () => {
         ></div>
         <div className="relative text-center">
           <h2
-            className="text-5xl md:text-6xl font-bold mb-4"
+            className="text-5xl md:text-6xl mb-4"
             style={{
               fontFamily: "Georgia, serif",
               fontWeight: "normal",

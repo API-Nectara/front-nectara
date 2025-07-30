@@ -29,7 +29,7 @@ const ContactForm = () => {
     >
       <div className="max-w-3xl mx-auto text-center text-black drop-shadow-md">
         <h2
-          className="text-3xl md:text-4xl mb-4 font-georgia"
+          className="text-5xl md:text-6xl mb-4 font-georgia"
           style={{
             fontFamily: "Georgia, serif",
             fontWeight: "normal",
