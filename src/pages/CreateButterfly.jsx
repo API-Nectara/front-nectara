@@ -286,7 +286,7 @@ const CreateButterfly = () => {
 
         {/* Tercera columna: opciones de imagen, checkbox y botón */}
         <div className="formOptions">
-          <label style={{ fontWeight: 600, color: "#fefdfd" }}>
+          <label>
             Imagen:
           </label>
 
@@ -334,8 +334,8 @@ const CreateButterfly = () => {
           </div>
 
           {/* Checkbox para indicar si la mariposa es migratoria */}
-          <div className="checkboxCentered" style={{ marginTop: "1.5rem", color: "#fefdfd" }}>
-            <label htmlFor="isMigratory" style={{ fontWeight: 600 }}>
+          <div className="checkboxCentered" style={{ marginTop: "1.5rem"}}>
+            <label htmlFor="isMigratory">
               ¿Es migratoria?
             </label>
             <input
