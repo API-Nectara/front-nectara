@@ -8,7 +8,7 @@ export default function Hero() {
           Explora el mundo de las mariposas africanas
         </h2>
 
-        <p className="text-xl md:text-2xl mb-10 max-w-3xl mx-auto font-georgia">
+        <p className="text-xl md:text-2xl text-gray-700 mb-10 max-w-3xl mx-auto">
           Descubre sus colores, hábitats y la magia que aportan al ecosistema.
         </p>
 
