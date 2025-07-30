@@ -1,236 +1,290 @@
-/* Reset básico */
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-}
-
-/* Contenedor principal */
+/* === ESTILOS GENERALES === */
 .container {
   display: flex;
-  max-width: 900px;
-  width: 90%;
-  margin: 3rem auto 0.5rem;
-  border: 1px solid #82939d;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-  background: #216b81;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  min-height: 480px;
-  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2rem;
+  padding: 2rem;
+  min-height: 100vh;
+  background: #0c1d26;
+  color: #fefdfd;
+  box-sizing: border-box;
+  font-family: Georgia, serif;
+  position: relative;
+  z-index: 0;
 }
 
-/* Contenedor de imagen */
 .imageContainer {
-  flex: 1;
-  background-image: url('/images-form/background.png');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
+  flex-shrink: 0;
+  max-width: 240px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  padding: 2rem 1.5rem;
-  box-sizing: border-box;
-  gap: 1rem;
-  border-right: 1px solid #ddd;
-  min-width: 280px;
+  z-index: 1;
 }
 
-/* Título */
 .title {
-  font-family: 'Georgia', serif;
+  font-size: 2rem;
   font-weight: 700;
-  font-size: 3.3rem;
-  color: #c61e0f;
-  margin: 0 0 1rem 0;
+  margin-bottom: 1rem;
   text-align: center;
-  line-height: 1.1;
-  display: flex;
-  flex-direction: column;
-  gap: 0.1rem;
-  text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.4);
+  line-height: 1.2;
 }
 
-/* Imagen de progreso */
+.title span {
+  display: block;
+  color: #6fdc9d;
+}
+
 .progressImage {
-  max-width: 90%;
-  max-height: 400px;
-  border-radius: 8px;
-  object-fit: contain;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
 }
 
-/* Formulario */
-.form {
+/* === FORMULARIO CENTRAL === */
+.formFields {
   flex: 1;
-  width: 100%;
-  max-width: 500px;
-  padding: 2rem 2rem;
+  max-width: 550px;
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  box-sizing: border-box;
-  justify-content: center;
-  margin: 0 auto;
+  background-color: #134660;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
 
-.form label {
+.formFields label {
   display: flex;
   flex-direction: column;
-  font-weight: 600;
-  color: #fefdfd;
-  font-size: 1.2rem;
-}
-
-/* Inputs y textarea */
-.form input[type="text"],
-.form input[type="url"],
-.form textarea {
-  background-color: #f8fafb;
-  color: #0a1818; /* texto visible */
-  padding: 10px 14px;
-  margin-top: 6px;
-  border-radius: 8px;
-  border: 1.5px solid #82939d;
+  font-weight: 500;
   font-size: 1rem;
-  font-family: inherit;
-  transition: border-color 0.3s ease;
+}
+
+.formFields input[type="text"],
+.formFields textarea {
+  margin-top: 0.3rem;
+  padding: 0.5rem 0.8rem;
+  border-radius: 8px;
+  border: none;
+  font-size: 1rem;
+  font-family: Georgia, serif;
+  background-color: #0a2b44;
+  color: #fefdfd;
+  box-shadow: inset 0 2px 5px rgba(255, 255, 255, 0.1);
   resize: vertical;
+}
+
+.error {
+  color: #ff5555;
+  font-size: 0.85rem;
+}
+
+/* === OPCIONES DERECHA === */
+.formOptions {
+  flex-shrink: 0;
+  max-width: 280px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  background-color: #134660;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.formOptions label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.imageButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+/* === BOTÓN PRINCIPAL === */
+.saveButton {
+  background-color: #6fdc9d;
+  color: #0c1d26;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(111, 220, 157, 0.7);
+  transition: background-color 0.3s ease;
   width: 100%;
-  box-sizing: border-box;
+  text-align: center;
+  margin-top: 0.7rem;
 }
 
-/* Placeholder */
-.form input[type="text"]::placeholder,
-.form input[type="url"]::placeholder,
-.form textarea::placeholder {
-  color: #dbb147;
-  font-style: italic;
+.saveButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
-/* Enfocar inputs */
-.form input[type="text"]:focus,
-.form input[type="url"]:focus,
-.form textarea:focus {
-  border-color: #eb391d;
-  outline: none;
+.saveButton:hover:not(:disabled) {
+  background-color: #55bb7c;
 }
 
-/* Checkbox */
 .checkboxCentered {
   display: flex;
-  justify-content: center;
   align-items: center;
   gap: 0.5rem;
   font-weight: 600;
-  color: #444;
-  font-size: 1rem;
+  margin-top: 0.7rem;
+}
+
+/* === POPUP === */
+.popupOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(12, 29, 38, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.popupContent {
+  background-color: #0c1d26;
+  padding: 2rem;
+  border-radius: 14px;
+  box-shadow: 0 0 20px #6fdc9d;
+  color: #fefdfd;
+  text-align: center;
+  max-width: 300px;
+}
+
+.popupContent .buttonGroup {
+  display: flex;
+  justify-content: space-between;
+  gap: 4%;
   margin-top: 1rem;
+  font-family: Georgia, serif;
 }
 
-.form textarea {
-  max-height: 100px;
-  min-height: 100px;
-  overflow-y: auto;
-  resize: vertical;
-}
-
-.form input[type="checkbox"] {
-  width: 18px;
-  height: 18px;
-  cursor: pointer;
-}
-
-/* Mensajes de error */
-.error {
-  color: #e53935;
-  font-size: 0.85rem;
-  margin-top: 4px;
+/* === BOTONES UNIFICADOS DEL POPUP === */
+.popupButton {
+  width: 45%;
+  padding: 0.8rem 1.5rem;
+  border-radius: 10px;
   font-weight: 600;
-}
-
-/* Botón de guardar */
-.saveButton {
-  background-color: #e66035;
-  color: white;
-  padding: 12px 28px;
-  font-weight: bold;
+  font-size: 1rem;
+  line-height: 1.4;
+  cursor: pointer;
+  text-align: center;
   border: none;
-  border-radius: 35px 12px 35px 12px;
-  box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease-in-out;
-  font-family: 'Courier Prime', monospace;
+  margin: 0;
+  box-sizing: border-box;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.saveButton:hover {
-  background-color: #e7420c;
-  transform: scale(1.05) rotate(-0.5deg);
+/* Botón cancelar (rojo) */
+.popupButton.cancelButton {
+  background-color: #ff5555;
+  color: white;
+  box-shadow: 0 4px 12px rgba(255, 85, 85, 0.7);
 }
 
+.popupButton.cancelButton:hover {
+  background-color: #cc4444;
+}
 
-/* Escalado en pantallas grandes */
-@media (min-width: 1024px) {
-  .container {
-    transform: scale(0.65);
-    transform-origin: top center;
+/* Botón guardar (verde) */
+.popupButton.saveButton {
+  background-color: #6fdc9d;
+  color: #0c1d26;
+  box-shadow: 0 4px 12px rgba(111, 220, 157, 0.7);
+}
+
+.popupButton.saveButton:hover {
+  background-color: #55bb7c;
+}
+
+/* === NAVBAR FIJO === */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 56px;
+  background-color: #0c1d26;
+  z-index: 9999;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 900px) {
+  html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
   }
-}
 
-/* Adaptación a móviles */
-@media (max-width: 768px) {
   .container {
     flex-direction: column;
-    min-height: 100vh;
-    max-width: 100%;
-    border-radius: 0;
-    overflow: hidden;
-    background: #216b81;
+    padding-top: 56px;
+    padding-left: 0;
+    padding-right: 0;
+    align-items: center;
   }
 
   .imageContainer {
-    flex: none;
+    position: relative;
+    max-width: 100%;
     width: 100%;
-    height: 270px;
-    padding: 1.5rem 1rem;
-    border-bottom: 1px solid #ddd;
-    position: sticky;
-    top: 0;
-    background-color: #216b81;
-    background-image: url('/images-form/background.png');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    z-index: 10;
-    border-radius: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
+    padding: 1rem 1rem 0.5rem;
+    z-index: 1;
+    background-color: #0c1d26;
+    box-shadow: none;
   }
 
-  .title {
-    font-size: 2rem;
-    margin: 0;
-    color: #12475a;
-    text-align: center;
-    line-height: 1.1;
+  .formFields,
+  .formOptions {
+    max-width: 100%;
+    width: 100%;
+    padding: 1rem;
+    box-shadow: none;
+    border-radius: 0;
+    background-color: transparent;
+  }
+
+  .formFields {
+    margin-top: 1rem;
+    order: 2;
+  }
+
+  .formOptions {
+    order: 3;
+    margin-top: 1rem;
   }
 
   .progressImage {
-    max-height: 130px;
-    max-width: 100%;
-    object-fit: contain;
-    margin-bottom: 0.5rem;
+    max-height: 160px;
+    width: auto;
   }
 
-  .form {
-    flex: 1;
-    max-height: calc(100vh - 230px);
-    overflow-y: auto;
-    padding: 1rem;
-    box-sizing: border-box;
-    margin-top: 0;
+  .title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 30px;
+  }
+
+  .title span {
+    display: inline;
   }
 }
