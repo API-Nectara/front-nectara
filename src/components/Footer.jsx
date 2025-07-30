@@ -1,7 +1,7 @@
 //Importamos React para poder usar JSX
 import React from "react";
 //Importamos la imagen del logo desde la carpeta assets
-import logoFactoria from '../assets/logo-factoria-b.svg';
+import logoFactoria from '../assets/logo-factoria-naranja.png';
 
 // Creamos un componente funcional llamado Footer
 const Footer = () => {

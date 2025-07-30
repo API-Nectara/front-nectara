@@ -35,6 +35,10 @@ const routerButterfly = createBrowserRouter([
         element: <ButterflyDetail />,
       },
       {
+        path: "butterfly-detail",
+        element: <ButterflyDetail />, // Nueva ruta sin parámetro ID
+      },
+      {
         path: "contact",
         element: <Contact />,
       },

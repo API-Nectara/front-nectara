@@ -39,7 +39,7 @@ const ButterflyGalery = () => {
         ></div>
         <div className="relative text-center">
           <h2
-            className="text-5xl md:text-6xl font-bold mb-4"
+            className="text-5xl md:text-6xl mb-4"
             style={{
               fontFamily: "Georgia, serif",
               fontWeight: "normal",
@@ -55,7 +55,7 @@ const ButterflyGalery = () => {
           <p
             className="text-lg max-w-2xl mx-auto"
             style={{
-              color: "#1b4857",
+              color: "#010608ff",
               fontFamily: "Georgia, serif",
               fontWeight: "normal",
             }}

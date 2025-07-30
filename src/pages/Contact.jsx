@@ -24,15 +24,26 @@ const ContactForm = () => {
         backgroundImage: "url('/image4.jpg')",
         backgroundColor: "#fdf9f6",
         fontFamily: "Georgia, serif",
-        fontWeight: "normal"
+        fontWeight: "normal",
       }}
     >
       <div className="max-w-3xl mx-auto text-center text-black drop-shadow-md">
-        <h2 className="text-3xl md:text-4xl text-[#e66035] butterfly-heading mb-4">
+        <h2
+          className="text-5xl md:text-6xl mb-4 font-georgia"
+          style={{
+            fontFamily: "Georgia, serif",
+            fontWeight: "normal",
+            background: "linear-gradient(to right, #c61e0f, #eb391d, #e66035)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            backgroundClip: "text",
+          }}
+        >
           Contacta con las Creadoras
         </h2>
         <p className="mb-8 font-georgia">
-          ¿Tienes preguntas, sugerencias o deseas colaborar con nosotras? ¡Escríbenos!
+          ¿Tienes preguntas, sugerencias o deseas colaborar con nosotras?
+          ¡Escríbenos!
         </p>
 
         <form
@@ -51,7 +62,9 @@ const ContactForm = () => {
             />
           </div>
           <div>
-            <label className="block mb-1 text-sm text-gray-600">Correo electrónico</label>
+            <label className="block mb-1 text-sm text-gray-600">
+              Correo electrónico
+            </label>
             <input
               type="email"
               name="email"
