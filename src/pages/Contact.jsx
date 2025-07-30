@@ -18,18 +18,26 @@ const ContactForm = () => {
   };
 
   return (
-    <section className="bg-[#fdf8f2] px-6 md:px-12 py-65">
-      <div className="max-w-3xl mx-auto text-center">
-        <h2 className="text-3xl md:text-4xl font-bold text-[#e66035] butterfly-heading mb-4">
-          Cotacta con las Creadoras
+    <section
+      className="bg-fixed bg-cover bg-center px-6 md:px-12 py-20"
+      style={{
+        backgroundImage: "url('/image4.jpg')",
+        backgroundColor: "#fdf9f6",
+        fontFamily: "Georgia, serif",
+        fontWeight: "normal"
+      }}
+    >
+      <div className="max-w-3xl mx-auto text-center text-black drop-shadow-md">
+        <h2 className="text-3xl md:text-4xl text-[#e66035] butterfly-heading mb-4">
+          Contacta con las Creadoras
         </h2>
-        <p className="text-gray-700 mb-8">
+        <p className="mb-8 font-georgia">
           ¿Tienes preguntas, sugerencias o deseas colaborar con nosotras? ¡Escríbenos!
         </p>
 
         <form
           onSubmit={handleSubmit}
-          className="grid gap-6 text-left bg-white p-6 rounded-xl shadow-md"
+          className="grid gap-6 text-left bg-white bg-opacity-90 p-6 rounded-xl shadow-md"
         >
           <div>
             <label className="block mb-1 text-sm text-gray-600">Nombre</label>
@@ -64,10 +72,7 @@ const ContactForm = () => {
               required
             ></textarea>
           </div>
-          <button
-            type="submit"
-            className="butterfly-button mt-2"
-          >
+          <button type="submit" className="butterfly-button mt-2">
             Enviar mensaje
           </button>
         </form>

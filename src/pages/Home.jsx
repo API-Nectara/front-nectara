@@ -64,22 +64,102 @@ const FloatingParticles = () => {
   );
 };
 
+// const Garden = () => {
+//   const isMobile = window.innerWidth < 768;
+  
+//   return (
+//     <group>
+//       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -1.95, 0]}>
+//         <circleGeometry args={[isMobile ? 3.5 : 6, 32]} />
+//         <meshStandardMaterial
+//           color="#1a3d16"
+//           roughness={0.9}
+//           metalness={0.05}
+//         />
+//       </mesh>
+//     </group>
+//   );
+// };
+
 const Garden = () => {
   const isMobile = window.innerWidth < 768;
   
   return (
     <group>
+      {/* OPCIÓN 1: SOLO CÉSPED NATURAL */}
+      {/* Base principal de césped */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -1.95, 0]}>
         <circleGeometry args={[isMobile ? 3.5 : 6, 32]} />
         <meshStandardMaterial
-          color="#1a3d16"
+          color="#2d5a1f"
           roughness={0.9}
           metalness={0.05}
         />
       </mesh>
+      
+    
+      
+      {/* Centro más suave para la rosa */}
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -1.94, 0]}>
+        <circleGeometry args={[isMobile ? 1.2 : 1.8, 32]} />
+        <meshStandardMaterial
+          color="#4a7c35"
+          roughness={0.8}
+          metalness={0.02}
+        />
+      </mesh>
+      
+      {/* Briznas de césped */}
+      {Array.from({ length: isMobile ? 25 : 40 }, (_, i) => {
+        const angle = Math.random() * Math.PI * 2;
+        const radius = Math.random() * (isMobile ? 3.2 : 5.5);
+        const x = Math.cos(angle) * radius;
+        const z = Math.sin(angle) * radius;
+        const height = 0.03 + Math.random() * 0.04;
+        
+        return (
+          <mesh 
+            key={`grass-${i}`}
+            position={[x, -1.95 + height/2, z]} 
+            rotation={[Math.random() * 0.1, Math.random() * Math.PI, Math.random() * 0.1]}
+          >
+            <cylinderGeometry args={[0.002, 0.001, height, 4]} />
+            <meshStandardMaterial
+              color={Math.random() > 0.6 ? "#4a7c35" : "#3d6b28"}
+              roughness={0.9}
+              metalness={0.01}
+            />
+          </mesh>
+        );
+      })}
+
+
+      
+      {/* Círculo sutil de rocío/gotas de agua */}
+      {Array.from({ length: isMobile ? 6 : 10 }, (_, i) => {
+        const angle = (i / (isMobile ? 6 : 10)) * Math.PI * 2;
+        const radius = isMobile ? 2.2 : 3.5;
+        const x = Math.cos(angle) * radius;
+        const z = Math.sin(angle) * radius;
+        
+        return (
+          <mesh key={`dew-${i}`} position={[x, -1.92, z]}>
+            <sphereGeometry args={[0.008, 8, 8]} />
+            <meshStandardMaterial
+              color="#ffffff"
+              roughness={0.1}
+              metalness={0.9}
+              transparent
+              opacity={0.7}
+            />
+          </mesh>
+        );
+      })}
     </group>
   );
 };
+
+
 
 const useIsMobile = () => {
   const [isMobile, setIsMobile] = useState(false);

@@ -1,15 +1,14 @@
 import { Link } from "react-router-dom";
 
-
 export default function Hero() {
   return (
-    <section className="w-full bg-white py-16 px-6 md:px-40 flex flex-col md:flex-row items-center gap-10">
-      <div className="flex-1 text-center md:text-left">
+    <section className="w-full py-16 px-6 md:px-40 flex flex-col md:flex-row items-center gap-10">
+      <div className="flex-1 text-center md:text-left text-black drop-shadow-md">
         <h2 className="text-5xl md:text-6xl mb-6 leading-tight butterfly-heading font-georgia">
           Explora el mundo de las mariposas africanas
         </h2>
 
-        <p className="text-xl md:text-2xl text-gray-700 mb-10 max-w-3xl mx-auto font-georgia">
+        <p className="text-xl md:text-2xl mb-10 max-w-3xl mx-auto font-georgia">
           Descubre sus colores, hábitats y la magia que aportan al ecosistema.
         </p>
 
@@ -32,4 +31,3 @@ export default function Hero() {
     </section>
   );
 }
-

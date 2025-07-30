@@ -23,9 +23,12 @@ const ButterflyGalery = () => {
 
   return (
     <div
-      className="min-h-screen bg-gradient-to-br from-slate-50 via-gray-50 to-blue-50"
-      style={{ backgroundColor: "#fdf9f6" }}
-    >
+  className="min-h-screen bg-fixed bg-cover bg-center"
+  style={{
+    backgroundImage: "url('/image4.jpg')",
+    backgroundColor: "#fdf9f6",
+  }}
+>
       {/* Header con gradiente y efectos */}
       <div className="relative py-16 px-6">
         <div
