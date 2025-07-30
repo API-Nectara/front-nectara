@@ -20,13 +20,13 @@ const Navbar = () => {
           {/* Logo */}
           <Link
             to="/"
-            className="text-2xl tracking-wide hover:text-[#eb391d] transition text-black"
+            className="text-2xl tracking-wide hover:text-[#eb391d] transition"
             style={{
               fontFamily: "Georgia, serif",
               fontWeight: "normal",
             }}
           >
-            Nectara
+            NECTARA
           </Link>
 
           {/* Hamburguesa */}
@@ -54,7 +54,7 @@ const Navbar = () => {
                   <Link
                     key={label}
                     to={paths[index]}
-                    className="text-black hover:text-[#e66035] transition"
+                    className="hover:text-[#e66035] transition"
                     style={{
                       fontFamily: "Georgia, serif",
                       fontWeight: "normal",
@@ -85,7 +85,7 @@ const Navbar = () => {
                     key={label}
                     to={paths[index]}
                     onClick={() => setMenuOpen(false)}
-                    className="text-black hover:text-[#e66035] transition"
+                    className="hover:text-[#e66035] transition"
                     style={{
                       fontFamily: "Georgia, serif",
                       fontWeight: "normal",

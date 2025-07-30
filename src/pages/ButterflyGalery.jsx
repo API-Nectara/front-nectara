@@ -55,7 +55,7 @@ const ButterflyGalery = () => {
           <p
             className="text-lg max-w-2xl mx-auto"
             style={{
-              color: "#1b4857",
+              color: "#010608ff",
               fontFamily: "Georgia, serif",
               fontWeight: "normal",
             }}

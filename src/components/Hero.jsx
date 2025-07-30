@@ -19,7 +19,7 @@ export default function Hero() {
         </h2>
 
         <p
-          className="text-xl md:text-2xl mb-10 max-w-3xl mx-auto font-georgia text-[#1b4857]"
+          className="text-xl md:text-2xl mb-10 max-w-3xl mx-auto font-georgia text-black"
         >
           Descubre sus colores, hábitats y la magia que aportan al ecosistema.
         </p>

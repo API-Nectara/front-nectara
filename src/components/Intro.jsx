@@ -16,7 +16,7 @@ const Intro = () => {
           Las Mariposas Africanas y su Rol Vital
         </h2>
 
-        <p className="text-lg md:text-xl leading-relaxed font-georgia text-[#1b4857]">
+        <p className="text-lg md:text-xl leading-relaxed font-georgia text-black">
           Las mariposas no solo embellecen el paisaje africano con sus colores vibrantes, sino que también juegan un papel fundamental en la polinización de plantas nativas. 
           Actúan como indicadores de biodiversidad y son esenciales para el mantenimiento de ecosistemas saludables. 
           En África, ayudan a sostener tanto cultivos como hábitats naturales, favoreciendo la reproducción de muchas especies vegetales.
