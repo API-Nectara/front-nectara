@@ -22,7 +22,7 @@ const Navbar = () => {
               fontWeight: "bold", 
             }}
           >
-            NECTARA
+            Nectara
           </Link>
 
           {/* Hamburguesa */}
