@@ -95,7 +95,7 @@ const CreateButterfly = () => {
     const response = await CreateNewButterfly(formData);
     if (response.status === 201) {
       alert("🦋 ¡Mariposa creada con éxito!");
-      navigate("/galery");
+      navigate("/init/galery");
     }
 
     /* setFormData({
