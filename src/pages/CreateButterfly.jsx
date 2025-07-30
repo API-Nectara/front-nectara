@@ -1,8 +1,9 @@
-import { useState } from "react";
-import "./CreateButterfly.css";
-import { CreateNewButterfly } from "../services/ButterflyServices";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react"; // Hook para gestionar estados en componentes funcionales
+import "./CreateButterfly.css"; // Estilos CSS específicos para este componente
+import { CreateNewButterfly } from "../services/ButterflyServices"; // Servicio para crear mariposas en backend
+import { useNavigate } from "react-router-dom"; // Hook para navegar entre rutas
 
+// Array con imágenes que representan el progreso del formulario
 const progressImages = [
   "/images-form/oruga1.png",
   "/images-form/oruga2.png",
@@ -13,16 +14,21 @@ const progressImages = [
   "/images-form/mariposa3.png",
 ];
 
+// Constantes para la subida a Cloudinary (servicio de almacenamiento de imágenes)
 const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/dauzwfc8z/image/upload";
 const CLOUDINARY_PRESET = "mariposas-africa";
+
+// Tiempo que durará el popup de confirmación en milisegundos
 const POPUP_DURATION = 10000; // 10 segundos
 
-const migratoryImage = "/images-form/migratoria.png";
-const savedImage = "/images-form/guardada1.png";
-
+// Imágenes para estados especiales
+const migratoryImage = "/images-form/migratoria.png"; // Si la mariposa es migratoria
+const savedImage = "/images-form/guardada1.png"; // Imagen para mostrar cuando se guarda con éxito
 
 const CreateButterfly = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // Para redireccionar tras crear la mariposa
+
+  // Estado para guardar los datos del formulario
   const [formData, setFormData] = useState({
     commonName: "",
     scientificName: "",
@@ -33,56 +39,82 @@ const CreateButterfly = () => {
     isMigratory: false,
   });
 
+  // Estado para almacenar mensajes de error por campo
   const [errors, setErrors] = useState({});
+
+  // Estado que indica si está subiendo una imagen (para mostrar botón cargando)
   const [isUploading, setIsUploading] = useState(false);
+
+  // Estado para saber si la mariposa ya se ha guardado (mostrar imagen de guardado)
   const [isSaved, setIsSaved] = useState(false);
+
+  // Estado para mostrar u ocultar el popup de confirmación
   const [showPopup, setShowPopup] = useState(false);
+
+  // Estado para controlar popup de añadir imagen por URL
   const [showImagePopup, setShowImagePopup] = useState(false);
+
+  // Estado temporal para manejar la URL que escribe el usuario en el popup
   const [imageUrlInput, setImageUrlInput] = useState("");
 
+  // Función que actualiza el estado del formulario cuando cambian los inputs
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
+
+    // Si es checkbox, usamos checked, si no, el valor del input
     setFormData((prev) => ({
       ...prev,
       [name]: type === "checkbox" ? checked : value,
     }));
+
+    // Cada vez que cambian datos, resetamos el estado de guardado para que el usuario sepa que debe volver a guardar
     setIsSaved(false);
   };
 
+  // Función para subir imagen a Cloudinary cuando el usuario elige un archivo
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
-    if (!file) return;
+    if (!file) return; // Si no hay archivo, no hacemos nada
 
-    setIsUploading(true);
+    setIsUploading(true); // Indicamos que estamos subiendo para deshabilitar botón
+
     const uploadData = new FormData();
     uploadData.append("file", file);
     uploadData.append("upload_preset", CLOUDINARY_PRESET);
 
     try {
+      // Petición POST para subir la imagen a Cloudinary
       const res = await fetch(CLOUDINARY_URL, {
         method: "POST",
         body: uploadData,
       });
       const data = await res.json();
+
+      // Guardamos la URL segura que nos devuelve Cloudinary en el estado
       setFormData((prev) => ({ ...prev, image: data.secure_url }));
+
+      // Limpiamos errores de imagen si existían
       setErrors((prev) => ({ ...prev, image: null }));
     } catch (err) {
       alert("❌ Error al subir imagen");
       console.error(err);
     } finally {
-      setIsUploading(false);
+      setIsUploading(false); // Siempre quitamos el estado de subida
     }
   };
 
+  // Abrir popup para que el usuario introduzca una URL manualmente
   const handleOpenImagePopup = () => {
-    setImageUrlInput(formData.image || "");
+    setImageUrlInput(formData.image || ""); // Ponemos la URL actual para que el usuario pueda modificarla
     setShowImagePopup(true);
   };
 
+  // Cerrar popup de añadir URL
   const handleCloseImagePopup = () => {
     setShowImagePopup(false);
   };
 
+  // Guardar la URL que el usuario puso en el input del popup
   const handleSetImageUrl = () => {
     if (!imageUrlInput.trim()) {
       alert("Introduce una URL válida");
@@ -93,10 +125,12 @@ const CreateButterfly = () => {
     setShowImagePopup(false);
   };
 
+  // Actualizar el input dentro del popup según escribe el usuario
   const handleImageUrlChange = (e) => {
     setImageUrlInput(e.target.value);
   };
 
+  // Validar los campos obligatorios antes de enviar
   const validate = () => {
     const newErrors = {};
     if (!formData.commonName.trim()) newErrors.commonName = "Campo obligatorio";
@@ -107,29 +141,39 @@ const CreateButterfly = () => {
     return newErrors;
   };
 
+  // Función para enviar el formulario y crear la mariposa
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Validamos campos
     const validationErrors = validate();
     if (Object.keys(validationErrors).length) {
-      setErrors(validationErrors);
+      setErrors(validationErrors); // Mostramos errores si los hay
       return;
     }
+
+    // Llamamos al servicio que crea la mariposa en backend
     const response = await CreateNewButterfly(formData);
+
     if (response.status === 201) {
-      setShowPopup(true);
-      setIsSaved(true);
+      setShowPopup(true); // Mostramos popup éxito
+      setIsSaved(true);   // Marcamos estado guardado
       alert("🦋 ¡Mariposa creada con éxito!");
-      navigate("/init/galery");
+      navigate("/init/galery"); // Redirigimos a galería
     }
 
-      setTimeout(() => {
-        setShowPopup(false);
-        navigate("/galery");
-      }, POPUP_DURATION);
+    // Cerramos popup y redirigimos tras 10 segundos
+    setTimeout(() => {
+      setShowPopup(false);
+      navigate("/galery");
+    }, POPUP_DURATION);
   };
 
+  // Cerrar popup manualmente y resetear formulario
   const closePopup = () => {
     setShowPopup(false);
+
+    // Reiniciamos formulario y errores
     setFormData({
       commonName: "",
       scientificName: "",
@@ -140,16 +184,18 @@ const CreateButterfly = () => {
       isMigratory: false,
     });
     setErrors({});
-    navigate("/galery");
+    navigate("/galery"); // Redirigimos a galería
   };
 
+  // Seleccionamos la imagen que se debe mostrar según el estado del formulario
   let currentImage = null;
 
   if (isSaved) {
-    currentImage = savedImage;
+    currentImage = savedImage; // Imagen cuando está guardada
   } else if (formData.isMigratory) {
-    currentImage = migratoryImage;
+    currentImage = migratoryImage; // Imagen si es migratoria
   } else {
+    // Contamos campos rellenados para saber el progreso
     const filledFieldsCount = [
       formData.commonName,
       formData.scientificName,
@@ -159,13 +205,14 @@ const CreateButterfly = () => {
       formData.image,
     ].filter(Boolean).length;
 
+    // Seleccionamos imagen según progreso (máximo la última)
     currentImage = progressImages[Math.min(filledFieldsCount, progressImages.length - 1)];
   }
 
   return (
     <>
       <form onSubmit={handleSubmit} className="container">
-        {/* Primera columna */}
+        {/* Primera columna con título e imagen de progreso */}
         <div className="imageContainer">
           <h2 className="title">
             <span>Crear </span>
@@ -175,7 +222,7 @@ const CreateButterfly = () => {
           <img src={currentImage} alt="Estado mariposa" className="progressImage" />
         </div>
 
-        {/* Segunda columna: inputs y textarea */}
+        {/* Segunda columna: campos de texto */}
         <div className="formFields">
           <label>
             Nombre común:
@@ -237,25 +284,29 @@ const CreateButterfly = () => {
           </label>
         </div>
 
-        {/* Tercera columna: imagen, checkbox, botón */}
+        {/* Tercera columna: opciones de imagen, checkbox y botón */}
         <div className="formOptions">
           <label style={{ fontWeight: 600, color: "#fefdfd" }}>
             Imagen:
-            <div className="imageButtons">
-              <button
-                type="button"
-                onClick={() => document.getElementById("imageUploadInput").click()}
-                className="saveButton"
-                disabled={isUploading}
-              >
-                {isUploading ? "Subiendo..." : "📁 Seleccionar imagen"}
-              </button>
+          </label>
 
-              <button type="button" onClick={handleOpenImagePopup} className="saveButton">
-                🌐 Añadir imagen por URL
-              </button>
-            </div>
+          <div className="imageButtons">
+            {/* Botón para subir imagen desde archivo */}
+            <button
+              type="button"
+              onClick={() => document.getElementById("imageUploadInput").click()}
+              className="butterfly-button"
+              disabled={isUploading}
+            >
+              {isUploading ? "Subiendo..." : "📁 Seleccionar imagen"}
+            </button>
 
+            {/* Botón para abrir popup y añadir imagen por URL */}
+            <button type="button" onClick={handleOpenImagePopup} className="butterfly-button">
+              🌐 Añadir imagen por URL
+            </button>
+
+            {/* Input oculto para cargar imagen local */}
             <input
               type="file"
               id="imageUploadInput"
@@ -263,8 +314,11 @@ const CreateButterfly = () => {
               onChange={handleImageUpload}
               style={{ display: "none" }}
             />
+
+            {/* Error de imagen si existe */}
             {errors.image && <p className="error">{errors.image}</p>}
 
+            {/* Vista previa de la imagen subida o URL introducida */}
             {formData.image && (
               <div style={{ marginTop: "1rem" }}>
                 <img
@@ -277,8 +331,9 @@ const CreateButterfly = () => {
                 </p>
               </div>
             )}
-          </label>
+          </div>
 
+          {/* Checkbox para indicar si la mariposa es migratoria */}
           <div className="checkboxCentered" style={{ marginTop: "1.5rem", color: "#fefdfd" }}>
             <label htmlFor="isMigratory" style={{ fontWeight: 600 }}>
               ¿Es migratoria?
@@ -292,34 +347,31 @@ const CreateButterfly = () => {
             />
           </div>
 
-          <button type="submit" className="saveButton" style={{ marginTop: "2rem" }}>
-            Guardar mariposa
+          {/* Botón para enviar el formulario */}
+          <button type="submit" className="butterfly-button submitButton">
+            Crear mariposa
           </button>
         </div>
       </form>
 
-      {/* Popup confirmación */}
+      {/* Popup de confirmación de mariposa guardada */}
       {showPopup && (
-        <div className="popupOverlay">
+        <div className="popupBackground">
           <div className="popupContent">
             <h3>🦋 ¡Mariposa creada con éxito!</h3>
-            <img
-              src={savedImage}
-              alt="Mariposa guardada"
-              style={{ width: "100%", borderRadius: "10px", margin: "1rem 0", boxShadow: "0 4px 12px rgba(0, 0, 0, 0.3)" }}
-            />
-            <button onClick={closePopup} className="closeButton">
-              Cerrar
+            <img src={savedImage} alt="Mariposa guardada" style={{ width: "150px" }} />
+            <button onClick={closePopup} className="butterfly-button">
+              Volver a la galería
             </button>
           </div>
         </div>
       )}
 
-      {/* Popup para añadir URL imagen */}
+      {/* Popup para añadir imagen por URL */}
       {showImagePopup && (
-        <div className="popupOverlay">
+        <div className="popupBackground">
           <div className="popupContent">
-            <h3>Añade la URL de la imagen</h3>
+            <h3>Introduce la URL de la imagen</h3>
             <input
               type="text"
               value={imageUrlInput}
@@ -327,15 +379,12 @@ const CreateButterfly = () => {
               placeholder="https://ejemplo.com/imagen.jpg"
               style={{ width: "100%", padding: "0.5rem", marginBottom: "1rem" }}
             />
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <button onClick={handleSetImageUrl} className="popupButton saveButton">
-                Añadir
-              </button>
-
-              <button onClick={handleCloseImagePopup} className="popupButton cancelButton">
-                Cancelar
-              </button>
-            </div>
+            <button onClick={handleSetImageUrl} className="butterfly-button">
+              Guardar
+            </button>
+            <button onClick={handleCloseImagePopup} className="butterfly-button cancelButton">
+              Cancelar
+            </button>
           </div>
         </div>
       )}
