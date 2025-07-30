@@ -41,12 +41,13 @@ const Navbar = () => {
 
           {/* Enlaces (desktop) */}
           <div className="space-x-6 hidden md:flex">
-            {["Inicio", "Agregar", "Ver Galería", "Contacto", "Creadoras"].map(
+            {["Inicio", "Agregar", "Ver Galería", "Cuaderno de Campo", "Contacto", "Creadoras"].map(
               (label, index) => {
                 const paths = [
                   `${base}`,
                   `${base}/newbutterfly`,
                   `${base}/galery`,
+                  `${base}/butterflydetail/1`, // Usando ruta existente con ID por defecto
                   `${base}/contact`,
                   `${base}/about`,
                 ];
@@ -71,12 +72,13 @@ const Navbar = () => {
         {/* Enlaces (mobile) */}
         {menuOpen && (
           <div className="md:hidden px-4 pb-4 space-y-2 flex flex-col bg-[#1b4857]">
-            {["Inicio", "Agregar", "Ver Galería", "Contacto", "Creadoras"].map(
+            {["Inicio", "Agregar", "Ver Galería", "Cuaderno de Campo", "Contacto", "Creadoras"].map(
               (label, index) => {
                 const paths = [
                   `${base}`,
                   `${base}/newbutterfly`,
                   `${base}/galery`,
+                  `${base}/butterflydetail/1`, // Usando ruta existente con ID por defecto
                   `${base}/contact`,
                   `${base}/about`,
                 ];
