@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+body, p{
+  font-family: Georgia, serif;
+}
+
 .butterfly-heading {
   background:
     radial-gradient(circle at 10% 30%, #000 2%, transparent 3%),
