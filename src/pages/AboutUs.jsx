@@ -35,7 +35,7 @@ const AboutUs = () => {
   return (
     <div className="min-h-screen bg-green-50 py-16 px-6">
       <h1 className="text-4xl font-georgia text-center text-[#e66035] mb-12">Nuestro equipo</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-6xl mx-auto">
         {team.map((member, index) => (
           <TeamCard key={index} {...member} />
         ))}
