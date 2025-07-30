@@ -37,10 +37,10 @@ return (
         alt="Logo Factoria F5"
         style={styles.logo}
       />
-      <p style={styles.text} className="mt-2 text-center">
+      <p style={styles.text} className="mt-2 text-center font-georgia">
         Proyecto creado por grupo P4 Femcoders Factoria F5
       </p>
-      <p style={styles.text} className="text-center">
+      <p style={styles.text} className="text-center font-georgia">
         © 2025 Nectara |{" "}
         <span 
           style={styles.link} 
