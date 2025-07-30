@@ -116,7 +116,7 @@ const CreateButterfly = () => {
 
   // Guardar la URL que el usuario puso en el input del popup
   const handleSetImageUrl = () => {
-    if (!imageUrlInput.trim()) {
+    if (!isValidUrl(imageUrlInput.trim())) {
       alert("Introduce una URL válida");
       return;
     }
@@ -169,13 +169,17 @@ const CreateButterfly = () => {
         }, 20000); // 10 segundos de espera para ver la imagen guardada
       }, POPUP_DURATION);
     }
-  }; 
+  };
 
   // Cerrar popup manualmente y resetear formulario
   const closePopup = () => {
-    setShowPopup(false);
+    setShowPopup(false); // Ocultamos el popup
+    resetForm();         // Limpiamos el formulario
+    navigate("/galery"); // Redirigimos a galería
+  };
 
-    // Reiniciamos formulario y errores
+  // Función para reiniciar el formulario a su estado inicial
+  const resetForm = () => {
     setFormData({
       commonName: "",
       scientificName: "",
@@ -186,7 +190,17 @@ const CreateButterfly = () => {
       isMigratory: false,
     });
     setErrors({});
-    navigate("/galery"); // Redirigimos a galería
+    setIsSaved(false);
+  };
+
+  // Función para validar si una URL es válida
+  const isValidUrl = (url) => {
+    try {
+      new URL(url); // Si falla lanza error
+      return true;
+    } catch {
+      return false;
+    }
   };
 
   // Seleccionamos la imagen que se debe mostrar según el estado del formulario
