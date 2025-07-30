@@ -293,7 +293,7 @@ const CreateButterfly = () => {
 
         {/* Tercera columna: opciones de imagen, checkbox y botón */}
         <div className="formOptions">
-          <label style={{ fontWeight: 600, color: "#fefdfd" }}>
+          <label>
             Imagen:
           </label>
 
@@ -341,8 +341,8 @@ const CreateButterfly = () => {
           </div>
 
           {/* Checkbox para indicar si la mariposa es migratoria */}
-          <div className="checkboxCentered" style={{ marginTop: "1.5rem", color: "#fefdfd" }}>
-            <label htmlFor="isMigratory" style={{ fontWeight: 600 }}>
+          <div className="checkboxCentered" style={{ marginTop: "1.5rem"}}>
+            <label htmlFor="isMigratory">
               ¿Es migratoria?
             </label>
             <input
@@ -386,10 +386,13 @@ const CreateButterfly = () => {
               placeholder="https://ejemplo.com/imagen.jpg"
               style={{ width: "100%", padding: "0.5rem", marginBottom: "1rem" }}
             />
-            <button onClick={handleSetImageUrl} className="butterfly-button">
+            <button onClick={handleSetImageUrl} className="butterfly-button" style={{
+          backgroundColor: "rgba(155, 224, 165, 0.9)", color: "black"
+        }}>
               Guardar
             </button>
-            <button onClick={handleCloseImagePopup} className="butterfly-button cancelButton">
+            <button onClick={handleCloseImagePopup} className="butterfly-button cancelButton" style={{
+          backgroundColor: "#e66035", color: "black"}}>
               Cancelar
             </button>
           </div>
