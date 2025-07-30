@@ -211,6 +211,13 @@ const CreateButterfly = () => {
 
   return (
     <>
+    <div
+      className="min-h-screen bg-fixed bg-cover bg-center"
+      style={{
+        backgroundImage: "url('/image4.jpg')",
+        backgroundColor: "#fdf9f6",
+      }}
+    >
       <form onSubmit={handleSubmit} className="container">
         {/* Primera columna con título e imagen de progreso */}
         <div className="imageContainer">
@@ -388,6 +395,7 @@ const CreateButterfly = () => {
           </div>
         </div>
       )}
+      </div>
     </>
   );
 };

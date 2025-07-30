@@ -282,7 +282,13 @@ const ButterflyDetail = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 p-2 sm:p-4 pt-20 sm:pt-24">
+   <div
+    className="min-h-screen bg-fixed bg-cover bg-center p-2 sm:p-4 pt-20 sm:pt-24"
+    style={{
+      backgroundImage: "url('/image4.jpg')",
+      backgroundColor: "#fdf9f6",
+    }}
+  >
       
       {/* Breadcrumb Navigation */}
       <div className="max-w-7xl mx-auto mb-4">
