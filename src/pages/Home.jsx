@@ -128,7 +128,7 @@ const Home = () => {
             WebkitTextFillColor: "transparent",
             backgroundClip: "text",
             fontSize: "clamp(4rem, 8vw, 6rem)",
-            fontWeight: "bold",
+            fontWeight: "normal",
             textShadow: "3px 3px 25px rgba(0,0,0,0.6)",
             fontFamily: `"Georgia", serif`,
             letterSpacing: "0.15em",

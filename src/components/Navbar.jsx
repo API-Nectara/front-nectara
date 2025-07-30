@@ -9,9 +9,10 @@ const Navbar = () => {
   return (
     <>
       <nav
-        className="bg-[#1b4857] text-[#cdbfbc] shadow-md"
-        style={{ fontFamily: "Georgia, serif", fontWeight: "normal" }}
-      >
+  className="fixed top-0 left-0 w-full z-50 bg-[#1b4857] text-[#cdbfbc] shadow-md"
+  style={{ fontFamily: "Georgia, serif", fontWeight: "normal" }}
+>
+
         <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
           {/* Logo */}
           <Link
@@ -19,7 +20,7 @@ const Navbar = () => {
             className="text-2xl tracking-wide hover:text-[#eb391d] transition"
             style={{
               fontFamily: "Georgia, serif",
-              fontWeight: "bold", 
+              fontWeight: "normal", 
             }}
           >
             NECTARA

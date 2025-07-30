@@ -219,6 +219,16 @@
       "habitat": "Praderas abiertas y bordes de bosque",
       "image": "https://upload.wikimedia.org/wikipedia/commons/d/d0/Mirajus_africana.jpg",
       "is_migratory": true
+    },
+    {
+      "id": "bfa5",
+      "commonName": ",,fg",
+      "scientificName": "fgb",
+      "location": "edeef",
+      "description": "dddd",
+      "habitat": "ddddd",
+      "image": "https://res.cloudinary.com/dauzwfc8z/image/upload/v1753865848/mariposas-africa/k9cvmn8hmjerb3an0swo.png",
+      "isMigratory": false
     }
   ]
 }

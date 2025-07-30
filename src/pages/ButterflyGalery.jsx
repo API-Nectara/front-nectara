@@ -39,7 +39,7 @@ const ButterflyGalery = () => {
             className="text-5xl md:text-6xl font-bold mb-4"
             style={{
               fontFamily: "Georgia, serif",
-              fontWeight: "bold",
+              fontWeight: "normal",
               background:
                 "linear-gradient(to right, #c61e0f, #eb391d, #e66035)",
               WebkitBackgroundClip: "text",
@@ -137,7 +137,7 @@ const ButterflyGalery = () => {
                       style={{
                         color: "#0a1818",
                         fontFamily: "Georgia, serif",
-                        fontWeight: "italic",
+                        fontWeight: "normal",
                       }}
                       onMouseEnter={(e) => (e.target.style.color = "#e66035")}
                       onMouseLeave={(e) => (e.target.style.color = "#0a1818")}
