@@ -87,7 +87,7 @@
       "location": "África oriental y meridional",
       "description": "Muestra variaciones de color según la estación. Azul metálico en verano.",
       "habitat": "Campos y zonas rocosas",
-      "image": "https://upload.wikimedia.org/wikipedia/commons/f/f4/Precis_octavia.jpg",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Gaudy_Commodore_winter_form.JPG/500px-Gaudy_Commodore_winter_form.JPG",
       "migratory": true
     },
     {
@@ -219,46 +219,6 @@
       "habitat": "Praderas abiertas y bordes de bosque",
       "image": "https://upload.wikimedia.org/wikipedia/commons/d/d0/Mirajus_africana.jpg",
       "is_migratory": true
-    },
-    {
-      "id": "da48",
-      "commonName": "Mariposa Bruma Dorada",
-      "scientificName": "Aurelia fumosa",
-      "location": "Camerún y Guinea Ecuatorial",
-      "description": "Alas doradas con bordes ahumados. Se mueve entre claros de bosque como un destello.",
-      "habitat": "Bosques lluviosos con claros soleados",
-      "image": "https://upload.wikimedia.org/wikipedia/commons/d/d7/Aurelia_fumosa.jpg",
-      "isMigratory": false
-    },
-    {
-      "id": "272f",
-      "commonName": "dffff",
-      "scientificName": "fff",
-      "location": "fff",
-      "description": "ffff",
-      "habitat": "ffff",
-      "image": "https://res.cloudinary.com/dauzwfc8z/image/upload/v1753708420/mariposas-africa/k3uzq8sh17seuhwukg9j.png",
-      "isMigratory": false
-    },
-    {
-      "id": "d7dd",
-      "commonName": "ggg",
-      "scientificName": "fgb",
-      "location": "fgb",
-      "description": "ggg",
-      "habitat": "grfrt",
-      "image": "https://res.cloudinary.com/dauzwfc8z/image/upload/v1753708599/mariposas-africa/cywfocmxl9v30mw1kyad.jpg",
-      "isMigratory": false
-    },
-    {
-      "id": "a038",
-      "commonName": "hhh",
-      "scientificName": "hhhh",
-      "location": "hhhhhh",
-      "description": "hhhhhhh",
-      "habitat": "hhhhhh",
-      "image": "https://res.cloudinary.com/dauzwfc8z/image/upload/v1753708716/mariposas-africa/y5a3tikrrhd4opygx5b4.jpg",
-      "isMigratory": false
     }
   ]
 }
