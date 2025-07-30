@@ -86,7 +86,6 @@ const Garden = () => {
   
   return (
     <group>
-      {/* OPCIÓN 1: SOLO CÉSPED NATURAL */}
       {/* Base principal de césped */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -1.95, 0]}>
         <circleGeometry args={[isMobile ? 3.5 : 6, 32]} />
@@ -258,7 +257,7 @@ const Home = () => {
           width={isMobile ? 6 : 12}
           depth={2}
           segments={25}
-          position={isMobile ? [-8, 8, -10] : [-15, 10, -15]}
+          position={isMobile ? [-8, 8, -10] : [-15, 8, -15]}
         />
         <Cloud
           opacity={0.2}
@@ -266,7 +265,7 @@ const Home = () => {
           width={isMobile ? 5 : 10}
           depth={1.5}
           segments={20}
-          position={isMobile ? [10, 6, -6] : [18, 8, -8]}
+          position={isMobile ? [10, 6, -6] : [18, 5, -8]}
         />
         <Cloud
           opacity={0.15}
@@ -274,7 +273,7 @@ const Home = () => {
           width={isMobile ? 4 : 8}
           depth={1}
           segments={15}
-          position={isMobile ? [3, 10, -12] : [5, 12, -20]}
+          position={isMobile ? [3, 10, -12] : [5, 6, -20]}
         />
 
         {/* Jardín */}

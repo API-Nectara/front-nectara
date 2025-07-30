@@ -231,8 +231,9 @@
       "location": "Sabana del África oriental",
       "description": "Alas translúcidas con reflejos dorados que cambian según la luz. Se camufla perfectamente entre las hojas secas.",
       "habitat": "Praderas abiertas y bordes de bosque",
-      "image": "https://upload.wikimedia.org/wikipedia/commons/d/d0/Mirajus_africana.jpg",
-      "is_migratory": true
+      "image": "https://phantom-elmundo.uecdn.es/8fbc79fa66c0a7d89c2ed9fa32eb145a/resize/828/f/webp/assets/multimedia/imagenes/2021/11/26/16379471524047.jpg",
+      "is_migratory": true,
+      "migratory": true
     },
     {
       "id": "e183",
