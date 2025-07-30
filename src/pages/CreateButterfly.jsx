@@ -386,10 +386,13 @@ const CreateButterfly = () => {
               placeholder="https://ejemplo.com/imagen.jpg"
               style={{ width: "100%", padding: "0.5rem", marginBottom: "1rem" }}
             />
-            <button onClick={handleSetImageUrl} className="butterfly-button">
+            <button onClick={handleSetImageUrl} className="butterfly-button" style={{
+          backgroundColor: "rgba(155, 224, 165, 0.9)", color: "black"
+        }}>
               Guardar
             </button>
-            <button onClick={handleCloseImagePopup} className="butterfly-button cancelButton">
+            <button onClick={handleCloseImagePopup} className="butterfly-button cancelButton" style={{
+          backgroundColor: "#e66035", color: "black"}}>
               Cancelar
             </button>
           </div>
