@@ -89,7 +89,8 @@
       "description": "Muestra variaciones de color según la estación. Azul metálico en verano.",
       "habitat": "Campos y zonas rocosas",
       "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Gaudy_Commodore_winter_form.JPG/500px-Gaudy_Commodore_winter_form.JPG",
-      "migratory": true
+      "migratory": true,
+      "is_migratory": true
     },
     {
       "id": "10",
@@ -104,7 +105,7 @@
     },
     {
       "id": "11",
-      "common_name": "Mariposa de Cristal Africana",
+      "common_name": "Mariposa de Cristal Africanaedicioooobnnn",
       "scientific_name": "Cymothoe sangaris",
       "location": "Congo, Gabón, Camerún",
       "description": "Roja intensa y translúcida. Habita selvas densas del África central.",
@@ -232,6 +233,18 @@
       "habitat": "Praderas abiertas y bordes de bosque",
       "image": "https://upload.wikimedia.org/wikipedia/commons/d/d0/Mirajus_africana.jpg",
       "is_migratory": true
+    },
+    {
+      "id": "e183",
+      "commonName": "fghsgf",
+      "scientificName": "fguhjxghj",
+      "location": "gfuiety",
+      "description": "wrtg",
+      "habitat": "tyuetyu",
+      "image": "https://res.cloudinary.com/dauzwfc8z/image/upload/v1753866294/mariposas-africa/kssqhgbxrdrzevj7uzis.jpg",
+      "isMigratory": true,
+      "migratory": false,
+      "is_migratory": false
     }
   ]
 }

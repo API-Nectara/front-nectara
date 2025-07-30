@@ -26,7 +26,7 @@ const Navbar = () => {
               fontWeight: "normal",
             }}
           >
-            NECTARA
+            Nectara
           </Link>
 
           {/* Hamburguesa */}
