@@ -252,7 +252,7 @@ const ButterflyDetail = () => {
     return (
       <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 flex items-center justify-center p-4 pt-20 sm:pt-24">
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-black mb-4" style={{ fontFamily: 'Georgia, serif' }}>
+          <h2 className="text-2xl text-black mb-4" style={{ fontFamily: 'Georgia, serif' }}>
             Error
           </h2>
           <p className="text-black mb-4" style={{ fontFamily: 'Georgia, serif' }}>{error || 'Mariposa no encontrada'}</p>
@@ -290,7 +290,35 @@ const ButterflyDetail = () => {
     }}
   >
       
-      {/* Breadcrumb Navigation */}
+     
+      {/* Header con gradiente y efectos */}
+      <div className="relative py-12 px-6 mb-4 sm:mb-8">
+        <div
+          className="absolute inset-0 bg-gradient-to-r from-red-900/10 to-teal-700/10"
+          style={{
+            background: "linear-gradient(to right, #c61e0f15, #216b8115)",
+          }}
+        ></div>
+        <div className="relative text-center">
+          <h1
+            className="text-5xl md:text-6xl mb-4"
+            style={{
+              fontFamily: "Georgia, serif",
+              fontWeight: "normal",
+              background:
+                "linear-gradient(to right, #c61e0f, #eb391d, #e66035)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+            }}
+          >
+            Cuaderno de Campo
+          </h1>
+          <div className="mx-auto w-32 h-0.5 bg-gradient-to-r from-red-900/30 to-teal-700/30"></div>
+        </div>
+      </div>
+
+       {/* Breadcrumb Navigation */}
       <div className="max-w-7xl mx-auto mb-4">
         <nav className="flex items-center text-sm" style={{ fontFamily: 'Georgia, serif' }}>
           <button
@@ -315,32 +343,6 @@ const ButterflyDetail = () => {
         </nav>
       </div>
 
-      {/* Header con gradiente y efectos */}
-      <div className="relative py-12 px-6 mb-4 sm:mb-8">
-        <div
-          className="absolute inset-0 bg-gradient-to-r from-red-900/10 to-teal-700/10"
-          style={{
-            background: "linear-gradient(to right, #c61e0f15, #216b8115)",
-          }}
-        ></div>
-        <div className="relative text-center">
-          <h1
-            className="text-4xl md:text-5xl font-bold mb-4"
-            style={{
-              fontFamily: "Georgia, serif",
-              fontWeight: "bold",
-              background:
-                "linear-gradient(to right, #c61e0f, #eb391d, #e66035)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-            }}
-          >
-            Cuaderno de Campo
-          </h1>
-          <div className="mx-auto w-32 h-0.5 bg-gradient-to-r from-red-900/30 to-teal-700/30"></div>
-        </div>
-      </div>
 
       {/* Libro */}
       <div style={{ perspective: '2500px' }} className="mx-auto mb-6">
@@ -375,12 +377,12 @@ const ButterflyDetail = () => {
                       }}
                     />
                     
-                    <h2 className="text-xl sm:text-3xl font-bold text-black mb-3" style={{ fontFamily: 'Georgia, serif' }}>
+                    <h2 className="text-xl sm:text-3xl text-black mb-3" style={{ fontFamily: 'Georgia, serif' }}>
                       {butterfly.common_name}
                     </h2>
                     
                     <div className="border-t-2 border-gray-200 pt-4">
-                      <p className="text-xs sm:text-sm text-black font-semibold mb-2 uppercase tracking-wide" style={{ fontFamily: 'Georgia, serif' }}>
+                      <p className="text-xs sm:text-sm text-black mb-2 uppercase tracking-wide" style={{ fontFamily: 'Georgia, serif' }}>
                         Notas de campo:
                       </p>
                       <p className="text-black italic text-sm sm:text-lg leading-relaxed" style={{ fontFamily: 'Georgia, serif' }}>
@@ -402,7 +404,7 @@ const ButterflyDetail = () => {
                   
                   {/* Header */}
                   <header className="mb-6 sm:mb-8">
-                    <h1 className="text-2xl sm:text-4xl font-bold text-black mb-3" style={{ fontFamily: 'Georgia, serif' }}>
+                    <h1 className="text-2xl sm:text-4xl text-black mb-3" style={{ fontFamily: 'Georgia, serif' }}>
                       Datos Científicos
                     </h1>
                     <div className="h-1 w-24 bg-black rounded mb-4"></div>
@@ -415,10 +417,10 @@ const ButterflyDetail = () => {
                       // Vista de lectura
                       <>
                         <div className="bg-gray-50 p-4 sm:p-6 rounded-lg border-2 border-gray-200 shadow-sm">
-                          <h3 className="font-bold text-black text-xs sm:text-sm uppercase tracking-wide mb-3" style={{ fontFamily: 'Georgia, serif' }}>
+                          <h3 className=" text-black text-xs sm:text-sm uppercase tracking-wide mb-3" style={{ fontFamily: 'Georgia, serif' }}>
                             Clasificación Taxonómica
                           </h3>
-                          <p className="text-xl sm:text-2xl font-bold text-black mb-2" style={{ fontFamily: 'Georgia, serif' }}>
+                          <p className="text-xl sm:text-2xl text-black mb-2" style={{ fontFamily: 'Georgia, serif' }}>
                             {butterfly.common_name}
                           </p>
                           <p className="text-base sm:text-lg text-black italic font-normal" style={{ fontFamily: 'Georgia, serif' }}>
@@ -428,7 +430,7 @@ const ButterflyDetail = () => {
 
                         <div className="grid grid-cols-1 gap-4">
                           <div className="bg-gray-50 p-3 sm:p-4 rounded-lg border border-gray-200">
-                            <h4 className="font-bold text-black text-xs sm:text-sm uppercase tracking-wide mb-2" style={{ fontFamily: 'Georgia, serif' }}>
+                            <h4 className=" text-black text-xs sm:text-sm uppercase tracking-wide mb-2" style={{ fontFamily: 'Georgia, serif' }}>
                               Ubicación
                             </h4>
                             <p className="text-black text-base sm:text-lg" style={{ fontFamily: 'Georgia, serif' }}>
@@ -437,7 +439,7 @@ const ButterflyDetail = () => {
                           </div>
 
                           <div className="bg-gray-50 p-3 sm:p-4 rounded-lg border border-gray-200">
-                            <h4 className="font-bold text-black text-xs sm:text-sm uppercase tracking-wide mb-2" style={{ fontFamily: 'Georgia, serif' }}>
+                            <h4 className=" text-black text-xs sm:text-sm uppercase tracking-wide mb-2" style={{ fontFamily: 'Georgia, serif' }}>
                               Hábitat
                             </h4>
                             <p className="text-black text-base sm:text-lg" style={{ fontFamily: 'Georgia, serif' }}>
@@ -446,7 +448,7 @@ const ButterflyDetail = () => {
                           </div>
 
                           <div className="bg-gray-50 p-3 sm:p-4 rounded-lg border border-gray-200">
-                            <h4 className="font-bold text-black text-xs sm:text-sm uppercase tracking-wide mb-2" style={{ fontFamily: 'Georgia, serif' }}>
+                            <h4 className="text-black text-xs sm:text-sm uppercase tracking-wide mb-2" style={{ fontFamily: 'Georgia, serif' }}>
                               Comportamiento Migratorio
                             </h4>
                             <div className="flex items-center gap-2">
@@ -461,7 +463,7 @@ const ButterflyDetail = () => {
                         </div>
 
                         <div className="bg-gray-50 p-4 sm:p-6 rounded-lg border border-gray-200">
-                          <h4 className="font-bold text-black text-xs sm:text-sm uppercase tracking-wide mb-3" style={{ fontFamily: 'Georgia, serif' }}>
+                          <h4 className=" text-black text-xs sm:text-sm uppercase tracking-wide mb-3" style={{ fontFamily: 'Georgia, serif' }}>
                             Descripción Científica
                           </h4>
                           <p className="text-black leading-relaxed text-base sm:text-lg" style={{ fontFamily: 'Georgia, serif' }}>
@@ -723,8 +725,7 @@ const ButterflyDetail = () => {
                             whiteSpace: "nowrap",
                             overflow: "hidden",
                             textOverflow: "ellipsis",
-                            cursor: "pointer",
-                            borderRadius: "0"
+                            cursor: "pointer"
                           }}
                           onMouseEnter={(e) => {
                             e.target.style.backgroundColor = "#e66035";
