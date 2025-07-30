@@ -1,594 +1,691 @@
-import React, { useEffect, useState, useRef } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { getOneButterfly, deleteButterfly } from "../services/ButterflyServices";
-import HTMLFlipBook from "react-pageflip";
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { ChevronLeft, ChevronRight, Edit, Trash2, Upload, X } from 'lucide-react';
+import { getAllButterflies, getOneButterfly, updateButterfly, deleteButterfly } from '../services/ButterflyServices';
 
 const ButterflyDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  
+  // Estados
   const [butterfly, setButterfly] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
-  const [deleting, setDeleting] = useState(false);
-  const flipBookRef = useRef();
+  const [error, setError] = useState(null);
+  const [isEditing, setIsEditing] = useState(false);
+  const [isFlipping, setIsFlipping] = useState(false);
+  const [allButterflies, setAllButterflies] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  // Estado del formulario de edición
+  const [editForm, setEditForm] = useState({
+    common_name: '',
+    scientific_name: '',
+    location: '',
+    description: '',
+    habitat: '',
+    image: '',
+    migratory: false
+  });
+
+  // Estado para Cloudinary
+  const [uploading, setUploading] = useState(false);
+  const [dragActive, setDragActive] = useState(false);
+
+  // Cargar datos iniciales
+  useEffect(() => {
+    fetchAllButterflies();
+  }, []);
 
   useEffect(() => {
-    const fetchButterfly = async () => {
-      try {
-        const data = await getOneButterfly(id);
-        setButterfly(data);
-      } catch (error) {
-        console.error("Error al obtener los detalles de la mariposa:", error);
-      } finally {
+    if (allButterflies.length > 0) {
+      const index = allButterflies.findIndex(b => b.id === id);
+      if (index !== -1) {
+        setCurrentIndex(index);
+        setButterfly(allButterflies[index]);
+        setEditForm(allButterflies[index]);
+        setLoading(false);
+      } else {
+        setError('Mariposa no encontrada');
         setLoading(false);
       }
-    };
+    }
+  }, [id, allButterflies]);
 
-    fetchButterfly();
-  }, [id]);
-
-  const handleBackToGallery = () => {
-    navigate('/galery');
-  };
-
-  const handleEdit = () => {
-    navigate(`/editbutterfly/${id}`);
-  };
-
-  const handleDelete = async () => {
-    setDeleting(true);
+  // Función para obtener todas las mariposas usando tu service
+  const fetchAllButterflies = async () => {
     try {
-      await deleteButterfly(id);
-      setTimeout(() => {
-        navigate('/galery');
-      }, 1500);
+      console.log('🔄 Cargando todas las mariposas...');
+      const data = await getAllButterflies();
+      console.log('✅ Mariposas cargadas:', data.length);
+      setAllButterflies(data);
+    } catch (err) {
+      console.error('❌ Error al cargar mariposas:', err);
+      setError('Error al cargar las mariposas: ' + err.message);
+      setLoading(false);
+    }
+  };
+
+  // Navegación entre páginas
+  const handlePageFlip = (direction) => {
+    if (isFlipping) return;
+    
+    setIsFlipping(true);
+    
+    setTimeout(() => {
+      let newIndex;
+      if (direction === 'next' && currentIndex < allButterflies.length - 1) {
+        newIndex = currentIndex + 1;
+      } else if (direction === 'prev' && currentIndex > 0) {
+        newIndex = currentIndex - 1;
+      } else {
+        setIsFlipping(false);
+        return;
+      }
+      
+      setCurrentIndex(newIndex);
+      const newButterfly = allButterflies[newIndex];
+      setButterfly(newButterfly);
+      setEditForm(newButterfly);
+      navigate(`/butterfly/${newButterfly.id}`, { replace: true });
+      
+      setTimeout(() => setIsFlipping(false), 100);
+    }, 300);
+  };
+
+  // Manejar cambios en el formulario
+  const handleInputChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setEditForm(prev => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value
+    }));
+  };
+
+  // Subir imagen a Cloudinary
+  const uploadToCloudinary = async (file) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', 'butterfly_uploads'); // ⚠️ CAMBIAR por tu upload_preset
+    formData.append('cloud_name', 'nectara-project'); // ⚠️ CAMBIAR por tu cloud_name
+
+    try {
+      setUploading(true);
+      console.log('☁️ Subiendo imagen a Cloudinary...');
+      
+      const response = await fetch(
+        'https://api.cloudinary.com/v1_1/nectara-project/image/upload', // ⚠️ CAMBIAR por tu cloud_name
+        {
+          method: 'POST',
+          body: formData,
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Error HTTP: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log('✅ Imagen subida exitosamente:', data.secure_url);
+      return data.secure_url;
     } catch (error) {
-      console.error('Error al eliminar la mariposa:', error);
-      setDeleting(false);
-      setShowDeleteConfirm(false);
+      console.error('❌ Error al subir imagen:', error);
+      alert('❌ Error al subir imagen: ' + error.message);
+      return null;
+    } finally {
+      setUploading(false);
     }
   };
 
-  const confirmDelete = () => {
-    setShowDeleteConfirm(true);
-  };
+  // Manejar subida de archivos con validación
+  const handleFileUpload = async (file) => {
+    // Validar tipo de archivo
+    if (!file.type.startsWith('image/')) {
+      alert('⚠️ Por favor selecciona una imagen válida (JPG, PNG, GIF, etc.)');
+      return;
+    }
 
-  const cancelDelete = () => {
-    setShowDeleteConfirm(false);
-  };
+    // Validar tamaño (máximo 5MB)
+    const maxSize = 5 * 1024 * 1024; // 5MB en bytes
+    if (file.size > maxSize) {
+      alert('⚠️ La imagen es demasiado grande. Máximo 5MB permitidos.');
+      return;
+    }
 
-  const nextPage = () => {
-    if (flipBookRef.current) {
-      flipBookRef.current.pageFlip().flipNext();
+    console.log('📁 Procesando archivo:', {
+      name: file.name,
+      size: (file.size / 1024 / 1024).toFixed(2) + ' MB',
+      type: file.type
+    });
+
+    const imageUrl = await uploadToCloudinary(file);
+    if (imageUrl) {
+      console.log('✅ URL de imagen obtenida:', imageUrl);
+      setEditForm(prev => ({ ...prev, image: imageUrl }));
     }
   };
 
-  const prevPage = () => {
-    if (flipBookRef.current) {
-      flipBookRef.current.pageFlip().flipPrev();
+  // Drag and drop handlers
+  const handleDrag = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.type === 'dragenter' || e.type === 'dragover') {
+      setDragActive(true);
+    } else if (e.type === 'dragleave') {
+      setDragActive(false);
+    }
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragActive(false);
+
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      handleFileUpload(e.dataTransfer.files[0]);
+    }
+  };
+
+  // Actualizar mariposa usando tu service
+  const handleUpdate = async () => {
+    try {
+      console.log('✏️ Iniciando actualización de mariposa...');
+      
+      // Normalizar datos para compatibilidad con ambos formatos
+      const normalizedData = {
+        ...editForm,
+        // Asegurar compatibilidad con ambos formatos de migración
+        migratory: editForm.migratory || editForm.is_migratory || false,
+        is_migratory: editForm.migratory || editForm.is_migratory || false
+      };
+
+      console.log('📝 Datos a actualizar:', normalizedData);
+      
+      const updatedButterfly = await updateButterfly(butterfly.id, normalizedData);
+      console.log('✅ Mariposa actualizada exitosamente:', updatedButterfly);
+      
+      setButterfly(updatedButterfly);
+      
+      // Actualizar en la lista local
+      const updatedList = allButterflies.map(b => 
+        b.id === butterfly.id ? updatedButterfly : b
+      );
+      setAllButterflies(updatedList);
+      
+      setIsEditing(false);
+      alert('✅ Mariposa actualizada exitosamente');
+    } catch (error) {
+      console.error('❌ Error al actualizar:', error);
+      alert('❌ Error al actualizar: ' + error.message);
+    }
+  };
+
+  // Eliminar mariposa usando tu service
+  const handleDelete = async () => {
+    if (!window.confirm('🗑️ ¿Estás seguro de que quieres eliminar esta mariposa?\n\nEsta acción no se puede deshacer.')) {
+      return;
+    }
+
+    try {
+      console.log('🗑️ Iniciando eliminación de mariposa ID:', butterfly.id);
+      
+      await deleteButterfly(butterfly.id);
+      console.log('✅ Mariposa eliminada exitosamente');
+      
+      alert('✅ Mariposa eliminada exitosamente');
+      navigate('/gallery');
+    } catch (error) {
+      console.error('❌ Error al eliminar:', error);
+      alert('❌ Error al eliminar: ' + error.message);
     }
   };
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-stone-100 via-neutral-50 to-stone-200 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-4 border-stone-500 border-t-transparent mb-4"></div>
-          <div className="text-2xl text-stone-700 font-serif">Preparando cuaderno de campo...</div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-amber-600 mx-auto mb-4"></div>
+          <p className="text-amber-800 font-medium" style={{ fontFamily: 'Georgia, serif' }}>
+            Cargando espécimen...
+          </p>
         </div>
       </div>
     );
   }
 
-  if (!butterfly) {
+  if (error || !butterfly) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-stone-100 via-neutral-50 to-stone-200 flex items-center justify-center p-4">
-        <div className="bg-white rounded-lg shadow-xl border-2 border-stone-300 p-8 text-center max-w-md transform rotate-1">
-          <div className="text-6xl mb-4">🔍</div>
-          <h2 className="text-2xl font-serif text-stone-800 mb-4">Registro no encontrado</h2>
-          <p className="text-stone-600 mb-4">No se encontraron datos de la mariposa solicitada.</p>
-          <button 
-            onClick={handleBackToGallery}
-            className="bg-stone-600 text-white px-6 py-2 rounded-lg hover:bg-stone-700 transition-colors"
+      <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 flex items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-red-600 mb-4" style={{ fontFamily: 'Georgia, serif' }}>
+            Error
+          </h2>
+          <p className="text-gray-600 mb-4">{error || 'Mariposa no encontrada'}</p>
+          <button
+            onClick={() => navigate('/gallery')}
+            className="bg-amber-600 text-white px-6 py-2 rounded-lg hover:bg-amber-700 transition-colors"
+            style={{ fontFamily: 'Georgia, serif' }}
           >
-            Volver a la galería
+            Volver a la Galería
           </button>
         </div>
       </div>
     );
   }
 
-  const butterflyData = {
-    commonName: butterfly.common_name || butterfly.commonName || "Mariposa Africana",
-    scientificName: butterfly.scientific_name || butterfly.scientificName || "Lepidoptera sp.",
-    location: butterfly.location || "África",
-    habitat: butterfly.habitat || "Bosque tropical",
-    description: butterfly.description || "Una hermosa mariposa africana con características únicas.",
-    migratory: butterfly.migratory ?? butterfly.is_migratory ?? butterfly.isMigratory ?? false,
-    image: butterfly.image || "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='192'%3E%3Crect width='256' height='192' fill='%23f5f5f4'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%23525252' font-size='14'%3EImagen no disponible%3C/text%3E%3C/svg%3E",
-    dateCaptured: butterfly.date_captured || butterfly.dateCaptured || new Date().toLocaleDateString('es-ES'),
-    notes: butterfly.notes || butterfly.description || "Observaciones de campo"
-  };
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-stone-100 via-neutral-50 to-stone-200 p-4">
-      <style jsx>{`
-        .flip-book {
-          margin: 0 auto;
-          background: linear-gradient(135deg, #8B7355, #A0956B, #8B7355);
-          border-radius: 15px;
-          box-shadow: 
-            0 20px 40px rgba(0,0,0,0.3),
-            inset 0 0 30px rgba(139, 115, 85, 0.2);
-          padding: 8px;
-        }
-
-        .page {
-          background: linear-gradient(135deg, #FFFFFE, #FEFCF8, #FFFFFE);
-          border-radius: 10px;
-          box-shadow: 
-            inset 0 0 20px rgba(120, 113, 108, 0.08),
-            0 2px 10px rgba(0,0,0,0.05);
-          overflow: hidden;
-          position: relative;
-          border: 1px solid rgba(120, 113, 108, 0.1);
-        }
-
-        .page::before {
-          content: '';
-          position: absolute;
-          left: 0;
-          top: 0;
-          bottom: 0;
-          width: 25px;
-          background: repeating-linear-gradient(
-            to bottom,
-            transparent,
-            transparent 28px,
-            rgba(168, 162, 158, 0.15) 29px,
-            rgba(168, 162, 158, 0.15) 30px,
-            transparent 31px
-          );
-          z-index: 1;
-        }
-
-        .page-content {
-          position: relative;
-          z-index: 2;
-          height: 100%;
-          padding: 40px;
-          color: #44403c;
-        }
-
-        .deleting-overlay {
-          position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: rgba(0, 0, 0, 0.8);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          z-index: 1000;
-        }
-
-        .book-container {
-          filter: drop-shadow(0 15px 35px rgba(0,0,0,0.25));
-        }
-
-        /* Vintage paper texture */
-        .vintage-paper {
-          background-image: 
-            radial-gradient(circle at 20% 50%, rgba(168, 162, 158, 0.03) 0%, transparent 50%),
-            radial-gradient(circle at 80% 20%, rgba(168, 162, 158, 0.03) 0%, transparent 50%),
-            radial-gradient(circle at 40% 80%, rgba(168, 162, 158, 0.03) 0%, transparent 50%);
-        }
-
-        /* Decorative elements */
-        .ornament {
-          position: relative;
-        }
+    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 p-4">
+      
+      {/* Controles de navegación superiores */}
+      <div className="max-w-7xl mx-auto mb-8 flex justify-between items-center">
+        <button
+          onClick={() => navigate('/gallery')}
+          className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-lg shadow-md hover:bg-white transition-colors border border-amber-200"
+          style={{ fontFamily: 'Georgia, serif' }}
+        >
+          <ChevronLeft size={20} />
+          Volver a Galería
+        </button>
         
-        .ornament::before,
-        .ornament::after {
-          content: '❦';
-          position: absolute;
-          color: rgba(168, 162, 158, 0.3);
-          font-size: 16px;
-        }
-        
-        .ornament::before {
-          left: -30px;
-          top: 50%;
-          transform: translateY(-50%);
-        }
-        
-        .ornament::after {
-          right: -30px;
-          top: 50%;
-          transform: translateY(-50%);
-        }
-      `}</style>
-
-      {/* Overlay de eliminación */}
-      {deleting && (
-        <div className="deleting-overlay">
-          <div className="bg-white rounded-lg shadow-xl border-2 border-red-300 p-8 text-center max-w-md transform rotate-2">
-            <div className="text-6xl mb-4">🗑️</div>
-            <h2 className="text-2xl font-serif text-red-800 mb-4">Eliminando registro...</h2>
-            <div className="w-full bg-red-100 rounded-full h-2">
-              <div className="bg-red-500 h-2 rounded-full animate-pulse w-full"></div>
-            </div>
-            <p className="text-sm text-red-600 mt-2">Redirigiendo a la galería...</p>
-          </div>
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-amber-900 mb-1" style={{ fontFamily: 'Georgia, serif' }}>
+            Libro de Especímenes
+          </h1>
+          <p className="text-amber-700" style={{ fontFamily: 'Georgia, serif' }}>
+            Página {currentIndex + 1} de {allButterflies.length}
+          </p>
         </div>
-      )}
 
-      {/* Modal de confirmación de eliminación */}
-      {showDeleteConfirm && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg shadow-xl border-2 border-stone-300 p-8 max-w-md mx-4 transform -rotate-1">
-            <div className="text-center">
-              <div className="text-6xl mb-4">⚠️</div>
-              <h3 className="text-2xl font-serif text-stone-800 mb-4">
-                ¿Eliminar registro?
-              </h3>
-              <p className="text-stone-600 mb-6 leading-relaxed">
-                Esta acción <strong>no se puede deshacer</strong>. ¿Estás seguro de que quieres eliminar 
-                permanentemente el registro de <em>"{butterflyData.commonName}"</em>?
-              </p>
-              <div className="flex space-x-4 justify-center">
-                <button
-                  onClick={cancelDelete}
-                  className="px-6 py-3 text-stone-600 border-2 border-stone-300 rounded-lg hover:bg-stone-50 transition-colors font-serif"
-                >
-                  Cancelar
-                </button>
-                <button
-                  onClick={handleDelete}
-                  className="px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors font-serif shadow-lg"
-                >
-                  Sí, eliminar
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Breadcrumb */}
-      <div className="max-w-6xl mx-auto mb-6">
-        <div className="bg-white rounded-lg shadow-md border border-stone-200 p-4 transform rotate-1 vintage-paper">
-          <nav className="flex items-center space-x-2 text-sm text-stone-600 font-serif">
-            <button
-              onClick={handleBackToGallery}
-              className="flex items-center space-x-1 hover:text-stone-800 transition-colors"
-            >
-              <span>🏠</span>
-              <span>Galería</span>
-            </button>
-            <span>〉</span>
-            <span className="text-stone-800 font-medium">
-              📖 {butterflyData.commonName}
-            </span>
-          </nav>
+        <div className="flex gap-2">
+          <button
+            onClick={() => handlePageFlip('prev')}
+            disabled={currentIndex === 0 || isFlipping}
+            className="p-3 bg-amber-100 rounded-full hover:bg-amber-200 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 hover:scale-110 shadow-md"
+          >
+            <ChevronLeft size={24} />
+          </button>
+          <button
+            onClick={() => handlePageFlip('next')}
+            disabled={currentIndex === allButterflies.length - 1 || isFlipping}
+            className="p-3 bg-amber-100 rounded-full hover:bg-amber-200 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 hover:scale-110 shadow-md"
+          >
+            <ChevronRight size={24} />
+          </button>
         </div>
       </div>
 
-      {/* Botones de acción */}
-      <div className="max-w-6xl mx-auto mb-8 flex justify-end space-x-4">
-        <button
-          onClick={handleEdit}
-          className="flex items-center space-x-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white px-6 py-3 rounded-lg font-serif shadow-lg hover:from-blue-600 hover:to-blue-700 transform hover:scale-105 transition-all duration-200"
+      {/* Libro */}
+      <div style={{ perspective: '2500px' }} className="mx-auto">
+        <div 
+          className={`relative w-full max-w-7xl h-[700px] mx-auto transition-transform duration-300 ${
+            isFlipping ? 'animate-pulse' : ''
+          }`}
+          style={{ transformStyle: 'preserve-3d' }}
         >
-          <span>✏️</span>
-          <span>Editar</span>
-        </button>
-
-        <button
-          onClick={confirmDelete}
-          className="flex items-center space-x-2 bg-gradient-to-r from-red-500 to-red-600 text-white px-6 py-3 rounded-lg font-serif shadow-lg hover:from-red-600 hover:to-red-700 transform hover:scale-105 transition-all duration-200"
-        >
-          <span>🗑️</span>
-          <span>Eliminar</span>
-        </button>
-      </div>
-
-      {/* Libro con React Page Flip */}
-      <div className="max-w-6xl mx-auto flex justify-center book-container">
-        <HTMLFlipBook
-          ref={flipBookRef}
-          width={480}
-          height={680}
-          size="stretch"
-          minWidth={320}
-          maxWidth={1000}
-          minHeight={420}
-          maxHeight={1400}
-          maxShadowOpacity={0.4}
-          showCover={true}
-          mobileScrollSupport={false}
-          className="flip-book"
-          startPage={0}
-          drawShadow={true}
-          flippingTime={800}
-          usePortrait={true}
-          startZIndex={0}
-          autoSize={false}
-          clickEventForward={true}
-          useMouseEvents={true}
-          swipeDistance={30}
-          showPageCorners={true}
-          disableFlipByClick={false}
-        >
-          {/* Portada */}
-          <div className="page vintage-paper">
-            <div className="page-content flex flex-col justify-center items-center text-center">
-              <div className="mb-12">
-                <div className="mb-6">
-                  <div className="text-6xl mb-4">🦋</div>
-                </div>
-                
-                <h1 className="text-5xl font-serif text-stone-800 mb-6 tracking-wide ornament">
-                  NECTARA
-                </h1>
-                
-                <div className="w-32 h-px bg-stone-400 mx-auto mb-8 relative">
-                  <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-stone-400 rotate-45"></div>
-                </div>
-                
-                <p className="text-xl text-stone-600 font-serif mb-8 italic">
-                  Cuaderno de Campo Digital
-                </p>
-                
-                <div className="text-base text-stone-500 font-serif">
-                  Polinizadores de África
-                </div>
-                
-                <div className="mt-12 text-sm text-stone-400 font-serif">
-                  Registro Nº {id}
-                </div>
-              </div>
-              
-              <div className="mt-8 p-6 bg-stone-50 rounded-lg border border-stone-200 shadow-inner">
-                <p className="text-stone-600 font-serif italic text-sm leading-relaxed">
-                  "Haz clic en las esquinas de las páginas<br/>
-                  o arrastra para explorar este registro"
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Página 1 - Imagen y nombre */}
-          <div className="page vintage-paper">
-            <div className="page-content">
-              <div className="text-center mb-8">
-                <h2 className="text-4xl font-serif text-stone-800 mb-2 ornament">
-                  {butterflyData.commonName}
-                </h2>
-                <p className="text-lg font-serif text-stone-500 italic">
-                  {butterflyData.scientificName}
-                </p>
-              </div>
-              
-              <div className="flex justify-center mb-10">
-                <div className="bg-white p-6 rounded-lg shadow-lg border border-stone-200 transform rotate-1">
-                  <div className="bg-gradient-to-br from-stone-50 to-neutral-100 p-6 rounded-lg">
-                    <img
-                      src={butterflyData.image}
-                      alt={butterflyData.commonName}
-                      className="w-72 h-56 object-cover mx-auto rounded-lg shadow-md filter contrast-[1.05] saturate-[0.9]"
+          <div className="absolute inset-0 bg-white rounded-xl shadow-2xl overflow-hidden border-4 border-amber-200">
+            
+            {/* Página izquierda - Imagen de la mariposa */}
+            <div className="absolute left-0 top-0 w-1/2 h-full border-r-4 border-amber-100">
+              <div 
+                className="w-full h-full relative bg-cover bg-center flex flex-col justify-center items-center p-12"
+                style={{ 
+                  backgroundImage: `linear-gradient(rgba(139, 69, 19, 0.1), rgba(139, 69, 19, 0.1)), url('/images-home/vintage-paper.jpg')`,
+                  backgroundColor: '#fef7ed'
+                }}
+              >
+                <div className="relative z-10 text-center max-w-md">
+                  <div className="bg-white/95 backdrop-blur-sm rounded-lg p-8 shadow-2xl border-4 border-amber-300">
+                    <img 
+                      src={butterfly.image} 
+                      alt={butterfly.common_name}
+                      className="w-64 h-64 object-cover rounded-lg shadow-lg mb-6 mx-auto border-4 border-white"
                       onError={(e) => {
-                        console.log('Error cargando imagen:', butterflyData.image);
+                        e.target.src = '/images-home/butterfly-placeholder.jpg';
                       }}
                     />
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-stone-50 p-6 rounded-lg shadow-inner border border-stone-200">
-                <h3 className="text-xl font-serif text-stone-800 mb-4 text-center ornament">
-                  Notas de Campo
-                </h3>
-                <p className="text-stone-600 italic text-center leading-relaxed font-serif">
-                  "{butterflyData.notes}"
-                </p>
-                <div className="mt-4 text-center">
-                  <span className="text-stone-400 text-sm">✦ ✦ ✦</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Página 2 - Datos científicos */}
-          <div className="page vintage-paper">
-            <div className="page-content">
-              <h2 className="text-3xl font-serif text-stone-800 mb-8 text-center ornament">
-                Datos Científicos
-              </h2>
-              
-              <div className="space-y-5">
-                <div className="flex items-center space-x-4 p-5 bg-white/70 rounded-lg border border-stone-200 shadow-sm">
-                  <span className="text-2xl">📍</span>
-                  <div>
-                    <span className="font-semibold text-lg text-stone-800 font-serif">Ubicación</span>
-                    <p className="mt-1 text-stone-600">{butterflyData.location}</p>
-                  </div>
-                </div>
-
-                <div className="flex items-center space-x-4 p-5 bg-white/70 rounded-lg border border-stone-200 shadow-sm">
-                  <span className="text-2xl">📅</span>
-                  <div>
-                    <span className="font-semibold text-lg text-stone-800 font-serif">Fecha de Registro</span>
-                    <p className="mt-1 text-stone-600">{butterflyData.dateCaptured}</p>
-                  </div>
-                </div>
-
-                <div className="flex items-center space-x-4 p-5 bg-white/70 rounded-lg border border-stone-200 shadow-sm">
-                  <span className="text-2xl">🌿</span>
-                  <div>
-                    <span className="font-semibold text-lg text-stone-800 font-serif">Hábitat</span>
-                    <p className="mt-1 text-stone-600">{butterflyData.habitat}</p>
-                  </div>
-                </div>
-
-                <div className="flex items-center space-x-4 p-5 bg-white/70 rounded-lg border border-stone-200 shadow-sm">
-                  <span className="text-2xl">🦋</span>
-                  <div>
-                    <span className="font-semibold text-lg text-stone-800 font-serif">Comportamiento</span>
-                    <p className="mt-1">
-                      <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-                        butterflyData.migratory 
-                          ? 'bg-blue-100 text-blue-800 border border-blue-200' 
-                          : 'bg-stone-100 text-stone-800 border border-stone-200'
-                      }`}>
-                        {butterflyData.migratory ? "Especie Migratoria" : "Especie Sedentaria"}
-                      </span>
-                    </p>
-                  </div>
-                </div>
-
-                <div className="p-5 bg-stone-50 rounded-lg border border-stone-200 shadow-inner">
-                  <h4 className="font-semibold text-lg text-stone-800 font-serif mb-3">📝 Descripción</h4>
-                  <p className="text-stone-600 leading-relaxed italic">"{butterflyData.description}"</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Página 3 - Información detallada */}
-          <div className="page vintage-paper">
-            <div className="page-content">
-              <h2 className="text-3xl font-serif text-stone-800 mb-8 text-center ornament">
-                Información Detallada
-              </h2>
-              
-              <div className="space-y-6">
-                <div className="p-5 bg-white/80 rounded-lg border border-stone-200 shadow-sm">
-                  <h4 className="font-semibold text-lg mb-3 text-stone-800 font-serif">Clasificación Taxonómica</h4>
-                  <p className="text-stone-600 italic text-xl mb-2">{butterflyData.scientificName}</p>
-                  <p className="text-stone-500 text-sm">Nombre común: {butterflyData.commonName}</p>
-                </div>
-                
-                <div className="p-5 bg-white/80 rounded-lg border border-stone-200 shadow-sm">
-                  <h4 className="font-semibold text-lg mb-3 text-stone-800 font-serif">Ecosistema y Distribución</h4>
-                  <p className="text-stone-600 mb-2"><strong>Región:</strong> {butterflyData.location}</p>
-                  <p className="text-stone-600"><strong>Hábitat preferido:</strong> {butterflyData.habitat}</p>
-                </div>
-                
-                <div className="p-5 bg-white/80 rounded-lg border border-stone-200 shadow-sm">
-                  <h4 className="font-semibold text-lg mb-3 text-stone-800 font-serif">Patrones de Comportamiento</h4>
-                  <p className="text-stone-600 leading-relaxed text-sm">
-                    {butterflyData.migratory 
-                      ? "Esta especie presenta patrones migratorios estacionales, desplazándose en busca de recursos óptimos y condiciones climáticas favorables. Sus rutas migratorias son vitales para la polinización cruzada de especies vegetales distribuidas en diferentes regiones."
-                      : "Especie con comportamiento sedentario que mantiene poblaciones estables en su área de distribución. Su presencia constante la convierte en un polinizador fundamental para el mantenimiento del equilibrio ecológico local."
-                    }
-                  </p>
-                </div>
-
-                <div className="p-5 bg-stone-50 rounded-lg border border-stone-200 shadow-inner">
-                  <div className="bg-gradient-to-br from-blue-50 to-green-50 h-20 rounded-lg flex items-center justify-center border border-stone-200">
-                    <div className="text-center text-stone-500">
-                      <div className="text-2xl mb-1">🗺️</div>
-                      <p className="text-xs font-serif">Área de distribución: {butterflyData.location}</p>
+                    
+                    <h2 className="text-3xl font-bold text-amber-900 mb-3" style={{ fontFamily: 'Georgia, serif' }}>
+                      {butterfly.common_name}
+                    </h2>
+                    
+                    <div className="border-t-2 border-amber-200 pt-4">
+                      <p className="text-sm text-amber-700 font-semibold mb-2 uppercase tracking-wide">
+                        Notas de campo:
+                      </p>
+                      <p className="text-amber-800 italic text-lg leading-relaxed" style={{ fontFamily: 'Georgia, serif' }}>
+                        {butterfly.description.length > 100 
+                          ? butterfly.description.substring(0, 100) + '...'
+                          : butterfly.description
+                        }
+                      </p>
                     </div>
                   </div>
                 </div>
+                
+                {/* Efecto de margen de libro */}
+                <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-amber-200/20 to-transparent pointer-events-none"></div>
               </div>
             </div>
-          </div>
 
-          {/* Página 4 - Registro final */}
-          <div className="page vintage-paper">
-            <div className="page-content">
-              <h2 className="text-3xl font-serif text-stone-800 mb-8 text-center ornament">
-                Registro de Campo
-              </h2>
-              
-              <div className="space-y-5">
-                <div className="p-5 bg-white rounded-lg shadow-md border border-stone-200">
-                  <h4 className="font-semibold text-lg mb-2 text-stone-800 font-serif">
-                    📅 Fecha de Observación
-                  </h4>
-                  <p className="text-xl text-stone-600">{butterflyData.dateCaptured}</p>
-                </div>
-                
-                <div className="p-5 bg-white rounded-lg shadow-md border border-stone-200">
-                  <h4 className="font-semibold text-lg mb-2 text-stone-800 font-serif">
-                    🌿 Condiciones Ambientales
-                  </h4>
-                  <p className="text-stone-600">{butterflyData.habitat}</p>
-                </div>
-                
-                <div className="p-5 bg-white rounded-lg shadow-md border border-stone-200">
-                  <h4 className="font-semibold text-lg mb-2 text-stone-800 font-serif">
-                    📝 Observaciones del Investigador
-                  </h4>
-                  <p className="text-stone-600 italic leading-relaxed">"{butterflyData.notes}"</p>
-                </div>
-
-                <div className="p-5 bg-white rounded-lg shadow-md border border-stone-200">
-                  <h4 className="font-semibold text-lg mb-2 text-stone-800 font-serif">
-                    🔢 Número de Registro
-                  </h4>
-                  <p className="font-mono text-3xl text-stone-700">#{id}</p>
-                </div>
-
-                <div className="p-5 bg-gradient-to-r from-stone-100 to-neutral-100 rounded-lg border-l-4 border-stone-400 shadow-md">
-                  <h4 className="font-semibold text-lg mb-3 text-stone-800 font-serif">
-                    🌍 Proyecto Nectara
-                  </h4>
-                  <p className="text-sm leading-relaxed text-stone-600">
-                    Este espécimen forma parte del catálogo digital de polinizadores africanos, 
-                    contribuyendo al esfuerzo internacional de conservación y estudio de la biodiversidad. 
-                    Cada registro documenta patrones de distribución, comportamiento y características 
-                    morfológicas esenciales para la comprensión de estos organismos fundamentales 
-                    en nuestros ecosistemas.
-                  </p>
+            {/* Página derecha - Información científica */}
+            <div className="absolute right-0 top-0 w-1/2 h-full">
+              <div className="w-full h-full p-12 bg-gradient-to-br from-amber-50 to-white relative">
+                <div className="h-full flex flex-col">
                   
-                  <div className="mt-4 text-center">
-                    <span className="text-stone-400 text-lg">❦ ❦ ❦</span>
+                  {/* Header */}
+                  <header className="mb-8">
+                    <h1 className="text-4xl font-bold text-amber-900 mb-3" style={{ fontFamily: 'Georgia, serif' }}>
+                      Científicos
+                    </h1>
+                    <div className="h-1 w-24 bg-amber-600 rounded mb-4"></div>
+                    
+                    {/* Botones de acción */}
+                    <div className="flex gap-3">
+                      <button
+                        onClick={() => setIsEditing(!isEditing)}
+                        className="flex items-center gap-2 bg-amber-600 text-white px-4 py-2 rounded-lg hover:bg-amber-700 transition-colors shadow-md"
+                        style={{ fontFamily: 'Georgia, serif' }}
+                      >
+                        <Edit size={16} />
+                        {isEditing ? 'Cancelar' : 'Editar'}
+                      </button>
+                      
+                      <button
+                        onClick={handleDelete}
+                        className="flex items-center gap-2 bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors shadow-md"
+                        style={{ fontFamily: 'Georgia, serif' }}
+                      >
+                        <Trash2 size={16} />
+                        Eliminar
+                      </button>
+                    </div>
+                  </header>
+
+                  {/* Contenido principal */}
+                  <div className="flex-1 space-y-6 overflow-y-auto">
+                    
+                    {!isEditing ? (
+                      // Vista de lectura
+                      <>
+                        <div className="bg-white/70 p-6 rounded-lg border-2 border-amber-200 shadow-sm">
+                          <h3 className="font-bold text-amber-800 text-sm uppercase tracking-wide mb-3">
+                            Clasificación Taxonómica
+                          </h3>
+                          <p className="text-2xl font-bold text-gray-800 mb-2" style={{ fontFamily: 'Georgia, serif' }}>
+                            {butterfly.common_name}
+                          </p>
+                          <p className="text-lg text-gray-600 italic" style={{ fontFamily: 'Georgia, serif' }}>
+                            {butterfly.scientific_name}
+                          </p>
+                        </div>
+
+                        <div className="grid grid-cols-1 gap-4">
+                          <div className="bg-white/70 p-4 rounded-lg border border-amber-200">
+                            <h4 className="font-bold text-amber-700 text-sm uppercase tracking-wide mb-2">
+                              Locate
+                            </h4>
+                            <p className="text-gray-800 text-lg" style={{ fontFamily: 'Georgia, serif' }}>
+                              {butterfly.location}
+                            </p>
+                          </div>
+
+                          <div className="bg-white/70 p-4 rounded-lg border border-amber-200">
+                            <h4 className="font-bold text-amber-700 text-sm uppercase tracking-wide mb-2">
+                              Hábitat
+                            </h4>
+                            <p className="text-gray-800 text-lg" style={{ fontFamily: 'Georgia, serif' }}>
+                              {butterfly.habitat}
+                            </p>
+                          </div>
+
+                          <div className="bg-white/70 p-4 rounded-lg border border-amber-200">
+                            <h4 className="font-bold text-amber-700 text-sm uppercase tracking-wide mb-2">
+                              Comportamiento Migratorio
+                            </h4>
+                            <div className="flex items-center gap-2">
+                              <div className={`w-3 h-3 rounded-full ${
+                                butterfly.migratory || butterfly.is_migratory ? 'bg-green-500' : 'bg-red-500'
+                              }`}></div>
+                              <p className="text-gray-800 text-lg" style={{ fontFamily: 'Georgia, serif' }}>
+                                {butterfly.migratory || butterfly.is_migratory ? 'Migratoria' : 'No migratoria'}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="bg-white/70 p-6 rounded-lg border border-amber-200">
+                          <h4 className="font-bold text-amber-700 text-sm uppercase tracking-wide mb-3">
+                            Descripción Científica
+                          </h4>
+                          <p className="text-gray-800 leading-relaxed text-lg" style={{ fontFamily: 'Georgia, serif' }}>
+                            {butterfly.description}
+                          </p>
+                        </div>
+                      </>
+                    ) : (
+                      // Vista de edición
+                      <div className="space-y-4">
+                        <div className="grid grid-cols-1 gap-4">
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                              Nombre Común
+                            </label>
+                            <input
+                              type="text"
+                              name="common_name"
+                              value={editForm.common_name}
+                              onChange={handleInputChange}
+                              className="w-full p-3 border border-amber-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                              style={{ fontFamily: 'Georgia, serif' }}
+                            />
+                          </div>
+
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                              Nombre Científico
+                            </label>
+                            <input
+                              type="text"
+                              name="scientific_name"
+                              value={editForm.scientific_name}
+                              onChange={handleInputChange}
+                              className="w-full p-3 border border-amber-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                              style={{ fontFamily: 'Georgia, serif' }}
+                            />
+                          </div>
+
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                              Ubicación
+                            </label>
+                            <input
+                              type="text"
+                              name="location"
+                              value={editForm.location}
+                              onChange={handleInputChange}
+                              className="w-full p-3 border border-amber-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                              style={{ fontFamily: 'Georgia, serif' }}
+                            />
+                          </div>
+
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                              Hábitat
+                            </label>
+                            <input
+                              type="text"
+                              name="habitat"
+                              value={editForm.habitat}
+                              onChange={handleInputChange}
+                              className="w-full p-3 border border-amber-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                              style={{ fontFamily: 'Georgia, serif' }}
+                            />
+                          </div>
+
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                              Descripción
+                            </label>
+                            <textarea
+                              name="description"
+                              value={editForm.description}
+                              onChange={handleInputChange}
+                              rows="3"
+                              className="w-full p-3 border border-amber-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                              style={{ fontFamily: 'Georgia, serif' }}
+                            />
+                          </div>
+
+                          {/* Upload de imagen con Cloudinary */}
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                              Imagen
+                            </label>
+                            
+                            {/* Zona de drag and drop */}
+                            <div
+                              className={`border-2 border-dashed rounded-lg p-6 text-center transition-colors ${
+                                dragActive 
+                                  ? 'border-amber-500 bg-amber-50' 
+                                  : 'border-amber-300 bg-amber-25'
+                              }`}
+                              onDragEnter={handleDrag}
+                              onDragLeave={handleDrag}
+                              onDragOver={handleDrag}
+                              onDrop={handleDrop}
+                            >
+                              {uploading ? (
+                                <div className="flex flex-col items-center">
+                                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-amber-600 mb-2"></div>
+                                  <p className="text-amber-700">Subiendo imagen...</p>
+                                </div>
+                              ) : (
+                                <div className="flex flex-col items-center">
+                                  <Upload size={32} className="text-amber-600 mb-2" />
+                                  <p className="text-amber-700 mb-2">
+                                    Arrastra una imagen aquí o
+                                  </p>
+                                  <label className="cursor-pointer bg-amber-600 text-white px-4 py-2 rounded-lg hover:bg-amber-700 transition-colors">
+                                    Seleccionar archivo
+                                    <input
+                                      type="file"
+                                      accept="image/*"
+                                      onChange={(e) => {
+                                        if (e.target.files[0]) {
+                                          handleFileUpload(e.target.files[0]);
+                                        }
+                                      }}
+                                      className="hidden"
+                                    />
+                                  </label>
+                                </div>
+                              )}
+                            </div>
+
+                            {/* URL manual */}
+                            <div className="mt-2">
+                              <input
+                                type="url"
+                                name="image"
+                                value={editForm.image}
+                                onChange={handleInputChange}
+                                placeholder="O pega una URL de imagen"
+                                className="w-full p-3 border border-amber-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                                style={{ fontFamily: 'Georgia, serif' }}
+                              />
+                            </div>
+
+                            {/* Preview de la imagen */}
+                            {editForm.image && (
+                              <div className="mt-3">
+                                <img
+                                  src={editForm.image}
+                                  alt="Preview"
+                                  className="w-full h-32 object-cover rounded-lg border border-amber-300"
+                                  onError={(e) => {
+                                    e.target.src = '/images-home/butterfly-placeholder.jpg';
+                                  }}
+                                />
+                              </div>
+                            )}
+                          </div>
+
+                          <div className="flex items-center">
+                            <input
+                              type="checkbox"
+                              name="migratory"
+                              checked={editForm.migratory || editForm.is_migratory}
+                              onChange={handleInputChange}
+                              className="mr-2 w-4 h-4 text-amber-600 bg-gray-100 border-gray-300 rounded focus:ring-amber-500"
+                            />
+                            <label className="text-sm font-medium text-gray-700">
+                              Especie migratoria
+                            </label>
+                          </div>
+                        </div>
+
+                        {/* Botones de guardar/cancelar */}
+                        <div className="flex gap-3 pt-4 border-t border-amber-200">
+                          <button
+                            onClick={handleUpdate}
+                            className="flex-1 bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition-colors font-medium"
+                            style={{ fontFamily: 'Georgia, serif' }}
+                          >
+                            Guardar Cambios
+                          </button>
+                          <button
+                            onClick={() => {
+                              setIsEditing(false);
+                              setEditForm(butterfly);
+                            }}
+                            className="flex-1 bg-gray-500 text-white py-3 rounded-lg hover:bg-gray-600 transition-colors font-medium"
+                            style={{ fontFamily: 'Georgia, serif' }}
+                          >
+                            Cancelar
+                          </button>
+                        </div>
+                      </div>
+                    )}
                   </div>
+
+                  {/* Footer */}
+                  {!isEditing && (
+                    <footer className="pt-6 border-t-2 border-amber-200">
+                      <div className="text-center">
+                        <div className="flex justify-center gap-1 mb-3">
+                          {allButterflies.map((_, index) => (
+                            <div
+                              key={index}
+                              className={`w-2 h-2 rounded-full transition-colors duration-200 ${
+                                index === currentIndex ? 'bg-amber-600' : 'bg-gray-300'
+                              }`}
+                            />
+                          ))}
+                        </div>
+                        <p className="text-sm text-amber-700 font-medium" style={{ fontFamily: 'Georgia, serif' }}>
+                          Proyecto Nectara - Expedición África 2024
+                        </p>
+                      </div>
+                    </footer>
+                  )}
                 </div>
+                
+                {/* Efecto de margen derecho */}
+                <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-amber-200/20 to-transparent pointer-events-none"></div>
               </div>
             </div>
-          </div>
-        </HTMLFlipBook>
-      </div>
 
-      {/* Controles de navegación */}
-      <div className="max-w-6xl mx-auto mt-12 flex justify-center">
-        <div className="flex items-center space-x-8">
-          <button
-            onClick={prevPage}
-            className="group relative px-8 py-4 bg-stone-600 hover:bg-stone-700 text-white rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105 font-serif"
-          >
-            <div className="flex items-center space-x-3">
-              <span className="text-lg">←</span>
-              <span className="font-medium">Página Anterior</span>
-            </div>
-          </button>
-
-          <div className="bg-white/90 backdrop-blur-sm px-8 py-4 rounded-lg shadow-lg border border-stone-200 vintage-paper">
-            <span className="text-stone-700 font-serif font-medium text-center block">
-              Arrastra las esquinas o usa los controles
-            </span>
+            {/* Línea central del libro */}
+            <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-transparent via-amber-400 to-transparent transform -translate-x-0.5 z-10"></div>
           </div>
 
-          <button
-            onClick={nextPage}
-            className="group relative px-8 py-4 bg-stone-600 hover:bg-stone-700 text-white rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105 font-serif"
-          >
-            <div className="flex items-center space-x-3">
-              <span className="font-medium">Siguiente Página</span>
-              <span className="text-lg">→</span>
-            </div>
-          </button>
+          {/* Sombra del libro */}
+          <div className="absolute -bottom-6 left-6 right-6 h-6 bg-black/20 rounded-full blur-lg"></div>
         </div>
       </div>
     </div>
   );
 };
 
-export default ButterflyDetail;
+export default ButterflyDetail; 
+
+// CUANDO EDITA--> ALERTA DE MARIPOSA GUARDADA (MIRAR BOTÓN DE GUARDAR) USENAVIGATE Y QUE ME REDIRIJA AUTOMÁTICAMENTE A LA GALERÍA DE MARIPOSAS + BOTÓN DE SOFÍA + NAVEGACIÓN??

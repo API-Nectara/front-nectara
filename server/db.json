@@ -15,10 +15,11 @@
       "common_name": "Mariposa Zuleika",
       "scientific_name": "Amauris zuleika",
       "location": "África oriental",
-      "description": "Imita a la Reina Africana como estrategia de defensa. Vuela lentamente cerca de arbustos.",
+      "description": "Imita a la Reina Africana como estrategia de defensa. Vuela lentamente cerca de arbustos dhfjksdhsfg",
       "habitat": "Bosques húmedos y claros",
       "image": "https://static.inaturalist.org/photos/32533266/large.jpeg",
-      "migratory": false
+      "migratory": false,
+      "is_migratory": false
     },
     {
       "id": "3",
@@ -219,6 +220,26 @@
       "habitat": "Praderas abiertas y bordes de bosque",
       "image": "https://upload.wikimedia.org/wikipedia/commons/d/d0/Mirajus_africana.jpg",
       "is_migratory": true
+    },
+    {
+      "id": "e183",
+      "commonName": "fghsgf",
+      "scientificName": "fguhjxghj",
+      "location": "gfuiety",
+      "description": "yuietyuie",
+      "habitat": "tyuetyu",
+      "image": "https://res.cloudinary.com/dauzwfc8z/image/upload/v1753866294/mariposas-africa/kssqhgbxrdrzevj7uzis.jpg",
+      "isMigratory": true
+    },
+    {
+      "id": "9757",
+      "commonName": "JUDTYUIETY",
+      "scientificName": "TUIOTUIO",
+      "location": "UIOYUIO",
+      "description": "IUOYUIO",
+      "habitat": "TUIOTUIO",
+      "image": "https://res.cloudinary.com/dauzwfc8z/image/upload/v1753867007/mariposas-africa/kzl41pjvt2jkpdwco2my.png",
+      "isMigratory": true
     }
   ]
 }
