@@ -23,9 +23,12 @@ const ButterflyGalery = () => {
 
   return (
     <div
-      className="min-h-screen bg-gradient-to-br from-slate-50 via-gray-50 to-blue-50"
-      style={{ backgroundColor: "#fdf9f6" }}
-    >
+  className="min-h-screen bg-fixed bg-cover bg-center"
+  style={{
+    backgroundImage: "url('/image4.jpg')",
+    backgroundColor: "#fdf9f6",
+  }}
+>
       {/* Header con gradiente y efectos */}
       <div className="relative py-16 px-6">
         <div
@@ -39,7 +42,7 @@ const ButterflyGalery = () => {
             className="text-5xl md:text-6xl font-bold mb-4"
             style={{
               fontFamily: "Georgia, serif",
-              fontWeight: "bold",
+              fontWeight: "normal",
               background:
                 "linear-gradient(to right, #c61e0f, #eb391d, #e66035)",
               WebkitBackgroundClip: "text",
@@ -137,7 +140,7 @@ const ButterflyGalery = () => {
                       style={{
                         color: "#0a1818",
                         fontFamily: "Georgia, serif",
-                        fontWeight: "italic",
+                        fontWeight: "normal",
                       }}
                       onMouseEnter={(e) => (e.target.style.color = "#e66035")}
                       onMouseLeave={(e) => (e.target.style.color = "#0a1818")}

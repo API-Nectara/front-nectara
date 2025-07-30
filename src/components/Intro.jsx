@@ -1,7 +1,7 @@
 const Intro = () => {
   return (
-    <section className="w-full px-6 md:px-16 py-12 bg-white text-gray-800">
-      <div className="max-w-4xl mx-auto text-center">
+    <section className="w-full px-6 md:px-16 py-12 text-black text-center drop-shadow-md">
+      <div className="max-w-4xl mx-auto">
         <h2 className="butterfly-heading mb-6 font-georgia">
           Las Mariposas Africanas y su Rol Vital
         </h2>
@@ -16,4 +16,3 @@ const Intro = () => {
 };
 
 export default Intro;
-

@@ -108,15 +108,15 @@ const ButterflyDetail = () => {
   const uploadToCloudinary = async (file) => {
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('upload_preset', 'butterfly_uploads'); // ⚠️ CAMBIAR por tu upload_preset
-    formData.append('cloud_name', 'nectara-project'); // ⚠️ CAMBIAR por tu cloud_name
+    formData.append('upload_preset', 'mariposas-africa'); 
+    formData.append('cloud_name', 'dauzwfc8z'); 
 
     try {
       setUploading(true);
       console.log('☁️ Subiendo imagen a Cloudinary...');
       
       const response = await fetch(
-        'https://api.cloudinary.com/v1_1/nectara-project/image/upload', // ⚠️ CAMBIAR por tu cloud_name
+        'https://api.cloudinary.com/v1_1/dauzwfc8z/image/upload',
         {
           method: 'POST',
           body: formData,
