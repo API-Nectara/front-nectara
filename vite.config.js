@@ -8,5 +8,6 @@ export default defineConfig({
     proxy: {
       '/butterflies': 'http://localhost:3000/'
     }
-  }
+  },
+   test: { globals: true, environment: 'jsdom', }
 })
