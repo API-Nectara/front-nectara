@@ -20,7 +20,7 @@ const Navbar = () => {
           {/* Logo */}
           <Link
             to="/"
-            className="text-2xl tracking-wide hover:text-[#eb391d] transition"
+            className="text-2xl tracking-wide hover:text-[#eb391d] transition text-black"
             style={{
               fontFamily: "Georgia, serif",
               fontWeight: "normal",
@@ -41,12 +41,13 @@ const Navbar = () => {
 
           {/* Enlaces (desktop) */}
           <div className="space-x-6 hidden md:flex">
-            {["Inicio", "Agregar", "Ver Galería", "Contacto", "Creadoras"].map(
+            {["Inicio", "Agregar", "Ver Galería", "Cuaderno de Campo", "Contacto", "Creadoras"].map(
               (label, index) => {
                 const paths = [
                   `${base}`,
                   `${base}/newbutterfly`,
                   `${base}/galery`,
+                  `${base}/butterflydetail/1`, // Usando ruta existente con ID por defecto
                   `${base}/contact`,
                   `${base}/about`,
                 ];
@@ -54,7 +55,7 @@ const Navbar = () => {
                   <Link
                     key={label}
                     to={paths[index]}
-                    className="hover:text-[#e66035] transition"
+                    className="text-black hover:text-[#e66035] transition"
                     style={{
                       fontFamily: "Georgia, serif",
                       fontWeight: "normal",
@@ -71,12 +72,13 @@ const Navbar = () => {
         {/* Enlaces (mobile) */}
         {menuOpen && (
           <div className="md:hidden px-4 pb-4 space-y-2 flex flex-col bg-[#1b4857]">
-            {["Inicio", "Agregar", "Ver Galería", "Contacto", "Creadoras"].map(
+            {["Inicio", "Agregar", "Ver Galería", "Cuaderno de Campo", "Contacto", "Creadoras"].map(
               (label, index) => {
                 const paths = [
                   `${base}`,
                   `${base}/newbutterfly`,
                   `${base}/galery`,
+                  `${base}/butterflydetail/1`, // Usando ruta existente con ID por defecto
                   `${base}/contact`,
                   `${base}/about`,
                 ];
@@ -85,7 +87,7 @@ const Navbar = () => {
                     key={label}
                     to={paths[index]}
                     onClick={() => setMenuOpen(false)}
-                    className="hover:text-[#e66035] transition"
+                    className="text-black hover:text-[#e66035] transition"
                     style={{
                       fontFamily: "Georgia, serif",
                       fontWeight: "normal",
