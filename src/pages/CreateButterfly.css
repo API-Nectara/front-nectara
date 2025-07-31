@@ -16,7 +16,6 @@ body {
   gap: 2rem;
   padding: 2rem;
   padding-top: 72px;
-  /* deja espacio para el navbar fijo */
   min-height: 100vh;
   color: #000000;
   box-sizing: border-box;
@@ -36,7 +35,7 @@ body {
 
 .title {
   font-size: 2rem;
-  font-weight: 500;
+  font-weight: 600;
   margin-bottom: 1rem;
   text-align: center;
   line-height: 1.2;
@@ -79,7 +78,6 @@ body {
   padding: 0.5rem 0.8rem;
   border-radius: 8px;
   border: 1px solid #939191;
-  /* 👈 borde visible */
   font-size: 1rem;
   color: #216b81;
   box-shadow: inset 0 2px 5px rgba(255, 255, 255, 0.1);
@@ -129,9 +127,9 @@ body {
 
 /* === BOTÓN PRINCIPAL === */
 .saveButton {
-  background-color: #ffffff;        /* Fondo blanco */
-  color: #e66035;                   /* Texto naranja */
-  border: 2px solid #e66035;        /* Borde naranja */
+  background-color: #ffffff;        
+  color: #e66035;                   
+  border: 2px solid #e66035;        
   padding: 0.8rem 1.5rem;
   font-size: 1rem;
   cursor: pointer;
@@ -148,15 +146,15 @@ body {
 }
 
 .saveButton:hover:not(:disabled) {
-  background-color: #e66035;       /* Fondo naranja al hover */
-  color: white;                    /* Texto blanco al hover */
+  background-color: #e66035;       
+  color: white;                    
 }
 
 /* === BOTONES SECUNDARIOS - butterfly-button === */
 .butterfly-button {
-  background-color: #ffffff;         /* Fondo blanco */
-  color: #e66035;                    /* Texto naranja */
-  border: 2px solid #e66035;         /* Borde naranja visible */
+  background-color: #ffffff;         
+  color: #e66035;                    
+  border: 2px solid #e66035;         
   padding: 0.6rem 1.2rem;
   font-size: 1rem;
   font-weight: 500;
@@ -168,15 +166,16 @@ body {
 }
 
 .butterfly-button:hover {
-  background-color: #e66035;        /* Fondo naranja al pasar el ratón */
-  color: #ffffff;                   /* Texto blanco */
+  background-color: #e66035;        
+  color: #ffffff;                   
 }
 
+/* ===Contenedor de Migratoria=== */
 .checkboxCentered {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-
+  border: 2px;
   margin-top: 0.7rem;
 }
 
@@ -196,27 +195,19 @@ body {
 
 .popupBackground {
   position: fixed;
-  /* Fijo para que se quede en pantalla al hacer scroll */
   top: 0;
   left: 0;
   width: 100vw;
-  /* Ocupa toda la anchura de la ventana */
   height: 100vh;
-  /* Ocupa toda la altura */
   background-color: rgba(0, 0, 0, 0.5);
-  /* Fondo oscuro semitransparente */
   display: flex;
   justify-content: center;
-  /* Centra horizontalmente */
   align-items: center;
-  /* Centra verticalmente */
   z-index: 1000;
-  /* Por encima de todo */
 }
 
 .popupContent {
   background-color: #fff;
-  /* Fondo blanco para el contenido */
   padding: 20px;
   border-radius: 8px;
   max-width: 400px;
@@ -232,47 +223,8 @@ body {
   margin-top: 1rem;
 }
 
-/* === BOTONES DEL POPUP === */
-.popupButton {
-  width: 45%;
-  padding: 0.8rem 1.5rem;
-  border-radius: 10px;
-
-
-  line-height: 1.4;
-  cursor: pointer;
-  text-align: center;
-  border: none;
-  box-sizing: border-box;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.popupButton.cancelButton {
-  background-color: #ff5555;
-  color: white;
-  box-shadow: 0 4px 12px rgba(255, 85, 85, 0.7);
-}
-
-.popupButton.cancelButton:hover {
-  background-color: #cc4444;
-}
-
-.popupButton.saveButton {
-  background-color: #6fdc9d;
-  color: #0c1d26;
-  box-shadow: 0 4px 12px rgba(111, 220, 157, 0.7);
-}
-
-.popupButton.saveButton:hover {
-  background-color: #55bb7c;
-}
-
 /* === RESPONSIVE === */
 @media (max-width: 900px) {
-
   html,
   body {
     margin: 0;
@@ -283,7 +235,7 @@ body {
 
   .container {
     flex-direction: column;
-    padding-top: 200px;
+    padding-top: 180px;
     /* da espacio al imageContainer fijo */
     align-items: center;
     position: relative;
@@ -301,7 +253,7 @@ body {
     z-index: 1000;
     display: flex;
     justify-content: center;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2px 10px rgba(27, 72, 87, 0.9);
     border-radius: 10px;
   }
 
