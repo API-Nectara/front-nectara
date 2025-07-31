@@ -15,7 +15,7 @@
       "common_name": "Mariposa Zuleika",
       "scientific_name": "Amauris zuleika",
       "location": "África oriental",
-      "description": "Imita a la Reina Africana como estrategia de defensa. Vuela lentamente cerca de arbustos dhfjksdhsfg",
+      "description": "Imita a la Reina Africana como estrategia de defensa. Vuela lentamente cerca de arbustos",
       "habitat": "Bosques húmedos y claros",
       "image": "https://static.inaturalist.org/photos/32533266/large.jpeg",
       "migratory": false,
@@ -105,7 +105,7 @@
     },
     {
       "id": "11",
-      "common_name": "Mariposa de Cristal Africanaedicioooobnnn",
+      "common_name": "Mariposa de Cristal Africana",
       "scientific_name": "Cymothoe sangaris",
       "location": "Congo, Gabón, Camerún",
       "description": "Roja intensa y translúcida. Habita selvas densas del África central.",
@@ -244,6 +244,19 @@
       "habitat": "tyuetyu",
       "image": "https://res.cloudinary.com/dauzwfc8z/image/upload/v1753866294/mariposas-africa/kssqhgbxrdrzevj7uzis.jpg",
       "isMigratory": true,
+      "migratory": false,
+      "is_migratory": false
+    },
+    {
+      "id": "ee36",
+      "commonName": "La Monarca Africana",
+      "scientificName": "Danaus chrysippus",
+      "location": "África subsahariana",
+      "description": "Naranja intenso en las alas, más claro que el de la monarca americana.\nBordes negros con puntos blancos en las alas delanteras.\nAlas traseras con zona central más clara y márgenes oscuros.",
+      "habitat": "Africa",
+      "image": "https://res.cloudinary.com/dauzwfc8z/image/upload/v1753952826/mariposas-africa/sslbelxftaxjkg3v3pyq.jpg",
+      "isMigratory": true,
+      "common_name": "Monarca Africana",
       "migratory": false,
       "is_migratory": false
     }

@@ -136,5 +136,4 @@ export const CreateNewButterfly = async (newButterfly) =>{
     throw error;
   }
 }
-// Metodo put para actualizar
-// Metodo delete para eliminar
+
