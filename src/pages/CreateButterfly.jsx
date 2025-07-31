@@ -79,27 +79,27 @@ const CreateButterfly = () => {
     setIsUploading(true); // Indicamos que estamos subiendo para deshabilitar botón
 
     const uploadData = new FormData();
-    uploadData.append("file", file);
-    uploadData.append("upload_preset", CLOUDINARY_PRESET);
+    uploadData.append("file", file); // Añadimos el archivo
+    uploadData.append("upload_preset", CLOUDINARY_PRESET); // Añadimos el preset configurado en Cloudinary
 
     try {
-      // Petición POST para subir la imagen a Cloudinary
+      // 🟡 PETICIÓN POST: Subida de imagen a Cloudinary
       const res = await fetch(CLOUDINARY_URL, {
-        method: "POST",
-        body: uploadData,
+        method: "POST", // Método POST → estamos enviando datos para crear algo (la imagen en Cloudinary)
+        body: uploadData, // El cuerpo de la petición es un FormData (tipo especial para archivos)
       });
       const data = await res.json();
 
-      // Guardamos la URL segura que nos devuelve Cloudinary en el estado
+      // Guardamos la URL de la imagen subida en el estado
       setFormData((prev) => ({ ...prev, image: data.secure_url }));
 
-      // Limpiamos errores de imagen si existían
+      // Si había errores, los limpiamos
       setErrors((prev) => ({ ...prev, image: null }));
     } catch (err) {
       alert("❌ Error al subir imagen");
       console.error(err);
     } finally {
-      setIsUploading(false); // Siempre quitamos el estado de subida
+      setIsUploading(false); // Siempre desactivamos el estado de subida, haya éxito o fallo
     }
   };
 
@@ -152,10 +152,12 @@ const CreateButterfly = () => {
       return;
     }
 
-    // Llamamos al servicio que crea la mariposa en backend
+    // 🟢 PETICIÓN POST: Creación de la mariposa en el backend
+    // Aquí llamamos al servicio que envía los datos al servidor (CreateNewButterfly hace un fetch con método POST)
     const response = await CreateNewButterfly(formData);
 
     if (response.status === 201) {
+      // Si el servidor responde con éxito (201 Created), mostramos un mensaje y redirigimos
       setShowPopup(true); // Mostramos popup éxito
       setIsSaved(true);   // Marcamos estado guardado
       alert("🦋 ¡Mariposa creada con éxito!");
@@ -387,7 +389,7 @@ const CreateButterfly = () => {
               style={{ width: "100%", padding: "0.5rem", marginBottom: "1rem" }}
             />
             <button onClick={handleSetImageUrl} className="butterfly-button" style={{
-          backgroundColor: "rgba(155, 224, 165, 0.9)", color: "black"
+          backgroundColor: "rgba(155, 224, 165, 0.9)", color: "black", border: "rgba(155, 224, 165, 0.9), 2px"
         }}>
               Guardar
             </button>
