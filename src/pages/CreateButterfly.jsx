@@ -1,6 +1,7 @@
+"use client";
 import { useState } from "react"; // Hook para gestionar estados en componentes funcionales
 import "./CreateButterfly.css"; // Estilos CSS específicos para este componente
-import { CreateNewButterfly } from "../services/ButterflyServices"; // Servicio para crear mariposas en backend
+import { createButterfly } from "../services/ButterflyServices"; // Servicio para crear mariposas en backend
 import { useNavigate } from "react-router-dom"; // Hook para navegar entre rutas
 
 // Array con imágenes que representan el progreso del formulario
@@ -30,13 +31,13 @@ const CreateButterfly = () => {
 
   // Estado para guardar los datos del formulario
   const [formData, setFormData] = useState({
-    commonName: "",
-    scientificName: "",
+    common_name: "",
+    scientific_name: "",
     location: "",
     description: "",
     habitat: "",
     image: "",
-    isMigratory: false,
+    migratory: false,
   });
 
   // Estado para almacenar mensajes de error por campo
@@ -133,8 +134,8 @@ const CreateButterfly = () => {
   // Validar los campos obligatorios antes de enviar
   const validate = () => {
     const newErrors = {};
-    if (!formData.commonName.trim()) newErrors.commonName = "Campo obligatorio";
-    if (!formData.scientificName.trim()) newErrors.scientificName = "Campo obligatorio";
+    if (!formData.common_name.trim()) newErrors.common_name = "Campo obligatorio";
+    if (!formData.scientific_name.trim()) newErrors.scientific_name = "Campo obligatorio";
     if (!formData.location.trim()) newErrors.location = "Campo obligatorio";
     if (!formData.description.trim()) newErrors.description = "Campo obligatorio";
     if (!formData.image || !formData.image.trim()) newErrors.image = "Campo obligatorio";
@@ -154,7 +155,7 @@ const CreateButterfly = () => {
 
     // 🟢 PETICIÓN POST: Creación de la mariposa en el backend
     // Aquí llamamos al servicio que envía los datos al servidor (CreateNewButterfly hace un fetch con método POST)
-    const response = await CreateNewButterfly(formData);
+    const response = await createButterfly(formData);
 
     if (response.status === 201) {
       // Si el servidor responde con éxito (201 Created), mostramos un mensaje y redirigimos
@@ -167,7 +168,7 @@ const CreateButterfly = () => {
     // Cerramos popup y redirigimos tras 10 segundos
     setTimeout(() => {
       setShowPopup(false);
-      navigate("/galery");
+      navigate("/init/galery"); // Redirigimos a galería
     }, POPUP_DURATION);
   };
 
@@ -177,16 +178,16 @@ const CreateButterfly = () => {
 
     // Reiniciamos formulario y errores
     setFormData({
-      commonName: "",
-      scientificName: "",
+      common_name: "",
+      scientific_name: "",
       location: "",
       description: "",
       habitat: "",
       image: "",
-      isMigratory: false,
+      migratory: false,
     });
     setErrors({});
-    navigate("/galery"); // Redirigimos a galería
+    navigate("/init/galery"); // Redirigimos a galería
   };
 
   // Seleccionamos la imagen que se debe mostrar según el estado del formulario
@@ -194,13 +195,13 @@ const CreateButterfly = () => {
 
   if (isSaved) {
     currentImage = savedImage; // Imagen cuando está guardada
-  } else if (formData.isMigratory) {
+  } else if (formData.migratory) {
     currentImage = migratoryImage; // Imagen si es migratoria
   } else {
     // Contamos campos rellenados para saber el progreso
     const filledFieldsCount = [
-      formData.commonName,
-      formData.scientificName,
+      formData.common_name,
+      formData.scientific_name,
       formData.location,
       formData.description,
       formData.habitat,
@@ -237,24 +238,24 @@ const CreateButterfly = () => {
             Nombre común:
             <input
               type="text"
-              name="commonName"
-              value={formData.commonName}
+              name="common_name"
+              value={formData.common_name}
               onChange={handleChange}
               placeholder="Ej: Mariposa Reina Africana"
             />
-            {errors.commonName && <p className="error">{errors.commonName}</p>}
+            {errors.common_name && <p className="error">{errors.common_name}</p>}
           </label>
 
           <label>
             Nombre científico:
             <input
               type="text"
-              name="scientificName"
-              value={formData.scientificName}
+              name="scientific_name"
+              value={formData.scientific_name}
               onChange={handleChange}
               placeholder="Ej: Danaus chrysippus"
             />
-            {errors.scientificName && <p className="error">{errors.scientificName}</p>}
+            {errors.scientific_name && <p className="error">{errors.scientific_name}</p>}
           </label>
 
           <label>
@@ -344,14 +345,14 @@ const CreateButterfly = () => {
 
           {/* Checkbox para indicar si la mariposa es migratoria */}
           <div className="checkboxCentered" style={{ marginTop: "1.5rem"}}>
-            <label htmlFor="isMigratory">
+            <label htmlFor="migratory">
               ¿Es migratoria?
             </label>
             <input
               type="checkbox"
-              id="isMigratory"
-              name="isMigratory"
-              checked={formData.isMigratory}
+              id="migratory"
+              name="migratory"
+              checked={formData.migratory}
               onChange={handleChange}
             />
           </div>

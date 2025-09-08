@@ -1,13 +1,14 @@
-import axios from 'axios';
+// import axios from 'axios';
+import { api } from "../api/client.js"; // o "../api/client"
 
 // URL base de tu json-server
-const URL_API = 'http://localhost:3000/butterflies';
+const URL_API = '/butterflies';
 
 // GET - Obtener todas las mariposas
 export const getAllButterflies = async () => {
   try {
     console.log('🔍 Buscando mariposas en:', URL_API);
-    const response = await axios.get(URL_API);
+    const response = await api.get(URL_API);
     console.log('✅ Mariposas encontradas:', response.data.length);
     return response.data;
   } catch (error) {
@@ -20,7 +21,7 @@ export const getAllButterflies = async () => {
 export const getOneButterfly = async (id) => {
   try {
     console.log('🔍 Buscando mariposa ID:', id);
-    const response = await axios.get(`${URL_API}/${id}`);
+   const response = await api.get(`${URL_API}/${id}`);
     console.log('✅ Mariposa encontrada:', response.data);
     return response.data;
   } catch (error) {
@@ -34,11 +35,13 @@ export const createButterfly = async (butterflyData) => {
   try {
     console.log('📝 Creando mariposa:', butterflyData);
     
-    // Generar ID único
-    const id = Math.random().toString(36).substr(2, 4);
-    const dataWithId = { ...butterflyData, id };
+    // // Generar ID único
+    // const id = Math.random().toString(36).substr(2, 4);
+    // const dataWithId = { ...butterflyData, id };
     
-    const response = await axios.post(URL_API, dataWithId);
+    const response = await api.post(URL_API, butterflyData, {
+      headers: { "Content-Type": "application/json"},
+    });
     console.log('✅ Mariposa creada:', response.data);
     return response.data;
   } catch (error) {
@@ -53,9 +56,11 @@ export const updateButterfly = async (id, butterflyData) => {
     console.log('✏️ Actualizando mariposa:', id, butterflyData);
     
     // Asegurar que el ID esté incluido
-    const dataWithId = { ...butterflyData, id };
+    // const dataWithId = { ...butterflyData, id };
     
-    const response = await axios.put(`${URL_API}/${id}`, dataWithId);
+    const response = await api.put(`${URL_API}/${id}`, butterflyData,{
+      headers: { "Content-Type": "application/json"},
+    });
     console.log('✅ Mariposa actualizada:', response.data);
     return response.data;
   } catch (error) {
@@ -68,7 +73,7 @@ export const updateButterfly = async (id, butterflyData) => {
 export const deleteButterfly = async (id) => {
   try {
     console.log('🗑️ Eliminando mariposa ID:', id);
-    const response = await axios.delete(`${URL_API}/${id}`);
+    const response = await api.delete(`${URL_API}/${id}`);
     console.log('✅ Mariposa eliminada');
     return response.data;
   } catch (error) {
@@ -80,9 +85,10 @@ export const deleteButterfly = async (id) => {
 // Función para probar conexión
 export const testConnection = async () => {
   try {
-    const response = await axios.get(URL_API);
-    console.log('✅ Conexión con json-server OK');
-    return true;
+    const res = await api.get("/health");
+    console.log("🌐 /health →", res.data);
+    return !!res.data?.ok;
+    
   } catch (error) {
     console.error('❌ No se puede conectar con json-server:', error.message);
     return false;
@@ -127,13 +133,13 @@ export const validateButterflyData = (data) => {
   };
 };
 // Metodo post para el create
-export const CreateNewButterfly = async (newButterfly) =>{
-    try {
-    const response = await axios.post(`${URL_API}`,newButterfly);
-    return response;
-  } catch (error) {
-    console.error(`Error al crear mariposa:`, error.message);
-    throw error;
-  }
-}
+// export const CreateNewButterfly = async (newButterfly) =>{
+//     try {
+//     const response = await axios.post(`${URL_API}`,newButterfly);
+//     return response;
+//   } catch (error) {
+//     console.error(`Error al crear mariposa:`, error.message);
+//     throw error;
+//   }
+// }
 
