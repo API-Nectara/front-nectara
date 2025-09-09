@@ -1,6 +1,7 @@
+"use client";
 import { useState } from "react"; // Hook para gestionar estados en componentes funcionales
 import "./CreateButterfly.css"; // Estilos CSS específicos para este componente
-import { CreateNewButterfly } from "../services/ButterflyServices"; // Servicio para crear mariposas en backend
+import { createButterfly } from "../services/ButterflyServices"; // Servicio para crear mariposas en backend
 import { useNavigate } from "react-router-dom"; // Hook para navegar entre rutas
 
 // Array con imágenes que representan el progreso del formulario
@@ -30,13 +31,13 @@ const CreateButterfly = () => {
 
   // Estado para guardar los datos del formulario
   const [formData, setFormData] = useState({
-    commonName: "",
-    scientificName: "",
+    common_name: "",
+    scientific_name: "",
     location: "",
     description: "",
     habitat: "",
     image: "",
-    isMigratory: false,
+    migratory: false,
   });
 
   // Estado para almacenar mensajes de error por campo
@@ -133,8 +134,8 @@ const CreateButterfly = () => {
   // Validar los campos obligatorios antes de enviar
   const validate = () => {
     const newErrors = {};
-    if (!formData.commonName.trim()) newErrors.commonName = "Campo obligatorio";
-    if (!formData.scientificName.trim()) newErrors.scientificName = "Campo obligatorio";
+    if (!formData.common_name.trim()) newErrors.common_name = "Campo obligatorio";
+    if (!formData.scientific_name.trim()) newErrors.scientific_name = "Campo obligatorio";
     if (!formData.location.trim()) newErrors.location = "Campo obligatorio";
     if (!formData.description.trim()) newErrors.description = "Campo obligatorio";
     if (!formData.image || !formData.image.trim()) newErrors.image = "Campo obligatorio";
@@ -154,7 +155,7 @@ const CreateButterfly = () => {
 
     // 🟢 PETICIÓN POST: Creación de la mariposa en el backend
     // Aquí llamamos al servicio que envía los datos al servidor (CreateNewButterfly hace un fetch con método POST)
-    const response = await CreateNewButterfly(formData);
+    const response = await createButterfly(formData);
 
     if (response.status === 201) {
       // Si el servidor responde con éxito (201 Created), mostramos un mensaje y redirigimos
@@ -167,7 +168,7 @@ const CreateButterfly = () => {
     // Cerramos popup y redirigimos tras 10 segundos
     setTimeout(() => {
       setShowPopup(false);
-      navigate("/galery");
+      navigate("/init/galery"); // Redirigimos a galería
     }, POPUP_DURATION);
   };
 
@@ -177,16 +178,16 @@ const CreateButterfly = () => {
 
     // Reiniciamos formulario y errores
     setFormData({
-      commonName: "",
-      scientificName: "",
+      common_name: "",
+      scientific_name: "",
       location: "",
       description: "",
       habitat: "",
       image: "",
-      isMigratory: false,
+      migratory: false,
     });
     setErrors({});
-    navigate("/galery"); // Redirigimos a galería
+    navigate("/init/galery"); // Redirigimos a galería
   };
 
   // Seleccionamos la imagen que se debe mostrar según el estado del formulario
@@ -194,13 +195,13 @@ const CreateButterfly = () => {
 
   if (isSaved) {
     currentImage = savedImage; // Imagen cuando está guardada
-  } else if (formData.isMigratory) {
+  } else if (formData.migratory) {
     currentImage = migratoryImage; // Imagen si es migratoria
   } else {
     // Contamos campos rellenados para saber el progreso
     const filledFieldsCount = [
-      formData.commonName,
-      formData.scientificName,
+      formData.common_name,
+      formData.scientific_name,
       formData.location,
       formData.description,
       formData.habitat,
@@ -213,193 +214,194 @@ const CreateButterfly = () => {
 
   return (
     <>
-    <div
-      className="min-h-screen bg-fixed bg-cover bg-center"
-      style={{
-        backgroundImage: "url('/image4.jpg')",
-        backgroundColor: "#fdf9f6",
-      }}
-    >
-      <form onSubmit={handleSubmit} className="container">
-        {/* Primera columna con título e imagen de progreso */}
-        <div className="imageContainer">
-          <h2 className="title">
-            <span>Crear </span>
-            <span>Nueva </span>
-            <span>Mariposa</span>
-          </h2>
-          <img src={currentImage} alt="Estado mariposa" className="progressImage" />
-        </div>
-
-        {/* Segunda columna: campos de texto */}
-        <div className="formFields">
-          <label>
-            Nombre común:
-            <input
-              type="text"
-              name="commonName"
-              value={formData.commonName}
-              onChange={handleChange}
-              placeholder="Ej: Mariposa Reina Africana"
-            />
-            {errors.commonName && <p className="error">{errors.commonName}</p>}
-          </label>
-
-          <label>
-            Nombre científico:
-            <input
-              type="text"
-              name="scientificName"
-              value={formData.scientificName}
-              onChange={handleChange}
-              placeholder="Ej: Danaus chrysippus"
-            />
-            {errors.scientificName && <p className="error">{errors.scientificName}</p>}
-          </label>
-
-          <label>
-            Ubicación:
-            <input
-              type="text"
-              name="location"
-              value={formData.location}
-              onChange={handleChange}
-              placeholder="Ej: África Oriental"
-            />
-            {errors.location && <p className="error">{errors.location}</p>}
-          </label>
-
-          <label>
-            Descripción:
-            <textarea
-              name="description"
-              value={formData.description}
-              onChange={handleChange}
-              placeholder="Colores y características"
-              rows={3}
-            />
-            {errors.description && <p className="error">{errors.description}</p>}
-          </label>
-
-          <label>
-            Hábitat:
-            <input
-              type="text"
-              name="habitat"
-              value={formData.habitat}
-              onChange={handleChange}
-              placeholder="¿Dónde la encontramos?"
-            />
-          </label>
-        </div>
-
-        {/* Tercera columna: opciones de imagen, checkbox y botón */}
-        <div className="formOptions">
-          <label>
-            Imagen:
-          </label>
-
-          <div className="imageButtons">
-            {/* Botón para subir imagen desde archivo */}
-            <button
-              type="button"
-              onClick={() => document.getElementById("imageUploadInput").click()}
-              className="butterfly-button"
-              disabled={isUploading}
-            >
-              {isUploading ? "Subiendo..." : "📁 Seleccionar imagen"}
-            </button>
-
-            {/* Botón para abrir popup y añadir imagen por URL */}
-            <button type="button" onClick={handleOpenImagePopup} className="butterfly-button">
-              🌐 Añadir imagen por URL
-            </button>
-
-            {/* Input oculto para cargar imagen local */}
-            <input
-              type="file"
-              id="imageUploadInput"
-              accept="image/*"
-              onChange={handleImageUpload}
-              style={{ display: "none" }}
-            />
-
-            {/* Error de imagen si existe */}
-            {errors.image && <p className="error">{errors.image}</p>}
-
-            {/* Vista previa de la imagen subida o URL introducida */}
-            {formData.image && (
-              <div style={{ marginTop: "1rem" }}>
-                <img
-                  src={formData.image}
-                  alt="Preview"
-                  style={{ width: "100%", borderRadius: "8px", objectFit: "cover" }}
-                />
-                <p style={{ color: "#cdbfbc", fontSize: "0.9rem", marginTop: "0.5rem" }}>
-                  ✅ Imagen cargada
-                </p>
-              </div>
-            )}
+      <div
+        className="min-h-screen bg-fixed bg-cover bg-center"
+        style={{
+          backgroundImage: "url('/image4.jpg')",
+          backgroundColor: "#fdf9f6",
+        }}
+      >
+        <form onSubmit={handleSubmit} className="container">
+          {/* Primera columna con título e imagen de progreso */}
+          <div className="imageContainer">
+            <h2 className="title">
+              <span>Crear </span>
+              <span>Nueva </span>
+              <span>Mariposa</span>
+            </h2>
+            <img src={currentImage} alt="Estado mariposa" className="progressImage" />
           </div>
 
-          {/* Checkbox para indicar si la mariposa es migratoria */}
-          <div className="checkboxCentered" style={{ marginTop: "1.5rem"}}>
-            <label htmlFor="isMigratory">
-              ¿Es migratoria?
+          {/* Segunda columna: campos de texto */}
+          <div className="formFields">
+            <label>
+              Nombre común:
+              <input
+                type="text"
+                name="common_name"
+                value={formData.common_name}
+                onChange={handleChange}
+                placeholder="Ej: Mariposa Reina Africana"
+              />
+              {errors.common_name && <p className="error">{errors.common_name}</p>}
             </label>
-            <input
-              type="checkbox"
-              id="isMigratory"
-              name="isMigratory"
-              checked={formData.isMigratory}
-              onChange={handleChange}
-            />
+
+            <label>
+              Nombre científico:
+              <input
+                type="text"
+                name="scientific_name"
+                value={formData.scientific_name}
+                onChange={handleChange}
+                placeholder="Ej: Danaus chrysippus"
+              />
+              {errors.scientific_name && <p className="error">{errors.scientific_name}</p>}
+            </label>
+
+            <label>
+              Ubicación:
+              <input
+                type="text"
+                name="location"
+                value={formData.location}
+                onChange={handleChange}
+                placeholder="Ej: África Oriental"
+              />
+              {errors.location && <p className="error">{errors.location}</p>}
+            </label>
+
+            <label>
+              Descripción:
+              <textarea
+                name="description"
+                value={formData.description}
+                onChange={handleChange}
+                placeholder="Colores y características"
+                rows={3}
+              />
+              {errors.description && <p className="error">{errors.description}</p>}
+            </label>
+
+            <label>
+              Hábitat:
+              <input
+                type="text"
+                name="habitat"
+                value={formData.habitat}
+                onChange={handleChange}
+                placeholder="¿Dónde la encontramos?"
+              />
+            </label>
           </div>
 
-          {/* Botón para enviar el formulario */}
-          <button type="submit" className="butterfly-button submitButton">
-            Crear mariposa
-          </button>
-        </div>
-      </form>
+          {/* Tercera columna: opciones de imagen, checkbox y botón */}
+          <div className="formOptions">
+            <label>
+              Imagen:
+            </label>
 
-      {/* Popup de confirmación de mariposa guardada */}
-      {showPopup && (
-        <div className="popupBackground">
-          <div className="popupContent">
-            <h3>🦋 ¡Mariposa creada con éxito!</h3>
-            <img src={savedImage} alt="Mariposa guardada" style={{ width: "150px" }} />
-            <button onClick={closePopup} className="butterfly-button">
-              Volver a la galería
+            <div className="imageButtons">
+              {/* Botón para subir imagen desde archivo */}
+              <button
+                type="button"
+                onClick={() => document.getElementById("imageUploadInput").click()}
+                className="butterfly-button"
+                disabled={isUploading}
+              >
+                {isUploading ? "Subiendo..." : "📁 Seleccionar imagen"}
+              </button>
+
+              {/* Botón para abrir popup y añadir imagen por URL */}
+              <button type="button" onClick={handleOpenImagePopup} className="butterfly-button">
+                🌐 Añadir imagen por URL
+              </button>
+
+              {/* Input oculto para cargar imagen local */}
+              <input
+                type="file"
+                id="imageUploadInput"
+                accept="image/*"
+                onChange={handleImageUpload}
+                style={{ display: "none" }}
+              />
+
+              {/* Error de imagen si existe */}
+              {errors.image && <p className="error">{errors.image}</p>}
+
+              {/* Vista previa de la imagen subida o URL introducida */}
+              {formData.image && (
+                <div style={{ marginTop: "1rem" }}>
+                  <img
+                    src={formData.image}
+                    alt="Preview"
+                    style={{ width: "100%", borderRadius: "8px", objectFit: "cover" }}
+                  />
+                  <p style={{ color: "#cdbfbc", fontSize: "0.9rem", marginTop: "0.5rem" }}>
+                    ✅ Imagen cargada
+                  </p>
+                </div>
+              )}
+            </div>
+
+            {/* Checkbox para indicar si la mariposa es migratoria */}
+            <div className="checkboxCentered" style={{ marginTop: "1.5rem" }}>
+              <label htmlFor="migratory">
+                ¿Es migratoria?
+              </label>
+              <input
+                type="checkbox"
+                id="migratory"
+                name="migratory"
+                checked={formData.migratory}
+                onChange={handleChange}
+              />
+            </div>
+
+            {/* Botón para enviar el formulario */}
+            <button type="submit" className="butterfly-button submitButton">
+              Crear mariposa
             </button>
           </div>
-        </div>
-      )}
+        </form>
 
-      {/* Popup para añadir imagen por URL */}
-      {showImagePopup && (
-        <div className="popupBackground">
-          <div className="popupContent">
-            <h3>Introduce la URL de la imagen</h3>
-            <input
-              type="text"
-              value={imageUrlInput}
-              onChange={handleImageUrlChange}
-              placeholder="https://ejemplo.com/imagen.jpg"
-              style={{ width: "100%", padding: "0.5rem", marginBottom: "1rem" }}
-            />
-            <button onClick={handleSetImageUrl} className="butterfly-button" style={{
-          backgroundColor: "rgba(155, 224, 165, 0.9)", color: "black", border: "rgba(155, 224, 165, 0.9), 2px"
-        }}>
-              Guardar
-            </button>
-            <button onClick={handleCloseImagePopup} className="butterfly-button cancelButton" style={{
-          backgroundColor: "#e66035", color: "black"}}>
-              Cancelar
-            </button>
+        {/* Popup de confirmación de mariposa guardada */}
+        {showPopup && (
+          <div className="popupBackground">
+            <div className="popupContent">
+              <h3>🦋 ¡Mariposa creada con éxito!</h3>
+              <img src={savedImage} alt="Mariposa guardada" style={{ width: "150px" }} />
+              <button onClick={closePopup} className="butterfly-button">
+                Volver a la galería
+              </button>
+            </div>
           </div>
-        </div>
-      )}
+        )}
+
+        {/* Popup para añadir imagen por URL */}
+        {showImagePopup && (
+          <div className="popupBackground">
+            <div className="popupContent">
+              <h3>Introduce la URL de la imagen</h3>
+              <input
+                type="text"
+                value={imageUrlInput}
+                onChange={handleImageUrlChange}
+                placeholder="https://ejemplo.com/imagen.jpg"
+                style={{ width: "100%", padding: "0.5rem", marginBottom: "1rem" }}
+              />
+              <button onClick={handleSetImageUrl} className="butterfly-button" style={{
+                backgroundColor: "rgba(155, 224, 165, 0.9)", color: "black", border: "rgba(155, 224, 165, 0.9), 2px"
+              }}>
+                Guardar
+              </button>
+              <button onClick={handleCloseImagePopup} className="butterfly-button cancelButton" style={{
+                backgroundColor: "#e66035", color: "black"
+              }}>
+                Cancelar
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );
