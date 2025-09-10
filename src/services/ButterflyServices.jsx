@@ -1,13 +1,13 @@
-import { api } from "../api/client.js"; // o "../api/client"
+import { api } from "../api/client.js"; // o "../api/client" capa de seguridad
 
-// URL base de tu json-server
-const URL_API = '/butterflies';
+// URL base 
+const URL = '/butterflies';// no es el url de conexion es declarar donde estan todas las mariposas
 
 // GET - Obtener todas las mariposas
 export const getAllButterflies = async () => {
   try {
-    console.log('🔍 Buscando mariposas en:', URL_API);
-    const response = await api.get(URL_API);
+    console.log('🔍 Buscando mariposas en:', URL);
+    const response = await api.get(URL);
     console.log('✅ Mariposas encontradas:', response.data.length);
     return response.data;
   } catch (error) {
@@ -20,7 +20,7 @@ export const getAllButterflies = async () => {
 export const getOneButterfly = async (id) => {
   try {
     console.log('🔍 Buscando mariposa ID:', id);
-    const response = await api.get(`${URL_API}/${id}`);
+    const response = await api.get(`${URL}/${id}`);
     console.log('✅ Mariposa encontrada:', response.data);
     return response.data;
   } catch (error) {
@@ -34,7 +34,7 @@ export const createButterfly = async (butterflyData) => {
   try {
     console.log('📝 Creando mariposa:', butterflyData);
 
-    const response = await api.post(URL_API, butterflyData, {
+    const response = await api.post(URL, butterflyData, {
       headers: { "Content-Type": "application/json" },
     });
     console.log('✅ Mariposa creada:', response.data);
@@ -49,7 +49,7 @@ export const createButterfly = async (butterflyData) => {
 export const updateButterfly = async (id, butterflyData) => {
   try {
     console.log('✏️ Actualizando mariposa:', id, butterflyData);
-    const response = await api.put(`${URL_API}/${id}`, butterflyData, {
+    const response = await api.put(`${URL}/${id}`, butterflyData, {
       headers: { "Content-Type": "application/json" },
     });
     console.log('✅ Mariposa actualizada:', response.data);
@@ -64,7 +64,7 @@ export const updateButterfly = async (id, butterflyData) => {
 export const deleteButterfly = async (id) => {
   try {
     console.log('🗑️ Eliminando mariposa ID:', id);
-    const response = await api.delete(`${URL_API}/${id}`);
+    const response = await api.delete(`${URL}/${id}`);
     console.log('✅ Mariposa eliminada');
     return response.data;
   } catch (error) {
