@@ -1,69 +1,147 @@
-# 🦋 NECTARA – Mariposas de África
+🦋 NECTARA – Mariposas de África
 
-NECTARA es una aplicación **frontend en React (Vite)** creada con fines educativos.  
-El proyecto busca difundir el conocimiento sobre **mariposas africanas** y, al mismo tiempo, practicar el consumo de **APIs REST** implementando operaciones **CRUD** (`GET`, `POST`, `PUT`, `DELETE`).  
+NECTARA es una aplicación full-stack creada con fines educativos.
+El proyecto busca difundir el conocimiento sobre mariposas africanas y, al mismo tiempo, practicar el consumo de APIs REST implementando operaciones CRUD (GET, POST, PUT, DELETE).
 
----
+🚀 Tecnologías utilizadas
+Frontend
 
-## 🚀 Tecnologías utilizadas
-- **React + Vite**
-- **Axios** (peticiones HTTP)
-- **React Router** (navegación)
-- **CSS** (estilos)
-- **Jest / Testing Library** (tests)
+React + Vite
 
----
+Axios (peticiones HTTP)
 
-## 📂 Estructura del proyecto
+React Router (navegación)
+
+CSS (estilos)
+
+Jest / Testing Library (tests)
+
+Backend
+
+Node.js + Express
+
+Sequelize (ORM)
+
+MySQL (base de datos)
+
+dotenv (variables de entorno)
+
+Jest + Supertest (tests)
+
+💡 Nota: Este backend se implementó con Sequelize + MySQL.
+También puede adaptarse fácilmente a MongoDB + Mongoose, si se requiere un enfoque NoSQL.
+
+📂 Estructura del proyecto
+Frontend (/frontend)
 src/
-├── api # Funciones para consumir la API (GET, POST, PUT, DELETE)
-├── assets # Imágenes y recursos estáticos
-├── canvas # Vista principal tipo "lienzo"
-├── components # Componentes reutilizables
-├── layout # Estructura de la aplicación
-├── pages # Páginas principales
-├── router # Configuración de rutas
-├── services # Servicios (CRUD de mariposas)
-├── tests # Tests unitarios
-├── index.css # Estilos globales
-└── main.jsx # Punto de entrada del frontend
+├── api          # Funciones CRUD (GET, POST, PUT, DELETE)
+├── assets       # Imágenes y recursos estáticos
+├── canvas       # Vista principal tipo "lienzo"
+├── components   # Componentes reutilizables
+├── layout       # Estructura de la aplicación
+├── pages        # Páginas principales
+├── router       # Configuración de rutas
+├── services     # Servicios (CRUD de mariposas)
+├── tests        # Tests unitarios
+├── index.css    # Estilos globales
+└── main.jsx     # Punto de entrada
 
+Backend (/backend)
+backend/
+├── controllers/        # Lógica de negocio
+├── database/           # Conexión a la BD
+├── models/             # Modelos de Sequelize
+├── routes/             # Endpoints de la API
+├── seeds/              # Datos iniciales
+├── test/               # Tests con Jest + Supertest
+├── .env.local          # Variables de entorno local
+├── .env.test           # Variables de entorno para testing
+└── app.js              # Punto de entrada
 
-## ⚙️ Instalación y configuración
-
-### 1️⃣ Clonar el repositorio
-```bash
+⚙️ Instalación y configuración
+1️⃣ Clonar el repositorio
 git clone https://github.com/tu-usuario/nectara.git
 cd nectara
-2️⃣ Instalar dependencias
-bash
-Copiar código
+
+2️⃣ Configurar el Frontend
+cd frontend
 npm install
-3️⃣ Configurar variables de entorno
-En este frontend usamos Vite, por lo que las variables deben declararse en un archivo .env o .env.local.
 
-Ejemplo:
 
-env
-Copiar código
-VITE_API_URL=http://localhost:4000/api/butterflies
-VITE_API_URL → URL del backend que provee los datos (puede ser un servidor con Sequelize/MySQL/Postgres o con MongoDB).
+Crear archivo .env.local:
 
-Esto permite conectar fácilmente el frontend con distintos backends.
+VITE_API_URL=http://localhost:8080/butterflies
 
-4️⃣ Ejecutar el proyecto
-bash
-Copiar código
+
+Ejecutar el proyecto:
+
 npm run dev
-La aplicación estará disponible en: http://localhost:5173
 
-🛠 Scripts disponibles
-npm run dev → Levanta el frontend en modo desarrollo
 
-npm run test → Ejecuta los tests del proyecto
+👉 Disponible en: http://localhost:5173
+
+3️⃣ Configurar el Backend
+cd backend
+npm install
+
+
+Crear archivo .env.local:
+
+DB_NAME=nectara_db
+DB_USER=usuario
+DB_PASS=contraseña
+DB_HOST=localhost
+DB_DIALECT=mysql
+
+
+Crear archivo .env.test:
+
+DB_NAME=nectara_test
+NODE_ENV=test
+
+
+Ejecutar el servidor:
+
+npm run dev
+
+
+👉 Disponible en: http://localhost:8080
+
+🔗 Conexión Frontend ↔ Backend
+
+El frontend consume la API expuesta por el backend.
+
+Para conectarlos, asegúrate de que el backend esté corriendo en el puerto 8080.
+
+En el frontend, configura la variable en .env.local:
+
+VITE_API_URL=http://localhost:8080/butterflies
+
+
+Ejemplo con Axios:
+
+import axios from "axios";
+
+const API_URL = import.meta.env.VITE_API_URL;
+
+export const getButterflies = async () => {
+  const res = await axios.get(API_URL);
+  return res.data;
+};
+
+🧪 Testing
+Frontend
+npm run test
+
+Backend
+npm run test
+
+
+Los tests usan Jest y Supertest.
+
+El backend valida que la BD de test tenga la palabra test en el nombre, para evitar borrar datos reales.
 
 🐛 CRUD implementado
-El frontend está preparado para interactuar con un backend REST:
 
 GET → Obtener todas las mariposas o una por ID
 
@@ -73,41 +151,36 @@ PUT → Actualizar una mariposa existente
 
 DELETE → Eliminar una mariposa
 
-Ejemplo con Axios:
+🗺️ Arquitectura del proyecto
+        🖥️ Frontend (React + Vite)
+                   │
+         Axios (HTTP Requests)
+                   │
+        🌐 Backend (Express + Sequelize)
+                   │
+               🐬 MySQL
 
-js
-Copiar código
-import axios from "axios";
 
-const API_URL = import.meta.env.VITE_API_URL;
+💡 Sugerencia: el backend puede extenderse a MongoDB + Mongoose si se requiere flexibilidad NoSQL.
 
-// GET todas las mariposas
-export const getButterflies = async () => {
-  const res = await axios.get(`${API_URL}`);
-  return res.data;
-};
+👩‍💻 Equipo Frontend
 
-// POST nueva mariposa
-export const createButterfly = async (data) => {
-  const res = await axios.post(`${API_URL}`, data);
-  return res.data;
-};
-💡 Recomendaciones
-Para usar este frontend, asegúrate de tener un backend funcionando que exponga los endpoints /api/butterflies.
+Aday Álvarez
 
-Puedes conectar el proyecto a un backend con Sequelize (SQL) o con MongoDB, modificando la variable VITE_API_URL en el archivo .env.
+Anngy Pereira
 
-El proyecto es flexible y puede conectarse a cualquier API REST compatible.
+Sofía Reyes
 
-👩‍💻 Contribuciones
-Si quieres colaborar:
+Ana Muruzabal
 
-Haz un fork
+👩‍💻 Equipo Backend
 
-Crea una nueva rama (git checkout -b feature/nueva-funcionalidad)
+Paloma Gómez
 
-Haz commit de tus cambios (git commit -m 'feat: nueva funcionalidad')
+Gema Yébenez
 
-Haz push a tu rama (git push origin feature/nueva-funcionalidad)
+Maryori Cruz
 
-Abre un Pull Request 🚀
+Ana Muruzabal
+
+Camila Arenas
