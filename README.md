@@ -1,10 +1,10 @@
-🦋 NECTARA – Mariposas de África
+# 🦋 NECTARA – Mariposas de África
 
 NECTARA es una aplicación full-stack creada con fines educativos.
 El proyecto busca difundir el conocimiento sobre mariposas africanas y, al mismo tiempo, practicar el consumo de APIs REST implementando operaciones CRUD (GET, POST, PUT, DELETE).
 
-🚀 Tecnologías utilizadas
-Frontend
+## 🚀 Tecnologías utilizadas
+### Frontend
 
 React + Vite
 
@@ -16,7 +16,7 @@ CSS (estilos)
 
 Jest / Testing Library (tests)
 
-Backend
+### Backend
 
 Node.js + Express
 
@@ -31,8 +31,9 @@ Jest + Supertest (tests)
 💡 Nota: Este backend se implementó con Sequelize + MySQL.
 También puede adaptarse fácilmente a MongoDB + Mongoose, si se requiere un enfoque NoSQL.
 
-📂 Estructura del proyecto
-Frontend (/frontend)
+## 📂 Estructura del proyecto
+### Frontend (/frontend)
+```bash
 src/
 ├── api          # Funciones CRUD (GET, POST, PUT, DELETE)
 ├── assets       # Imágenes y recursos estáticos
@@ -45,8 +46,9 @@ src/
 ├── tests        # Tests unitarios
 ├── index.css    # Estilos globales
 └── main.jsx     # Punto de entrada
-
-Backend (/backend)
+```
+### Backend (/backend)
+```bash
 backend/
 ├── controllers/        # Lógica de negocio
 ├── database/           # Conexión a la BD
@@ -57,57 +59,53 @@ backend/
 ├── .env.local          # Variables de entorno local
 ├── .env.test           # Variables de entorno para testing
 └── app.js              # Punto de entrada
-
-⚙️ Instalación y configuración
+```
+## ⚙️ Instalación y configuración
 1️⃣ Clonar el repositorio
+```bash
 git clone https://github.com/tu-usuario/nectara.git
 cd nectara
-
+```
 2️⃣ Configurar el Frontend
+```bash
 cd frontend
 npm install
-
-
-Crear archivo .env.local:
-
+```
+## Crear archivo .env.local:
+```bash
 VITE_API_URL=http://localhost:8080/butterflies
-
-
-Ejecutar el proyecto:
-
+```
+## Ejecutar el proyecto:
+```bash
 npm run dev
-
-
+```
 👉 Disponible en: http://localhost:5173
 
 3️⃣ Configurar el Backend
+```bash
 cd backend
 npm install
-
-
-Crear archivo .env.local:
-
+```
+## Crear archivo .env.local:
+```bash
 DB_NAME=nectara_db
 DB_USER=usuario
 DB_PASS=contraseña
 DB_HOST=localhost
 DB_DIALECT=mysql
-
-
-Crear archivo .env.test:
-
+```
+## Crear archivo .env.test:
+```bash
 DB_NAME=nectara_test
 NODE_ENV=test
-
-
-Ejecutar el servidor:
-
+```
+## Ejecutar el servidor:
+```bash
 npm run dev
-
-
+```
 👉 Disponible en: http://localhost:8080
 
-🔗 Conexión Frontend ↔ Backend
+## 🔗 Conexión Frontend ↔ Backend
 
 El frontend consume la API expuesta por el backend.
 
@@ -118,30 +116,28 @@ En el frontend, configura la variable en .env.local:
 VITE_API_URL=http://localhost:8080/butterflies
 
 
-Ejemplo con Axios:
-
+## Ejemplo con Axios:
+```bash
 import axios from "axios";
-
 const API_URL = import.meta.env.VITE_API_URL;
-
 export const getButterflies = async () => {
   const res = await axios.get(API_URL);
   return res.data;
 };
-
-🧪 Testing
-Frontend
+```
+## 🧪 Testing
+### Frontend
 npm run test
 
-Backend
+### Backend
+```bash
 npm run test
-
-
+```
 Los tests usan Jest y Supertest.
 
 El backend valida que la BD de test tenga la palabra test en el nombre, para evitar borrar datos reales.
 
-🐛 CRUD implementado
+## 🐛 CRUD implementado
 
 GET → Obtener todas las mariposas o una por ID
 
@@ -150,8 +146,8 @@ POST → Crear una nueva mariposa
 PUT → Actualizar una mariposa existente
 
 DELETE → Eliminar una mariposa
-
-🗺️ Arquitectura del proyecto
+```
+## 🗺️ Arquitectura del proyecto
         🖥️ Frontend (React + Vite)
                    │
          Axios (HTTP Requests)
@@ -159,11 +155,11 @@ DELETE → Eliminar una mariposa
         🌐 Backend (Express + Sequelize)
                    │
                🐬 MySQL
-
+```
 
 💡 Sugerencia: el backend puede extenderse a MongoDB + Mongoose si se requiere flexibilidad NoSQL.
 
-👩‍💻 Equipo Frontend
+## 👩‍💻 Equipo Frontend
 
 Aday Álvarez
 
@@ -173,7 +169,7 @@ Sofía Reyes
 
 Ana Muruzabal
 
-👩‍💻 Equipo Backend
+## 👩‍💻 Equipo Backend
 
 Paloma Gómez
 
