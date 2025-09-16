@@ -2,11 +2,11 @@ import { useGLTF, useAnimations } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useRef, useEffect } from "react";
 
-useGLTF.preload("/public/mariposa_02.glb");
+useGLTF.preload("/mariposa_02.glb");
 
 const Model = ({ scale = 1 }) => {
   const ref = useRef();
-  const { scene, animations } = useGLTF("/public/mariposa_02.glb");
+  const { scene, animations } = useGLTF("/mariposa_02.glb");
   const { actions } = useAnimations(animations, ref);
 
   useEffect(() => {
