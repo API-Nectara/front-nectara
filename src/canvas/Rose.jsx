@@ -3,7 +3,7 @@ import { useGLTF } from "@react-three/drei";
 useGLTF.preload("/public/jasmine.glb");
 
 const Rose = ({ scale = 2, position = [0, 0, 0] }) => {
-  const { scene } = useGLTF("/public/jasmine.glb");
+  const { scene } = useGLTF("/jasmine.glb");
 
   return (
     <group position={position}>
