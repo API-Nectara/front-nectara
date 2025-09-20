@@ -2,8 +2,8 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "rewrites": [
     {
-      "source": "/api/:path*",
-      "destination": "https://api-nectara-mongodb.onrender.com/api/:path*"
+      "source": "/init/:path*",
+      "destination": "https://api-nectara-mongodb.onrender.com/init/:path*"
     },
     {
       "source": "/(.*)",
