@@ -5,6 +5,10 @@
       "source": "/init/:path*",
       "destination": "https://api-nectara-mongodb.onrender.com/init/:path*"
     },
+     {
+      "source": "/api/:path*",
+      "destination": "https://api-nectara-mongodb.onrender.com/api/:path*"
+    },
     {
       "source": "/(.*)",
       "destination": "/"
